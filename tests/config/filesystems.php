@@ -45,26 +45,26 @@ return [
 
         'local' => [
             'driver' => 'local',
-            'root' => storage_path('app'),
+            'root'   => storage_path('app'),
         ],
 
         'public' => [
-            'driver' => 'local',
-            'root' => storage_path('app/public'),
+            'driver'     => 'local',
+            'root'       => storage_path('app/public'),
             'visibility' => 'public',
         ],
 
         's3' => [
             'driver' => 's3',
-            'key' => 'your-key',
+            'key'    => 'your-key',
             'secret' => 'your-secret',
             'region' => 'your-region',
             'bucket' => 'your-bucket',
         ],
 
         'admin' => [
-            'driver' => 'local',
-            'root' => public_path('upload'),
+            'driver'     => 'local',
+            'root'       => public_path('upload'),
             'visibility' => 'public',
         ],
 
@@ -75,18 +75,18 @@ return [
                 'https'     => 'dn-yourdomain.qbox.me',         //你的HTTPS域名
                 'custom'    => 'static.abc.com',                //你的自定义域名
             ],
-            'access_key'=> 'your-access-key',  //AccessKey
-            'secret_key'=> 'your-secret-key',  //SecretKey
-            'bucket'    => 'laravel',  //Bucket名字
-            'notify_url'=> '',  //持久化处理回调地址
+            'access_key' => 'your-access-key',  //AccessKey
+            'secret_key' => 'your-secret-key',  //SecretKey
+            'bucket'     => 'laravel',  //Bucket名字
+            'notify_url' => '',  //持久化处理回调地址
         ],
 
         'aliyun' => [
             'driver'     => 'oss',
-            'access_id'  =>  'your-access-id',
-            'access_key' =>  'your-access-key',
-            'bucket'     =>  'laravel-admin',
-            'endpoint'   =>  'oss-cn-shanghai.aliyuncs.com',
+            'access_id'  => 'your-access-id',
+            'access_key' => 'your-access-key',
+            'bucket'     => 'laravel-admin',
+            'endpoint'   => 'oss-cn-shanghai.aliyuncs.com',
         ],
 
     ],
