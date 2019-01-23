@@ -64,16 +64,17 @@ return [
 
         'admin' => [
             'driver'     => 'local',
-            'root'       => public_path('upload'),
+            'root'       => public_path('uploads'),
             'visibility' => 'public',
+            'url'        => 'http://localhost:8000/uploads/',
         ],
 
         'qiniu' => [
             'driver'  => 'qiniu',
             'domains' => [
-                'default'   => 'of8kfibjo.bkt.clouddn.com', //你的七牛域名
-                'https'     => 'dn-yourdomain.qbox.me',         //你的HTTPS域名
-                'custom'    => 'static.abc.com',                //你的自定义域名
+                'default' => 'of8kfibjo.bkt.clouddn.com', //你的七牛域名
+                'https'   => 'dn-yourdomain.qbox.me',         //你的HTTPS域名
+                'custom'  => 'static.abc.com',                //你的自定义域名
             ],
             'access_key' => 'your-access-key',  //AccessKey
             'secret_key' => 'your-secret-key',  //SecretKey
