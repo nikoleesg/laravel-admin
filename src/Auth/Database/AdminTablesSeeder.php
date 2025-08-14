@@ -20,6 +20,7 @@ class AdminTablesSeeder extends Seeder
             'username' => 'admin',
             'password' => Hash::make('admin'),
             'name'     => 'Administrator',
+            'email'    => 'admin@' . parse_url(config('app.url'), PHP_URL_HOST),
         ]);
 
         // create a role.

@@ -43,14 +43,15 @@ trait HasPermissions
 
     /**
      * Check if user has no permission.
+     * Follow: Illuminate\Foundation\Auth\Access\Authorizable
      *
      * @param $permission
      *
      * @return bool
      */
-    public function cannot(string $permission): bool
+    public function cant($abilities, $arguments = []): bool
     {
-        return !$this->can($permission);
+        return ! $this->can($abilities, $arguments);
     }
 
     /**
