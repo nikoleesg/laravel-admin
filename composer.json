@@ -1,5 +1,5 @@
 {
-    "name": "encore/laravel-admin",
+    "name": "nikoleesg/laravel-admin",
     "description": "laravel admin",
     "type": "library",
     "keywords": ["laravel", "admin", "grid", "form"],
@@ -9,20 +9,23 @@
         {
             "name": "zsong",
             "email": "zosong@126.com"
+        },
+        {
+          "name": "nikoleesg",
+          "email": "niko.lee@outlook.sg"
         }
     ],
     "require": {
-        "php": ">=7.0.0",
-        "symfony/dom-crawler": "~3.1|~4.0|~5.0",
-        "laravel/framework": ">=5.5",
-        "doctrine/dbal": "2.*|3.*"
+        "php": ">=8.0",
+        "symfony/dom-crawler": "^6.0|^7.0",
+        "laravel/framework": "^8.0|^9.0|^10.0|^11.0|^12.0",
+        "doctrine/dbal": "^3.7 || ^4.0"
     },
     "require-dev": {
-        "laravel/laravel": ">=5.5",
-        "fzaninotto/faker": "~1.4",
-        "intervention/image": "~2.3",
-        "laravel/browser-kit-testing": "^6.0",
-        "spatie/phpunit-watcher": "^1.22.0"
+        "fakerphp/faker": "^1.20",
+        "intervention/image": "^2.7 || ^3.0",
+        "laravel/browser-kit-testing": "^7.0",
+        "spatie/phpunit-watcher": "^1.23"
     },
     "autoload": {
         "psr-4": {
@@ -57,5 +60,7 @@
                 "Admin": "Encore\\Admin\\Facades\\Admin"
             }
         }
-    }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
 }

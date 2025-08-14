@@ -22,37 +22,39 @@ class CreateAdminTables extends Migration
     public function up()
     {
         Schema::create(config('admin.database.users_table'), function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('username', 190)->unique();
-            $table->string('password', 60);
+            $table->id();
+            $table->string('username')->unique();
+            $table->string('password');
             $table->string('name');
+            $table->string('email')->unique();
+            $table->timestamp('email_verified_at')->nullable();
             $table->string('avatar')->nullable();
-            $table->string('remember_token', 100)->nullable();
+            $table->rememberToken();
             $table->timestamps();
         });
 
         Schema::create(config('admin.database.roles_table'), function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('name', 50)->unique();
-            $table->string('slug', 50)->unique();
+            $table->id();
+            $table->string('name')->unique();
+            $table->string('slug')->unique();
             $table->timestamps();
         });
 
         Schema::create(config('admin.database.permissions_table'), function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('name', 50)->unique();
-            $table->string('slug', 50)->unique();
+            $table->id();
+            $table->string('name')->unique();
+            $table->string('slug')->unique();
             $table->string('http_method')->nullable();
             $table->text('http_path')->nullable();
             $table->timestamps();
         });
 
         Schema::create(config('admin.database.menu_table'), function (Blueprint $table) {
-            $table->increments('id');
+            $table->id();
             $table->integer('parent_id')->default(0);
             $table->integer('order')->default(0);
-            $table->string('title', 50);
-            $table->string('icon', 50);
+            $table->string('title');
+            $table->string('icon');
             $table->string('uri')->nullable();
             $table->string('permission')->nullable();
 
@@ -60,36 +62,36 @@ class CreateAdminTables extends Migration
         });
 
         Schema::create(config('admin.database.role_users_table'), function (Blueprint $table) {
-            $table->integer('role_id');
-            $table->integer('user_id');
+            $table->unsignedBigInteger('role_id');
+            $table->unsignedBigInteger('user_id');
             $table->index(['role_id', 'user_id']);
             $table->timestamps();
         });
 
         Schema::create(config('admin.database.role_permissions_table'), function (Blueprint $table) {
-            $table->integer('role_id');
-            $table->integer('permission_id');
+            $table->unsignedBigInteger('role_id');
+            $table->unsignedBigInteger('permission_id');
             $table->index(['role_id', 'permission_id']);
             $table->timestamps();
         });
 
         Schema::create(config('admin.database.user_permissions_table'), function (Blueprint $table) {
-            $table->integer('user_id');
-            $table->integer('permission_id');
+            $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('permission_id');
             $table->index(['user_id', 'permission_id']);
             $table->timestamps();
         });
 
         Schema::create(config('admin.database.role_menu_table'), function (Blueprint $table) {
-            $table->integer('role_id');
-            $table->integer('menu_id');
+            $table->unsignedBigInteger('role_id');
+            $table->unsignedBigInteger('menu_id');
             $table->index(['role_id', 'menu_id']);
             $table->timestamps();
         });
 
         Schema::create(config('admin.database.operation_log_table'), function (Blueprint $table) {
-            $table->increments('id');
-            $table->integer('user_id');
+            $table->id();
+            $table->unsignedBigInteger('user_id');
             $table->string('path');
             $table->string('method', 10);
             $table->string('ip');
