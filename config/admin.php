@@ -407,4 +407,14 @@ return [
     'extensions' => [
 
     ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Show notification in navbar
+    |--------------------------------------------------------------------------
+    |
+    | Whether to display notification in navbar
+    |
+    */
+    'show_notification' => true,
 ];
