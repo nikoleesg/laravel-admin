@@ -14,6 +14,7 @@ use Illuminate\Http\Request;
  * @method $this                info($title, $text = '', $options = [])
  * @method $this                question($title, $text = '', $options = [])
  * @method $this                confirm($title, $text = '', $options = [])
+ * @method Field\Html           htmlDiv($html = '<div></div>', $arguments = [''])
  * @method Field\Text           text($column, $label = '')
  * @method Field\Email          email($column, $label = '')
  * @method Field\Integer        integer($column, $label = '')
@@ -36,6 +37,8 @@ use Illuminate\Http\Request;
  * @method Field\Hidden         hidden($column, $label = '')
  * @method $this                modalLarge()
  * @method $this                modalSmall()
+ * @method $this                disableSubmit()
+ * @method $this                disableClose()
  */
 abstract class Action implements Renderable
 {

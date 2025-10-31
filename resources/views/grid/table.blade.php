@@ -1,4 +1,4 @@
-<div class="box grid-box">
+<div class="box grid-box box-{{ $style }}">
     @if(isset($title))
     <div class="box-header with-border">
         <h3 class="box-title"> {{ $title }}</h3>

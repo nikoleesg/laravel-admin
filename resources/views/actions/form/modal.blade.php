@@ -3,7 +3,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title">{{ $title }}</h4>
+                <h4 class="modal-title">{!! $title !!}</h4>
             </div>
             <form>
             <div class="modal-body">
@@ -12,8 +12,8 @@
                 @endforeach
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">{{ __('admin.close') }}</button>
-                <button type="submit" class="btn btn-primary">{{ __('admin.submit') }}</button>
+                @if(in_array('close', $modal_buttons))<button type="button" class="btn btn-default" data-dismiss="modal">{{ __('admin.close') }}</button>@endif
+                @if(in_array('submit', $modal_buttons))<button type="submit" class="btn btn-primary">{{ __('admin.submit') }}</button>@endif
             </div>
             </form>
         </div><!-- /.modal-content -->

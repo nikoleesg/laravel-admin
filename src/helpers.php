@@ -324,6 +324,12 @@ if (!function_exists('json_encode_options')) {
 if (!function_exists('admin_get_route')) {
     function admin_get_route(string $name): string
     {
+        if (in_array($name, [
+            'handle-renderable'
+        ])) {
+            return 'admin.' . $name;
+        }
+
         return config('admin.route.prefix').'.'.$name;
     }
 }

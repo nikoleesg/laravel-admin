@@ -137,6 +137,12 @@ class Grid
     protected $renderingCallbacks = [];
 
     /**
+     * Grid box style
+     *
+     * @var string
+     */
+    public $style = 'default';
+    /**
      * Options for grid.
      *
      * @var array
@@ -427,6 +433,20 @@ class Grid
     public function paginator()
     {
         return new Tools\Paginator($this, $this->options['show_perpage_selector']);
+    }
+
+    /**
+     * Set table style
+     *
+     * @param $style
+
+     * @return $this
+     */
+    public function setStyle($style)
+    {
+        $this->style = $style;
+
+        return $this;
     }
 
     /**
@@ -830,6 +850,8 @@ class Grid
     protected function variables()
     {
         $this->variables['grid'] = $this;
+
+        $this->variables['style'] = $this->style;
 
         return $this->variables;
     }

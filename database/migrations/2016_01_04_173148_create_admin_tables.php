@@ -26,8 +26,6 @@ class CreateAdminTables extends Migration
             $table->string('username')->unique();
             $table->string('password');
             $table->string('name');
-            $table->string('email')->unique();
-            $table->timestamp('email_verified_at')->nullable();
             $table->string('avatar')->nullable();
             $table->rememberToken();
             $table->timestamps();
@@ -99,6 +97,8 @@ class CreateAdminTables extends Migration
             $table->index('user_id');
             $table->timestamps();
         });
+
+        $this->callSeeder();
     }
 
     /**
@@ -117,5 +117,12 @@ class CreateAdminTables extends Migration
         Schema::dropIfExists(config('admin.database.role_permissions_table'));
         Schema::dropIfExists(config('admin.database.role_menu_table'));
         Schema::dropIfExists(config('admin.database.operation_log_table'));
+    }
+
+    protected function callSeeder(): void
+    {
+        Artisan::call('db:seed', [
+            '--class' => \Encore\Admin\Auth\Database\AdminTablesSeeder::class,
+        ]);
     }
 }
