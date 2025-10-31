@@ -31,7 +31,12 @@ class Form extends Interactor
     /**
      * @var string
      */
-    protected $confirm = '';
+    protected string $confirm = '';
+
+    /**
+     * @var string[]
+     */
+    protected array $buttons = ['close', 'submit'];
 
     /**
      * @param string $label
@@ -41,6 +46,21 @@ class Form extends Interactor
     protected function formatLabel($label)
     {
         return array_filter((array) $label);
+    }
+
+    /**
+     * @param $html
+     * @param $arguments
+     *
+     * @return Field\Html
+     */
+    public function htmlDiv($html, $arguments)
+    {
+        $field = new Field\Html($html, $arguments);
+
+        $this->addField($field);
+
+        return $field;
     }
 
     /**
@@ -373,6 +393,30 @@ class Form extends Interactor
     }
 
     /**
+     * Disable submit button
+     *
+     * @return $this
+     */
+    public function disableSubmit()
+    {
+        array_delete($this->buttons, 'submit');
+
+        return $this;
+    }
+
+    /**
+     * Disable close button
+     *
+     * @return $this
+     */
+    public function disableClose()
+    {
+        array_delete($this->buttons, 'close');
+
+        return $this;
+    }
+
+    /**
      * @param string $content
      * @param string $selector
      *
@@ -381,6 +425,7 @@ class Form extends Interactor
     public function addElementAttr($content, $selector)
     {
         $crawler = new Crawler($content);
+        ray($crawler);
 
         $node = $crawler->filter($selector)->getNode(0);
         $node->setAttribute('modal', $this->getModalId());
@@ -480,10 +525,11 @@ class Form extends Interactor
     public function addModalHtml()
     {
         $data = [
-            'fields'     => $this->fields,
-            'title'      => $this->action->name(),
-            'modal_id'   => $this->getModalId(),
-            'modal_size' => $this->modalSize,
+            'fields'        => $this->fields,
+            'title'         => $this->action->name(),
+            'modal_id'      => $this->getModalId(),
+            'modal_size'    => $this->modalSize,
+            'modal_buttons' => $this->buttons,
         ];
 
         $modal = view('admin::actions.form.modal', $data)->render();
@@ -535,6 +581,9 @@ class Form extends Interactor
             {$this->action->handleActionPromise()}
         });
     });
+    $.fn.modal.Constructor.prototype.enforceFocus = function () {};
+    $("div[id^='grid-modal-']").removeAttr('tabindex');
+    $("div[id='modal']").removeAttr('tabindex');
 })(jQuery);
 
 SCRIPT;
@@ -566,7 +615,7 @@ SCRIPT;
 
         return <<<PROMISE
         var process = $.admin.swal({
-            {$settings},
+            $settings,
             preConfirm: function() {
                 {$this->buildGeneralActionPromise()}
 

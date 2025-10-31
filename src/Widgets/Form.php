@@ -47,6 +47,7 @@ use Illuminate\Validation\Validator;
  * @method Field\DateTimeRange  dateTimeRange($start, $end, $label = '')
  * @method Field\TimeRange      timeRange($start, $end, $label = '')
  * @method Field\Number         number($name, $label = '')
+ * @method Field\NumberRange    numberRange($min, $max, $label = '')
  * @method Field\Currency       currency($name, $label = '')
  * @method Field\SwitchField    switch($name, $label = '')
  * @method Field\Display        display($name, $label = '')

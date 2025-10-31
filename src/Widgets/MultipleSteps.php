@@ -22,6 +22,11 @@ class MultipleSteps implements Renderable
     protected $stepName = 'step';
 
     /**
+     * @var array
+     */
+    protected $data = [];
+
+    /**
      * MultipleSteps constructor.
      *
      * @param array $steps
@@ -62,6 +67,13 @@ class MultipleSteps implements Renderable
         return $current;
     }
 
+    public function withData(array $data): self
+    {
+        $this->data = $data;
+
+        return $this;
+    }
+
     /**
      * @return string|null
      */
@@ -76,7 +88,7 @@ class MultipleSteps implements Renderable
         }
 
         /** @var StepForm $step */
-        $step = new $class();
+        $step = new $class($this->data);
 
         return $step
             ->setSteps(array_keys($this->steps))

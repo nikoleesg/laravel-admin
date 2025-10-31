@@ -19,7 +19,8 @@ abstract class Interactor
         'text', 'email', 'integer', 'ip', 'url', 'password', 'mobile',
         'textarea', 'select', 'multipleSelect', 'checkbox', 'radio',
         'file', 'image', 'date', 'datetime', 'time', 'hidden', 'multipleImage',
-        'multipleFile', 'modalLarge', 'modalSmall',
+        'multipleFile', 'modalLarge', 'modalSmall', 'htmlDiv', 'disableSubmit',
+        'disableClose'
     ];
 
     /**

@@ -62,7 +62,12 @@ return [
 
         'namespace' => 'App\\Admin\\Controllers',
 
-        'middleware' => ['web', 'admin'],
+        'middleware' => [
+            'web',                      // Required for sessions
+            // 'cloudflare-zero-trust',    // JWT verification
+            // 'zero-trust-admin-login',   // Maps Cloudflare ZeroTrust user to user
+            'admin'                     // Default Laravel-admin auth
+        ],
     ],
 
     /*
