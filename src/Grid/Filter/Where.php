@@ -4,6 +4,9 @@ namespace Encore\Admin\Grid\Filter;
 
 use Illuminate\Support\Arr;
 
+/**
+ * @property mixed $input   The filter input value
+ */
 class Where extends AbstractFilter
 {
     /**
