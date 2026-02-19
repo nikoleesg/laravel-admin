@@ -59,6 +59,7 @@ use Illuminate\Support\Arr;
  * @method Field\HasMany morphMany($relationName, $label = '', $callback)
  * @method Field\BelongsTo belongsTo($column, $selectable, $label = '')
  * @method Field\BelongsToMany belongsToMany($column, $selectable, $label = '')
+ * @method Field\Latlong latlong($latColumn, $lngColumn, $label = '')
  */
 trait HasFields
 {
@@ -124,6 +125,7 @@ trait HasFields
         'morphMany' => Field\HasMany::class,
         'belongsTo' => Field\BelongsTo::class,
         'belongsToMany' => Field\BelongsToMany::class,
+        'latlong' => Field\Latlong::class,
     ];
 
     /**

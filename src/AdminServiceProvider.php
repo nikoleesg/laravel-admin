@@ -88,12 +88,29 @@ class AdminServiceProvider extends ServiceProvider
 
         $this->compatibleBlade();
 
+        $this->registerLatlongExtension();
+
         Blade::directive('box', function ($title) {
             return "<?php \$box = new \Encore\Admin\Widgets\Box({$title}, '";
         });
 
         Blade::directive('endbox', function ($expression) {
             return "'); echo \$box->render(); ?>";
+        });
+    }
+
+    protected function registerLatlongExtension()
+    {
+        $extension = new Extension;
+
+        if ($extension->disabled()) {
+            return;
+        }
+
+        Admin::extend('latlong', Extension::class);
+
+        Admin::booting(function () {
+            Show\Field::macro('latlong', Extension::showField());
         });
     }
 
