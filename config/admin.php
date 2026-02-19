@@ -424,5 +424,10 @@ return [
             ],
         ],
 
+        'grid-lightbox' => [
+
+            'enable' => true,
+        ],
+
     ],
 ];

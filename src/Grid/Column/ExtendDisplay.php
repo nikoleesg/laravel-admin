@@ -31,6 +31,8 @@ use Illuminate\Support\Arr;
  * @method $this secret($dotCount = 6)
  * @method $this limit($limit = 100, $end = '...')
  * @method $this enum()
+ * @method $this lightbox(array $options = [])
+ * @method $this gallery(array $options = [])
  */
 trait ExtendDisplay
 {
@@ -61,6 +63,8 @@ trait ExtendDisplay
         'secret' => Displayers\Secret::class,
         'limit' => Displayers\Limit::class,
         'enum' => Displayers\EnumDisplayer::class,
+        'lightbox' => Displayers\Lightbox::class,
+        'gallery' => Displayers\Gallery::class,
     ];
 
     /**

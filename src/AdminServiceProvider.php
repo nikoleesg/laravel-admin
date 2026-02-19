@@ -90,6 +90,8 @@ class AdminServiceProvider extends ServiceProvider
 
         $this->registerLatlongExtension();
 
+        $this->registerGridLightboxExtension();
+
         Blade::directive('box', function ($title) {
             return "<?php \$box = new \Encore\Admin\Widgets\Box({$title}, '";
         });
@@ -112,6 +114,18 @@ class AdminServiceProvider extends ServiceProvider
         Admin::booting(function () {
             Show\Field::macro('latlong', Extension::showField());
         });
+    }
+
+    protected function registerGridLightboxExtension()
+    {
+        $enable = config('admin.extensions.grid-lightbox.enable', true);
+
+        if (! $enable) {
+            return;
+        }
+
+        Admin::css('vendor/laravel-admin/lightbox/magnific-popup.css');
+        Admin::js('vendor/laravel-admin/lightbox/jquery.magnific-popup.min.js');
     }
 
     /**
