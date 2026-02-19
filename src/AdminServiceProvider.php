@@ -92,6 +92,8 @@ class AdminServiceProvider extends ServiceProvider
 
         $this->registerGridLightboxExtension();
 
+        $this->registerTimestampBetweenFilter();
+
         Blade::directive('box', function ($title) {
             return "<?php \$box = new \Encore\Admin\Widgets\Box({$title}, '";
         });
@@ -126,6 +128,17 @@ class AdminServiceProvider extends ServiceProvider
 
         Admin::css('vendor/laravel-admin/lightbox/magnific-popup.css');
         Admin::js('vendor/laravel-admin/lightbox/jquery.magnific-popup.min.js');
+    }
+
+    protected function registerTimestampBetweenFilter()
+    {
+        $enable = config('admin.extensions.timestamp-between.enable', true);
+
+        if (! $enable) {
+            return;
+        }
+
+        \Encore\Admin\Grid\Filter::extend('timestampBetween', \Encore\Admin\Grid\Filter\TimestampBetween::class);
     }
 
     /**
