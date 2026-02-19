@@ -34,8 +34,17 @@ class Form extends Interactor
     protected $confirm = '';
 
     /**
-     * @param string $label
-     *
+     * @var bool
+     */
+    protected $disableClose = false;
+
+    /**
+     * @var bool
+     */
+    protected $disableSubmit = false;
+
+    /**
+     * @param  string  $label
      * @return array
      */
     protected function formatLabel($label)
@@ -44,9 +53,8 @@ class Form extends Interactor
     }
 
     /**
-     * @param string $column
-     * @param string $label
-     *
+     * @param  string  $column
+     * @param  string  $label
      * @return Field\Text
      */
     public function text($column, $label = '')
@@ -59,10 +67,8 @@ class Form extends Interactor
     }
 
     /**
-     * @param $column
-     * @param string   $label
-     * @param \Closure $builder
-     *
+     * @param  string  $label
+     * @param  \Closure  $builder
      * @return Field\Table
      */
     public function table($column, $label = '', $builder = null)
@@ -75,9 +81,8 @@ class Form extends Interactor
     }
 
     /**
-     * @param string $column
-     * @param string $label
-     *
+     * @param  string  $column
+     * @param  string  $label
      * @return Field\Text
      */
     public function email($column, $label = '')
@@ -90,9 +95,8 @@ class Form extends Interactor
     }
 
     /**
-     * @param string $column
-     * @param string $label
-     *
+     * @param  string  $column
+     * @param  string  $label
      * @return Field\Text
      */
     public function integer($column, $label = '')
@@ -103,9 +107,8 @@ class Form extends Interactor
     }
 
     /**
-     * @param string $column
-     * @param string $label
-     *
+     * @param  string  $column
+     * @param  string  $label
      * @return Field\Text
      */
     public function ip($column, $label = '')
@@ -116,9 +119,8 @@ class Form extends Interactor
     }
 
     /**
-     * @param string $column
-     * @param string $label
-     *
+     * @param  string  $column
+     * @param  string  $label
      * @return Field\Text
      */
     public function url($column, $label = '')
@@ -129,9 +131,8 @@ class Form extends Interactor
     }
 
     /**
-     * @param string $column
-     * @param string $label
-     *
+     * @param  string  $column
+     * @param  string  $label
      * @return Field\Text
      */
     public function password($column, $label = '')
@@ -141,9 +142,8 @@ class Form extends Interactor
     }
 
     /**
-     * @param string $column
-     * @param string $label
-     *
+     * @param  string  $column
+     * @param  string  $label
      * @return Field\Text
      */
     public function mobile($column, $label = '')
@@ -154,9 +154,8 @@ class Form extends Interactor
     }
 
     /**
-     * @param string $column
-     * @param string $label
-     *
+     * @param  string  $column
+     * @param  string  $label
      * @return Field\Textarea
      */
     public function textarea($column, $label = '')
@@ -169,9 +168,8 @@ class Form extends Interactor
     }
 
     /**
-     * @param string $column
-     * @param string $label
-     *
+     * @param  string  $column
+     * @param  string  $label
      * @return Field\Select
      */
     public function select($column, $label = '')
@@ -184,9 +182,8 @@ class Form extends Interactor
     }
 
     /**
-     * @param string $column
-     * @param string $label
-     *
+     * @param  string  $column
+     * @param  string  $label
      * @return Field\MultipleSelect
      */
     public function multipleSelect($column, $label = '')
@@ -199,9 +196,8 @@ class Form extends Interactor
     }
 
     /**
-     * @param string $column
-     * @param string $label
-     *
+     * @param  string  $column
+     * @param  string  $label
      * @return Field\Checkbox
      */
     public function checkbox($column, $label = '')
@@ -214,9 +210,8 @@ class Form extends Interactor
     }
 
     /**
-     * @param string $column
-     * @param string $label
-     *
+     * @param  string  $column
+     * @param  string  $label
      * @return Field\Radio
      */
     public function radio($column, $label = '')
@@ -229,9 +224,8 @@ class Form extends Interactor
     }
 
     /**
-     * @param string $column
-     * @param string $label
-     *
+     * @param  string  $column
+     * @param  string  $label
      * @return Field\File
      */
     public function file($column, $label = '')
@@ -244,9 +238,8 @@ class Form extends Interactor
     }
 
     /**
-     * @param string $column
-     * @param string $label
-     *
+     * @param  string  $column
+     * @param  string  $label
      * @return Field\MultipleFile
      */
     public function multipleFile($column, $label = '')
@@ -259,9 +252,8 @@ class Form extends Interactor
     }
 
     /**
-     * @param string $column
-     * @param string $label
-     *
+     * @param  string  $column
+     * @param  string  $label
      * @return Field\Image
      */
     public function image($column, $label = '')
@@ -274,9 +266,8 @@ class Form extends Interactor
     }
 
     /**
-     * @param string $column
-     * @param string $label
-     *
+     * @param  string  $column
+     * @param  string  $label
      * @return Field\MultipleImage
      */
     public function multipleImage($column, $label = '')
@@ -289,9 +280,8 @@ class Form extends Interactor
     }
 
     /**
-     * @param string $column
-     * @param string $label
-     *
+     * @param  string  $column
+     * @param  string  $label
      * @return Field\Date
      */
     public function date($column, $label = '')
@@ -304,9 +294,8 @@ class Form extends Interactor
     }
 
     /**
-     * @param string $column
-     * @param string $label
-     *
+     * @param  string  $column
+     * @param  string  $label
      * @return Field\Date
      */
     public function datetime($column, $label = '')
@@ -315,9 +304,8 @@ class Form extends Interactor
     }
 
     /**
-     * @param string $column
-     * @param string $label
-     *
+     * @param  string  $column
+     * @param  string  $label
      * @return Field\Date
      */
     public function time($column, $label = '')
@@ -326,9 +314,8 @@ class Form extends Interactor
     }
 
     /**
-     * @param string $column
-     * @param string $label
-     *
+     * @param  string  $column
+     * @param  string  $label
      * @return Field\Hidden
      */
     public function hidden($column, $label = '')
@@ -341,8 +328,20 @@ class Form extends Interactor
     }
 
     /**
-     * @param $message
-     *
+     * @param  string  $html
+     * @param  string  $label
+     * @return Field\Html
+     */
+    public function html($html, $label = '')
+    {
+        $field = new Field\Html($html, [$label]);
+
+        $this->addField($field);
+
+        return $field;
+    }
+
+    /**
      * @return $this
      */
     public function confirm($message)
@@ -373,9 +372,32 @@ class Form extends Interactor
     }
 
     /**
-     * @param string $content
-     * @param string $selector
+     * Disable close button.
      *
+     * @return $this
+     */
+    public function disableClose()
+    {
+        $this->disableClose = true;
+
+        return $this;
+    }
+
+    /**
+     * Disable submit button.
+     *
+     * @return $this
+     */
+    public function disableSubmit()
+    {
+        $this->disableSubmit = true;
+
+        return $this;
+    }
+
+    /**
+     * @param  string  $content
+     * @param  string  $selector
      * @return string
      */
     public function addElementAttr($content, $selector)
@@ -389,8 +411,6 @@ class Form extends Interactor
     }
 
     /**
-     * @param Field $field
-     *
      * @return Field
      */
     protected function addField(Field $field)
@@ -407,12 +427,10 @@ class Form extends Interactor
     }
 
     /**
-     * @param Request $request
+     * @return void
      *
      * @throws ValidationException
      * @throws \Exception
-     *
-     * @return void
      */
     public function validate(Request $request)
     {
@@ -426,11 +444,11 @@ class Form extends Interactor
 
         /** @var Field $field */
         foreach ($this->fields as $field) {
-            if (!$validator = $field->getValidator($request->all())) {
+            if (! $validator = $field->getValidator($request->all())) {
                 continue;
             }
 
-            if (($validator instanceof Validator) && !$validator->passes()) {
+            if (($validator instanceof Validator) && ! $validator->passes()) {
                 $failedValidators[] = $validator;
             }
         }
@@ -445,13 +463,12 @@ class Form extends Interactor
     /**
      * Merge validation messages from input validators.
      *
-     * @param \Illuminate\Validation\Validator[] $validators
-     *
+     * @param  \Illuminate\Validation\Validator[]  $validators
      * @return MessageBag
      */
     protected function mergeValidationMessages($validators)
     {
-        $messageBag = new MessageBag();
+        $messageBag = new MessageBag;
 
         foreach ($validators as $validator) {
             $messageBag = $messageBag->merge($validator->messages());
@@ -461,8 +478,7 @@ class Form extends Interactor
     }
 
     /**
-     * @param string $class
-     *
+     * @param  string  $class
      * @return string
      */
     protected function resolveView($class)
@@ -480,10 +496,12 @@ class Form extends Interactor
     public function addModalHtml()
     {
         $data = [
-            'fields'     => $this->fields,
-            'title'      => $this->action->name(),
-            'modal_id'   => $this->getModalId(),
+            'fields' => $this->fields,
+            'title' => $this->action->name(),
+            'modal_id' => $this->getModalId(),
             'modal_size' => $this->modalSize,
+            'disable_close' => $this->disableClose,
+            'disable_submit' => $this->disableSubmit,
         ];
 
         $modal = view('admin::actions.form.modal', $data)->render();
@@ -496,7 +514,7 @@ class Form extends Interactor
      */
     public function getModalId()
     {
-        if (!$this->modalId) {
+        if (! $this->modalId) {
             if ($this->action instanceof RowAction) {
                 $this->modalId = uniqid('row-action-modal-').mt_rand(1000, 9999);
             } else {
@@ -526,6 +544,9 @@ class Form extends Interactor
         Object.assign(data, {$parameters});
         {$this->action->actionScript()}
         $('#'+modalId).modal('show');
+        $.fn.modal.Constructor.prototype.enforceFocus = function () {};
+        $("div[id^='grid-modal-']").removeAttr('tabindex');
+        $("div[id='modal']").removeAttr('tabindex');
         $(':submit', '#'+modalId).button('reset');
         $('#'+modalId+' form').off('submit').on('submit', function (e) {
             $(':submit', e.target).button('loading');
@@ -553,13 +574,13 @@ SCRIPT;
         ];
 
         $settings = [
-            'type'                => 'question',
-            'showCancelButton'    => true,
+            'type' => 'question',
+            'showCancelButton' => true,
             'showLoaderOnConfirm' => true,
-            'confirmButtonText'   => $trans['submit'],
-            'cancelButtonText'    => $trans['cancel'],
-            'title'               => $this->confirm,
-            'text'                => '',
+            'confirmButtonText' => $trans['submit'],
+            'cancelButtonText' => $trans['cancel'],
+            'title' => $this->confirm,
+            'text' => '',
         ];
 
         $settings = trim(substr(json_encode($settings, JSON_PRETTY_PRINT), 1, -1));
@@ -628,9 +649,9 @@ SCRIPT;
     }
 
     /**
-     * @throws \Exception
-     *
      * @return string
+     *
+     * @throws \Exception
      */
     protected function buildActionPromise()
     {
@@ -642,7 +663,7 @@ SCRIPT;
 
         $this->addModalHtml();
 
-        if (!empty($this->confirm)) {
+        if (! empty($this->confirm)) {
             return $this->buildConfirmActionPromise();
         }
 

@@ -41,12 +41,13 @@ class AdminServiceProvider extends ServiceProvider
      * @var array
      */
     protected $routeMiddleware = [
-        'admin.auth'       => Middleware\Authenticate::class,
-        'admin.pjax'       => Middleware\Pjax::class,
-        'admin.log'        => Middleware\LogOperation::class,
+        'admin.auth' => Middleware\Authenticate::class,
+        'admin.pjax' => Middleware\Pjax::class,
+        'admin.log' => Middleware\LogOperation::class,
         'admin.permission' => Middleware\Permission::class,
-        'admin.bootstrap'  => Middleware\Bootstrap::class,
-        'admin.session'    => Middleware\Session::class,
+        'admin.bootstrap' => Middleware\Bootstrap::class,
+        'admin.session' => Middleware\Session::class,
+        'admin.shareErrors' => Middleware\ShareErrors::class,
     ];
 
     /**
@@ -61,6 +62,7 @@ class AdminServiceProvider extends ServiceProvider
             'admin.log',
             'admin.bootstrap',
             'admin.permission',
+            'admin.shareErrors',
             //            'admin.session',
         ],
     ];
@@ -73,6 +75,8 @@ class AdminServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->loadViewsFrom(__DIR__.'/../resources/views', 'admin');
+
+        $this->loadTranslationsFrom(__DIR__.'/../resources/lang', 'admin');
 
         $this->ensureHttps();
 
@@ -116,11 +120,16 @@ class AdminServiceProvider extends ServiceProvider
     {
         if ($this->app->runningInConsole()) {
             $this->publishes([__DIR__.'/../config' => config_path()], 'laravel-admin-config');
-            if (version_compare($this->app->version(), '9.0.0', '>=')) {
+
+            $version = $this->app->version();
+            if (version_compare($version, '12.0.0', '>=')) {
+                $this->publishes([__DIR__.'/../resources/lang' => resource_path('lang')], 'laravel-admin-lang');
+            } elseif (version_compare($version, '9.0.0', '>=')) {
                 $this->publishes([__DIR__.'/../resources/lang' => base_path('lang')], 'laravel-admin-lang');
             } else {
                 $this->publishes([__DIR__.'/../resources/lang' => resource_path('lang')], 'laravel-admin-lang');
             }
+
             $this->publishes([__DIR__.'/../database/migrations' => database_path('migrations')], 'laravel-admin-migrations');
             $this->publishes([__DIR__.'/../resources/assets' => public_path('vendor/laravel-admin')], 'laravel-admin-assets');
         }

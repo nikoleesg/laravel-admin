@@ -1,28 +1,29 @@
 {
-    "name": "encore/laravel-admin",
+    "name": "nikoleesg/laravel-admin",
     "description": "laravel admin",
     "type": "library",
     "keywords": ["laravel", "admin", "grid", "form"],
-    "homepage": "https://github.com/z-song/laravel-admin",
+    "homepage": "https://github.com/nikoleesg/laravel-admin",
     "license": "MIT",
     "authors": [
         {
-            "name": "zsong",
-            "email": "zosong@126.com"
+            "name": "nikoleesg",
+            "email": "nikoleesg@example.com"
         }
     ],
     "require": {
-        "php": ">=7.0.0",
-        "symfony/dom-crawler": "~3.1|~4.0|~5.0",
-        "laravel/framework": ">=5.5",
-        "doctrine/dbal": "2.*|3.*"
+        "php": "^8.3",
+        "symfony/dom-crawler": "^7.0",
+        "laravel/framework": "^11.0|^12.0",
+        "doctrine/dbal": "^3.0",
+        "tightenco/parental": "^1.0"
     },
     "require-dev": {
-        "laravel/laravel": ">=5.5",
-        "fzaninotto/faker": "~1.4",
-        "intervention/image": "~2.3",
-        "laravel/browser-kit-testing": "^6.0",
-        "spatie/phpunit-watcher": "^1.22.0"
+        "laravel/laravel": "^11.0|^12.0",
+        "fakerphp/faker": "^1.23",
+        "intervention/image": "^2.7",
+        "laravel/pint": "^1.13",
+        "phpunit/phpunit": "^10.0|^11.0"
     },
     "autoload": {
         "psr-4": {
@@ -45,7 +46,7 @@
         "test": "./vendor/bin/phpunit"
     },
     "suggest": {
-        "intervention/image": "Required to handling and manipulation upload images (~2.3).",
+        "intervention/image": "Required to handling and manipulation upload images (~2.7).",
         "spatie/eloquent-sortable": "Required to built orderable gird."
     },
     "extra": {

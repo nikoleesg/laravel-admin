@@ -2,7 +2,7 @@
     <thead>
     <tr>
         @foreach($titles as $column => $title)
-        <th>{{ $title }}</th>
+        <th>{!! $title !!}</th>
         @endforeach
     </tr>
     </thead>

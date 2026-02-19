@@ -26,11 +26,15 @@ class UserController extends AdminController
     {
         $userModel = config('admin.database.users_model');
 
-        $grid = new Grid(new $userModel());
+        $grid = new Grid(new $userModel);
 
         $grid->column('id', 'ID')->sortable();
         $grid->column('username', trans('admin.username'));
         $grid->column('name', trans('admin.name'));
+        $grid->column('first_name', 'First Name');
+        $grid->column('last_name', 'Last Name');
+        $grid->column('email', 'Email');
+        $grid->column('phone_number', 'Phone');
         $grid->column('roles', trans('admin.roles'))->pluck('name')->label();
         $grid->column('created_at', trans('admin.created_at'));
         $grid->column('updated_at', trans('admin.updated_at'));
@@ -53,8 +57,7 @@ class UserController extends AdminController
     /**
      * Make a show builder.
      *
-     * @param mixed $id
-     *
+     * @param  mixed  $id
      * @return Show
      */
     protected function detail($id)
@@ -66,6 +69,34 @@ class UserController extends AdminController
         $show->field('id', 'ID');
         $show->field('username', trans('admin.username'));
         $show->field('name', trans('admin.name'));
+
+        $show->divider('Personal Information');
+        $show->field('first_name', 'First Name');
+        $show->field('last_name', 'Last Name');
+        $show->field('preferred_name', 'Preferred Name');
+        $show->field('gender', 'Gender')->using([1 => 'Male', 2 => 'Female', 3 => 'Other']);
+        $show->field('birth_date', 'Birth Date');
+        $show->field('nationality', 'Nationality');
+        $show->field('id_type', 'ID Type')->using([1 => 'NRIC', 2 => 'Passport', 3 => 'FIN', 4 => 'Other']);
+        $show->field('id_number', 'ID Number');
+        $show->field('photo', 'Photo')->image();
+
+        $show->divider('Contact Information');
+        $show->field('phone_number', 'Phone Number');
+        $show->field('email', 'Email');
+
+        $show->divider('Address');
+        $show->field('blk', 'Block');
+        $show->field('street_name', 'Street Name');
+        $show->field('unit', 'Unit');
+        $show->field('postal', 'Postal Code');
+        $show->field('lat', 'Latitude');
+        $show->field('lng', 'Longitude');
+
+        $show->divider('Additional Information');
+        $show->field('preferred_areas', 'Preferred Areas');
+        $show->field('description', 'Description');
+
         $show->field('roles', trans('admin.roles'))->as(function ($roles) {
             return $roles->pluck('name');
         })->label();
@@ -89,31 +120,114 @@ class UserController extends AdminController
         $permissionModel = config('admin.database.permissions_model');
         $roleModel = config('admin.database.roles_model');
 
-        $form = new Form(new $userModel());
+        $form = new Form(new $userModel);
 
         $userTable = config('admin.database.users_table');
         $connection = config('admin.database.connection');
 
-        $form->display('id', 'ID');
-        $form->text('username', trans('admin.username'))
-            ->creationRules(['required', "unique:{$connection}.{$userTable}"])
-            ->updateRules(['required', "unique:{$connection}.{$userTable},username,{{id}}"]);
+        $form->row(function ($row) use ($connection, $userTable) {
+            $row->width(6)->display('id', 'ID');
+            $row->width(6)->text('username', trans('admin.username'))
+                ->creationRules(['required', "unique:{$connection}.{$userTable}"])
+                ->updateRules(['required', "unique:{$connection}.{$userTable},username,{{id}}"]);
+        });
 
-        $form->text('name', trans('admin.name'))->rules('required');
-        $form->image('avatar', trans('admin.avatar'));
-        $form->password('password', trans('admin.password'))->rules('required|confirmed');
-        $form->password('password_confirmation', trans('admin.password_confirmation'))->rules('required')
-            ->default(function ($form) {
-                return $form->model()->password;
-            });
+        $form->row(function ($row) {
+            $row->width(12)->text('name', trans('admin.name'))->rules('required');
+        });
+
+        $form->divider('Personal Information');
+
+        $form->row(function ($row) {
+            $row->width(6)->text('first_name', 'First Name');
+            $row->width(6)->text('last_name', 'Last Name');
+        });
+
+        $form->row(function ($row) {
+            $row->width(6)->text('preferred_name', 'Preferred Name');
+            $row->width(6)->select('gender', 'Gender')->options([
+                1 => 'Male',
+                2 => 'Female',
+                3 => 'Other',
+            ]);
+        });
+
+        $form->row(function ($row) {
+            $row->width(6)->date('birth_date', 'Birth Date');
+            $row->width(6)->text('nationality', 'Nationality');
+        });
+
+        $form->row(function ($row) {
+            $row->width(6)->select('id_type', 'ID Type')->options([
+                1 => 'NRIC',
+                2 => 'Passport',
+                3 => 'FIN',
+                4 => 'Other',
+            ]);
+            $row->width(6)->text('id_number', 'ID Number');
+        });
+
+        $form->row(function ($row) {
+            $row->width(12)->image('photo', 'Photo')->move('users/photos')->uniqueName();
+        });
+
+        $form->divider('Contact Information');
+
+        $form->row(function ($row) {
+            $row->width(6)->text('phone_number', 'Phone Number');
+            $row->width(6)->email('email', 'Email');
+        });
+
+        $form->divider('Address');
+
+        $form->row(function ($row) {
+            $row->width(6)->text('blk', 'Block');
+            $row->width(6)->text('street_name', 'Street Name');
+        });
+
+        $form->row(function ($row) {
+            $row->width(6)->text('unit', 'Unit');
+            $row->width(6)->text('postal', 'Postal Code');
+        });
+
+        $form->row(function ($row) {
+            $row->width(6)->decimal('lat', 'Latitude');
+            $row->width(6)->decimal('lng', 'Longitude');
+        });
+
+        $form->divider('Additional Information');
+
+        $form->row(function ($row) {
+            $row->width(12)->text('preferred_areas', 'Preferred Areas');
+        });
+
+        $form->row(function ($row) {
+            $row->width(12)->textarea('description', 'Description');
+        });
+
+        $form->row(function ($row) {
+            $row->width(6)->image('avatar', trans('admin.avatar'))->move('users/avatars')->uniqueName();
+            $row->width(6)->password('password', trans('admin.password'))->rules('required|confirmed');
+        });
+
+        $form->row(function ($row) {
+            $row->width(6)->password('password_confirmation', trans('admin.password_confirmation'))->rules('required')
+                ->default(function ($form) {
+                    return $form->model()->password;
+                });
+        });
 
         $form->ignore(['password_confirmation']);
 
-        $form->multipleSelect('roles', trans('admin.roles'))->options($roleModel::all()->pluck('name', 'id'));
-        $form->multipleSelect('permissions', trans('admin.permissions'))->options($permissionModel::all()->pluck('name', 'id'));
+        $form->row(function ($row) use ($roleModel, $permissionModel) {
+            $row->width(6)->multipleSelect('roles', trans('admin.roles'))->options($roleModel::all()->pluck('name', 'id'));
+            $row->width(6)->multipleSelect('permissions', trans('admin.permissions'))->options($permissionModel::all()->pluck('name', 'id'));
+        });
 
-        $form->display('created_at', trans('admin.created_at'));
-        $form->display('updated_at', trans('admin.updated_at'));
+        $form->row(function ($row) {
+            $row->width(6)->display('created_at', trans('admin.created_at'));
+            $row->width(6)->display('updated_at', trans('admin.updated_at'));
+        });
 
         $form->saving(function (Form $form) {
             if ($form->password && $form->model()->password != $form->password) {

@@ -8,34 +8,34 @@ use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 
 /**
- * @method $this                success($title, $text = '', $options = [])
- * @method $this                error($title, $text = '', $options = [])
- * @method $this                warning($title, $text = '', $options = [])
- * @method $this                info($title, $text = '', $options = [])
- * @method $this                question($title, $text = '', $options = [])
- * @method $this                confirm($title, $text = '', $options = [])
- * @method Field\Text           text($column, $label = '')
- * @method Field\Email          email($column, $label = '')
- * @method Field\Integer        integer($column, $label = '')
- * @method Field\Ip             ip($column, $label = '')
- * @method Field\Url            url($column, $label = '')
- * @method Field\Password       password($column, $label = '')
- * @method Field\Mobile         mobile($column, $label = '')
- * @method Field\Textarea       textarea($column, $label = '')
- * @method Field\Select         select($column, $label = '')
+ * @method $this success($title, $text = '', $options = [])
+ * @method $this error($title, $text = '', $options = [])
+ * @method $this warning($title, $text = '', $options = [])
+ * @method $this info($title, $text = '', $options = [])
+ * @method $this question($title, $text = '', $options = [])
+ * @method $this confirm($title, $text = '', $options = [])
+ * @method Field\Text text($column, $label = '')
+ * @method Field\Email email($column, $label = '')
+ * @method Field\Integer integer($column, $label = '')
+ * @method Field\Ip ip($column, $label = '')
+ * @method Field\Url url($column, $label = '')
+ * @method Field\Password password($column, $label = '')
+ * @method Field\Mobile mobile($column, $label = '')
+ * @method Field\Textarea textarea($column, $label = '')
+ * @method Field\Select select($column, $label = '')
  * @method Field\MultipleSelect multipleSelect($column, $label = '')
- * @method Field\Checkbox       checkbox($column, $label = '')
- * @method Field\Radio          radio($column, $label = '')
- * @method Field\File           file($column, $label = '')
- * @method Field\Image          image($column, $label = '')
- * @method Field\MultipleFile   multipleFile($column, $label = '')
- * @method Field\MultipleImage  multipleImage($column, $label = '')
- * @method Field\Date           date($column, $label = '')
- * @method Field\Datetime       datetime($column, $label = '')
- * @method Field\Time           time($column, $label = '')
- * @method Field\Hidden         hidden($column, $label = '')
- * @method $this                modalLarge()
- * @method $this                modalSmall()
+ * @method Field\Checkbox checkbox($column, $label = '')
+ * @method Field\Radio radio($column, $label = '')
+ * @method Field\File file($column, $label = '')
+ * @method Field\Image image($column, $label = '')
+ * @method Field\MultipleFile multipleFile($column, $label = '')
+ * @method Field\MultipleImage multipleImage($column, $label = '')
+ * @method Field\Date date($column, $label = '')
+ * @method Field\Datetime datetime($column, $label = '')
+ * @method Field\Time time($column, $label = '')
+ * @method Field\Hidden hidden($column, $label = '')
+ * @method $this modalLarge()
+ * @method $this modalSmall()
  */
 abstract class Action implements Renderable
 {
@@ -123,8 +123,7 @@ abstract class Action implements Renderable
     }
 
     /**
-     * @param string $prefix
-     *
+     * @param  string  $prefix
      * @return mixed|string
      */
     public function selector($prefix)
@@ -137,14 +136,13 @@ abstract class Action implements Renderable
     }
 
     /**
-     * @param string $class
-     * @param string $prefix
-     *
+     * @param  string  $class
+     * @param  string  $prefix
      * @return string
      */
     public static function makeSelector($class, $prefix)
     {
-        if (!isset(static::$selectors[$class])) {
+        if (! isset(static::$selectors[$class])) {
             static::$selectors[$class] = uniqid($prefix).mt_rand(1000, 9999);
         }
 
@@ -152,9 +150,8 @@ abstract class Action implements Renderable
     }
 
     /**
-     * @param string $name
-     * @param string $value
-     *
+     * @param  string  $name
+     * @param  string  $value
      * @return $this
      */
     public function attribute($name, $value)
@@ -194,7 +191,7 @@ abstract class Action implements Renderable
     public function response()
     {
         if (is_null($this->response)) {
-            $this->response = new Response();
+            $this->response = new Response;
         }
 
         if (method_exists($this, 'dialog')) {
@@ -247,8 +244,6 @@ abstract class Action implements Renderable
     }
 
     /**
-     * @param Request $request
-     *
      * @return $this
      */
     public function validate(Request $request)
@@ -265,7 +260,7 @@ abstract class Action implements Renderable
      */
     protected function addScript()
     {
-        if (!is_null($this->interactor)) {
+        if (! is_null($this->interactor)) {
             return $this->interactor->addScript();
         }
 
@@ -395,12 +390,11 @@ SCRIPT;
     }
 
     /**
-     * @param string $method
-     * @param array  $arguments
+     * @param  string  $method
+     * @param  array  $arguments
+     * @return mixed
      *
      * @throws \Exception
-     *
-     * @return mixed
      */
     public function __call($method, $arguments = [])
     {
@@ -414,9 +408,7 @@ SCRIPT;
     /**
      * @return string
      */
-    public function html()
-    {
-    }
+    public function html() {}
 
     /**
      * @return mixed
