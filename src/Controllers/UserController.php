@@ -125,108 +125,60 @@ class UserController extends AdminController
         $userTable = config('admin.database.users_table');
         $connection = config('admin.database.connection');
 
-        $form->row(function ($row) use ($connection, $userTable) {
-            $row->width(6)->display('id', 'ID');
-            $row->width(6)->text('username', trans('admin.username'))
+        $form->tab('Basic Info', function ($form) use ($connection, $userTable, $roleModel, $permissionModel) {
+            $form->display('id', 'ID');
+            $form->text('username', trans('admin.username'))
                 ->creationRules(['required', "unique:{$connection}.{$userTable}"])
                 ->updateRules(['required', "unique:{$connection}.{$userTable},username,{{id}}"]);
+            $form->text('name', trans('admin.name'))->rules('required');
+            $form->password('password', trans('admin.password'))->rules('required|confirmed');
+            $form->password('password_confirmation', trans('admin.password_confirmation'))->rules('required')
+                ->default(function ($form) {
+                    return $form->model()->password;
+                });
+            $form->multipleSelect('roles', trans('admin.roles'))->options($roleModel::all()->pluck('name', 'id'));
+            $form->multipleSelect('permissions', trans('admin.permissions'))->options($permissionModel::all()->pluck('name', 'id'));
+            $form->display('created_at', trans('admin.created_at'));
+            $form->display('updated_at', trans('admin.updated_at'));
+
+            $form->ignore(['password_confirmation']);
         });
 
-        $form->row(function ($row) {
-            $row->width(12)->text('name', trans('admin.name'))->rules('required');
-        });
-
-        $form->divider('Personal Information');
-
-        $form->row(function ($row) {
-            $row->width(6)->text('first_name', 'First Name');
-            $row->width(6)->text('last_name', 'Last Name');
-        });
-
-        $form->row(function ($row) {
-            $row->width(6)->text('preferred_name', 'Preferred Name');
-            $row->width(6)->select('gender', 'Gender')->options([
+        $form->tab('Personal', function ($form) {
+            $form->text('first_name', 'First Name');
+            $form->text('last_name', 'Last Name');
+            $form->text('preferred_name', 'Preferred Name');
+            $form->select('gender', 'Gender')->options([
                 1 => 'Male',
                 2 => 'Female',
                 3 => 'Other',
             ]);
-        });
-
-        $form->row(function ($row) {
-            $row->width(6)->date('birth_date', 'Birth Date');
-            $row->width(6)->text('nationality', 'Nationality');
-        });
-
-        $form->row(function ($row) {
-            $row->width(6)->select('id_type', 'ID Type')->options([
+            $form->date('birth_date', 'Birth Date');
+            $form->text('nationality', 'Nationality');
+            $form->select('id_type', 'ID Type')->options([
                 1 => 'NRIC',
                 2 => 'Passport',
                 3 => 'FIN',
                 4 => 'Other',
             ]);
-            $row->width(6)->text('id_number', 'ID Number');
+            $form->text('id_number', 'ID Number');
+            $form->image('photo', 'Photo')->move('users/photos')->uniqueName();
         });
 
-        $form->row(function ($row) {
-            $row->width(12)->image('photo', 'Photo')->move('users/photos')->uniqueName();
+        $form->tab('Contact & Address', function ($form) {
+            $form->text('phone_number', 'Phone Number');
+            $form->email('email', 'Email');
+            $form->text('blk', 'Block');
+            $form->text('street_name', 'Street Name');
+            $form->text('unit', 'Unit');
+            $form->text('postal', 'Postal Code');
+            $form->decimal('lat', 'Latitude');
+            $form->decimal('lng', 'Longitude');
         });
 
-        $form->divider('Contact Information');
-
-        $form->row(function ($row) {
-            $row->width(6)->text('phone_number', 'Phone Number');
-            $row->width(6)->email('email', 'Email');
-        });
-
-        $form->divider('Address');
-
-        $form->row(function ($row) {
-            $row->width(6)->text('blk', 'Block');
-            $row->width(6)->text('street_name', 'Street Name');
-        });
-
-        $form->row(function ($row) {
-            $row->width(6)->text('unit', 'Unit');
-            $row->width(6)->text('postal', 'Postal Code');
-        });
-
-        $form->row(function ($row) {
-            $row->width(6)->decimal('lat', 'Latitude');
-            $row->width(6)->decimal('lng', 'Longitude');
-        });
-
-        $form->divider('Additional Information');
-
-        $form->row(function ($row) {
-            $row->width(12)->text('preferred_areas', 'Preferred Areas');
-        });
-
-        $form->row(function ($row) {
-            $row->width(12)->textarea('description', 'Description');
-        });
-
-        $form->row(function ($row) {
-            $row->width(6)->image('avatar', trans('admin.avatar'))->move('users/avatars')->uniqueName();
-            $row->width(6)->password('password', trans('admin.password'))->rules('required|confirmed');
-        });
-
-        $form->row(function ($row) {
-            $row->width(6)->password('password_confirmation', trans('admin.password_confirmation'))->rules('required')
-                ->default(function ($form) {
-                    return $form->model()->password;
-                });
-        });
-
-        $form->ignore(['password_confirmation']);
-
-        $form->row(function ($row) use ($roleModel, $permissionModel) {
-            $row->width(6)->multipleSelect('roles', trans('admin.roles'))->options($roleModel::all()->pluck('name', 'id'));
-            $row->width(6)->multipleSelect('permissions', trans('admin.permissions'))->options($permissionModel::all()->pluck('name', 'id'));
-        });
-
-        $form->row(function ($row) {
-            $row->width(6)->display('created_at', trans('admin.created_at'));
-            $row->width(6)->display('updated_at', trans('admin.updated_at'));
+        $form->tab('Additional', function ($form) {
+            $form->text('preferred_areas', 'Preferred Areas');
+            $form->textarea('description', 'Description');
         });
 
         $form->saving(function (Form $form) {

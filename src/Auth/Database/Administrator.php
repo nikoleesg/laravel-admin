@@ -7,7 +7,7 @@ use Illuminate\Auth\Authenticatable;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
-use Illuminate\Support\Facades\Storage;
+use Laravolt\Avatar\Avatar;
 use Parental\HasChildren;
 
 /**
@@ -72,21 +72,22 @@ class Administrator extends Model implements AuthenticatableContract
      * @param  string  $avatar
      * @return string
      */
-    public function getAvatarAttribute($avatar)
+    public function getAvatarAttribute($avatar = null)
     {
-        if ($avatar && url()->isValidUrl($avatar)) {
-            return $avatar;
+        try {
+            $avatar = new Avatar;
+
+            $name = $this->name ?: $this->username ?: 'User';
+
+            return $avatar
+                ->create($name)
+                ->setTheme('colorful')
+                ->setDimension(160, 160)
+                ->setFontSize(72)
+                ->toBase64();
+        } catch (\Exception $e) {
+            return '';
         }
-
-        $disk = config('admin.upload.disk');
-
-        if ($avatar && array_key_exists($disk, config('filesystems.disks'))) {
-            return Storage::disk(config('admin.upload.disk'))->url($avatar);
-        }
-
-        $default = config('admin.default_avatar') ?: '/vendor/laravel-admin/AdminLTE/dist/img/user2-160x160.jpg';
-
-        return admin_asset($default);
     }
 
     /**

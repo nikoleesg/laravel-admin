@@ -36,7 +36,6 @@ class AuthController extends Controller
     /**
      * Handle a login request.
      *
-     * @param Request $request
      *
      * @return mixed
      */
@@ -59,15 +58,14 @@ class AuthController extends Controller
     /**
      * Get a validator for an incoming login request.
      *
-     * @param array $data
      *
      * @return \Illuminate\Contracts\Validation\Validator
      */
     protected function loginValidator(array $data)
     {
         return Validator::make($data, [
-            $this->username()   => 'required',
-            'password'          => 'required',
+            $this->username() => 'required',
+            'password' => 'required',
         ]);
     }
 
@@ -88,7 +86,6 @@ class AuthController extends Controller
     /**
      * User setting page.
      *
-     * @param Content $content
      *
      * @return Content
      */
@@ -127,11 +124,10 @@ class AuthController extends Controller
     {
         $class = config('admin.database.users_model');
 
-        $form = new Form(new $class());
+        $form = new Form(new $class);
 
         $form->display('username', trans('admin.username'));
         $form->text('name', trans('admin.name'))->rules('required');
-        $form->image('avatar', trans('admin.avatar'));
         $form->password('password', trans('admin.password'))->rules('confirmed|required');
         $form->password('password_confirmation', trans('admin.password_confirmation'))->rules('required')
             ->default(function ($form) {
@@ -146,6 +142,13 @@ class AuthController extends Controller
             if ($form->password && $form->model()->password != $form->password) {
                 $form->password = Hash::make($form->password);
             }
+        });
+
+        $form->footer(function ($footer) {
+            $footer->disableViewCheck();
+            $footer->disableEditingCheck();
+            $footer->disableCreatingCheck();
+            $footer->disableReset();
         });
 
         $form->saved(function () {
@@ -184,7 +187,6 @@ class AuthController extends Controller
     /**
      * Send the response after the user was authenticated.
      *
-     * @param \Illuminate\Http\Request $request
      *
      * @return \Illuminate\Http\RedirectResponse
      */
