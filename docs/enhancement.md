@@ -136,3 +136,127 @@ public function form()
 ```
 
 Note: The HTML field doesn't submit data - it's for display purposes only (warnings, instructions, etc.).
+
+---
+
+## Integrated Extensions
+
+### 1. Grid Sortable
+
+Sort grid rows by drag and drop.
+
+```php
+$grid->sortable();
+
+// Or with custom column
+$grid->sortable('order');
+```
+
+---
+
+### 2. DateRangePicker
+
+Enhanced date range picker for filters.
+
+```php
+$filter->dateRange('created_at', 'Created At');
+```
+
+---
+
+### 3. DataTable
+
+Advanced table display with server-side processing.
+
+```php
+$grid->datatable();
+```
+
+---
+
+### 4. Latlong Picker
+
+Select latitude and longitude on a map (Google Map & Amap only).
+
+**Form Usage:**
+```php
+$form->latlong('latitude', 'longitude', 'Position');
+
+// With options
+$form->latlong('latitude', 'longitude', 'Position')->height(500);
+$form->latlong('latitude', 'longitude', 'Position')->zoom(16);
+```
+
+**Show Page Usage:**
+```php
+$show->field('Position')->latlong('lat_column', 'long_column', $height = 400, $zoom = 16);
+```
+
+**Configuration (.env):**
+```env
+GOOGLE_API_KEY=your_google_api_key
+AMAP_API_KEY=your_amap_api_key
+```
+
+---
+
+### 5. Grid Lightbox & Gallery
+
+Display images in a lightbox or gallery view.
+
+```php
+// Simple lightbox
+$grid->picture()->lightbox();
+
+// Gallery (multiple images)
+$grid->picture()->gallery();
+
+// With options
+$grid->picture()->lightbox(['width' => 50, 'height' => 50]);
+$grid->picture()->gallery(['zooming' => true]);
+$grid->picture()->lightbox(['class' => 'rounded']);
+```
+
+---
+
+### 6. Timestamp Between Filter
+
+Filter by date range with timestamp conversion.
+
+```php
+$filter->timestampBetween('created_at', 'Created At')->datetime();
+```
+
+This filter converts date input to UNIX timestamps before querying the database, useful for columns that store timestamps (integers).
+
+---
+
+## Configuration
+
+All extensions can be configured in `config/admin.php`:
+
+```php
+'extensions' => [
+
+    'latlong' => [
+        'enable' => true,
+        'default' => 'google',
+        'providers' => [
+            'google' => [
+                'api_key' => env('GOOGLE_API_KEY', ''),
+            ],
+            'amap' => [
+                'api_key' => env('AMAP_API_KEY', ''),
+            ],
+        ],
+    ],
+
+    'grid-lightbox' => [
+        'enable' => true,
+    ],
+
+    'timestamp-between' => [
+        'enable' => true,
+    ],
+],
+```
