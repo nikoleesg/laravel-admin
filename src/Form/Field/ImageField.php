@@ -3,9 +3,8 @@
 namespace Encore\Admin\Form\Field;
 
 use Illuminate\Support\Str;
-use Intervention\Image\Constraint;
-use Intervention\Image\Facades\Image as InterventionImage;
-use Intervention\Image\ImageManagerStatic;
+use Intervention\Image\ImageManager;
+use Intervention\Image\Drivers\Gd\Driver;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 trait ImageField
@@ -44,14 +43,16 @@ trait ImageField
     public function callInterventionMethods($target)
     {
         if (!empty($this->interventionCalls)) {
-            $image = ImageManagerStatic::make($target);
+            $manager = new ImageManager(new Driver());
+            $image = $manager->read($target);
 
             foreach ($this->interventionCalls as $call) {
                 call_user_func_array(
                     [$image, $call['method']],
                     $call['arguments']
-                )->save($target);
+                );
             }
+            $image->save($target);
         }
 
         return $target;
@@ -73,7 +74,7 @@ trait ImageField
             return $this;
         }
 
-        if (!class_exists(ImageManagerStatic::class)) {
+        if (!class_exists(ImageManager::class)) {
             throw new \Exception('To use image handling and manipulation, please install [intervention/image] first.');
         }
 
@@ -188,19 +189,23 @@ trait ImageField
             // We merge original name + thumbnail name + extension
             $path = $path.'-'.$name.'.'.$ext;
 
-            /** @var \Intervention\Image\Image $image */
-            $image = InterventionImage::make($file);
-
             $action = $size[2] ?? 'resize';
-            // Resize image with aspect ratio
-            $image->$action($size[0], $size[1], function (Constraint $constraint) {
-                $constraint->aspectRatio();
-            })->resizeCanvas($size[0], $size[1], 'center', false, '#ffffff');
+            
+            $manager = new ImageManager(new Driver());
+            $image = $manager->read($file->getRealPath());
+            
+            if ($action === 'resize') {
+                $image->scale($size[0], $size[1]);
+                $image->resizeCanvas($size[0], $size[1], 'ffffff', 'center');
+            } else {
+                call_user_func_array([$image, $action], array_slice($size, 0, 2));
+            }
+            $encoded = (string) $image->encode();
 
             if (!is_null($this->storagePermission)) {
-                $this->storage->put("{$this->getDirectory()}/{$path}", $image->encode(), $this->storagePermission);
+                $this->storage->put("{$this->getDirectory()}/{$path}", $encoded, $this->storagePermission);
             } else {
-                $this->storage->put("{$this->getDirectory()}/{$path}", $image->encode());
+                $this->storage->put("{$this->getDirectory()}/{$path}", $encoded);
             }
         }
 

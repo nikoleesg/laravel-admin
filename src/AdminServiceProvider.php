@@ -105,17 +105,17 @@ class AdminServiceProvider extends ServiceProvider
 
     protected function registerLatlongExtension()
     {
-        $extension = new Extension;
-
-        if ($extension->disabled()) {
-            return;
-        }
-
-        Admin::extend('latlong', Extension::class);
-
-        Admin::booting(function () {
-            Show\Field::macro('latlong', Extension::showField());
-        });
+//        $extension = new Extension;
+//
+//        if ($extension->disabled()) {
+//            return;
+//        }
+//
+//        Admin::extend('latlong', Extension::class);
+//
+//        Admin::booting(function () {
+//            Show\Field::macro('latlong', Extension::showField());
+//        });
     }
 
     protected function registerGridLightboxExtension()

@@ -55,6 +55,10 @@ Requirements
  - Laravel >= 5.5.0
  - Fileinfo PHP Extension
 
+### Optional Features
+ - To use Image manipulation tools (resizing, cropping, thumbnail generation) within `ImageField`, you must optionally install `intervention/image` version ^3.0:
+   `composer require intervention/image:"^3.0"`
+
 Installation
 ------------
 

@@ -74,12 +74,21 @@ class Administrator extends Model implements AuthenticatableContract
      */
     public function getAvatarAttribute($avatar = null)
     {
+        if ($avatar) {
+            if (\Illuminate\Support\Str::startsWith($avatar, ['http://', 'https://'])) {
+                return $avatar;
+            }
+            if (array_key_exists(config('admin.upload.disk'), config('filesystems.disks'))) {
+                return \Illuminate\Support\Facades\Storage::disk(config('admin.upload.disk'))->url($avatar);
+            }
+        }
+
         try {
-            $avatar = new Avatar;
+            $laravolt = new Avatar;
 
             $name = $this->name ?: $this->username ?: 'User';
 
-            return $avatar
+            return $laravolt
                 ->create($name)
                 ->setTheme('colorful')
                 ->setDimension(160, 160)

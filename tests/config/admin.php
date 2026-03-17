@@ -42,12 +42,20 @@ return [
     /*
      * Use `https`.
      */
-    'secure' => false,
+    'secure' => true,
 
     /*
      * Laravel-admin auth setting.
      */
     'auth' => [
+        'redirect_to' => 'auth/login',
+
+        'excepts' => [
+            'auth/login',
+            'auth/logout',
+            '_handle_action_',
+        ],
+
         'guards' => [
             'admin' => [
                 'driver'   => 'session',
