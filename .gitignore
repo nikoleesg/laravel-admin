@@ -7,3 +7,5 @@ composer.lock
 .idea/
 .php_cs.cache
 .vscode/
+.antigravitycli/
+.phpunit.result.cache
