@@ -105,4 +105,5 @@ return [
     'prev' => 'Prev',
     'next' => 'Next',
     'quick_create' => 'Quick create',
+    'help_button' => 'Help',
 ];

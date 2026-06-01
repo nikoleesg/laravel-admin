@@ -5,9 +5,10 @@
     </div>
     @endif
 
-    @if ( $grid->showTools() || $grid->showExportBtn() || $grid->showCreateBtn() )
+    @if ( $grid->showTools() || $grid->showExportBtn() || $grid->showCreateBtn() || $grid->showHelpBtn() )
     <div class="box-header with-border">
         <div class="pull-right">
+            {!! $grid->renderHelpButton() !!}
             {!! $grid->renderColumnSelector() !!}
             {!! $grid->renderExportButton() !!}
             {!! $grid->renderCreateButton() !!}
