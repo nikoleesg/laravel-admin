@@ -39,9 +39,21 @@ class AdminController extends Controller
     }
 
     /**
+     * Get the help content rendered in the grid help modal.
+     *
+     * Returns null by default, which hides the help button. Override this
+     * method to return HTML (e.g. parsed markdown) to show the help button.
+     *
+     * @return string|null
+     */
+    protected function helpContent()
+    {
+        return null;
+    }
+
+    /**
      * Index interface.
      *
-     * @param Content $content
      *
      * @return Content
      */
@@ -56,9 +68,7 @@ class AdminController extends Controller
     /**
      * Show interface.
      *
-     * @param mixed   $id
-     * @param Content $content
-     *
+     * @param  mixed  $id
      * @return Content
      */
     public function show($id, Content $content)
@@ -72,9 +82,7 @@ class AdminController extends Controller
     /**
      * Edit interface.
      *
-     * @param mixed   $id
-     * @param Content $content
-     *
+     * @param  mixed  $id
      * @return Content
      */
     public function edit($id, Content $content)
@@ -88,7 +96,6 @@ class AdminController extends Controller
     /**
      * Create interface.
      *
-     * @param Content $content
      *
      * @return Content
      */

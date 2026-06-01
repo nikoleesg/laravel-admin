@@ -11,12 +11,14 @@ use Encore\Admin\Grid\Model;
 use Encore\Admin\Grid\Row;
 use Encore\Admin\Grid\Tools;
 use Encore\Admin\Traits\ShouldSnakeAttributes;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model as Eloquent;
 use Illuminate\Database\Eloquent\Relations;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 use Illuminate\Support\Traits\Macroable;
 use Jenssegers\Mongodb\Eloquent\Model as MongodbModel;
+use Spatie\EloquentSortable\Sortable;
 
 class Grid
 {
@@ -24,6 +26,7 @@ class Grid
         Concerns\CanExportGrid,
         Concerns\CanFixColumns,
         Concerns\CanFixHeader,
+        Concerns\CanHelp,
         Concerns\CanHidesColumns,
         Concerns\HasActions,
         Concerns\HasElementNames,
@@ -43,28 +46,28 @@ class Grid
     /**
      * The grid data model instance.
      *
-     * @var \Encore\Admin\Grid\Model|\Illuminate\Database\Eloquent\Builder
+     * @var Model|Builder
      */
     protected $model;
 
     /**
      * Collection of all grid columns.
      *
-     * @var \Illuminate\Support\Collection
+     * @var Collection
      */
     protected $columns;
 
     /**
      * Collection of all data rows.
      *
-     * @var \Illuminate\Support\Collection
+     * @var Collection
      */
     protected $rows;
 
     /**
      * Rows callable fucntion.
      *
-     * @var \Closure
+     * @var Closure
      */
     protected $rowsCallback;
 
@@ -78,7 +81,7 @@ class Grid
     /**
      * Grid builder.
      *
-     * @var \Closure
+     * @var Closure
      */
     protected $builder;
 
@@ -148,6 +151,7 @@ class Grid
         'show_row_selector' => true,
         'show_create_btn' => true,
         'show_column_selector' => true,
+        'show_help_btn' => true,
         'show_define_empty_page' => true,
         'show_perpage_selector' => true,
     ];
@@ -382,7 +386,7 @@ class Grid
     /**
      * Get Grid model.
      *
-     * @return Model|\Illuminate\Database\Eloquent\Builder
+     * @return Model|Builder
      */
     public function model()
     {
@@ -916,22 +920,22 @@ class Grid
 
         Admin::js('vendor/laravel-admin/jquery-ui/jquery-ui.min.js');
 
-        Grid\Tools\ColumnSelector::ignore($column);
+        Tools\ColumnSelector::ignore($column);
 
-        $this->tools(function (Grid\Tools $tools) {
-            $tools->append(new Grid\Tools\SaveOrderBtn);
+        $this->tools(function (Tools $tools) {
+            $tools->append(new Tools\SaveOrderBtn);
         });
 
         $sortName = $this->model()->getSortName();
 
         if (! request()->has($sortName)
-            && $this->model()->eloquent() instanceof \Spatie\EloquentSortable\Sortable
+            && $this->model()->eloquent() instanceof Sortable
         ) {
             $this->model()->ordered();
         }
 
         $this->column($column, ' ')
-            ->displayUsing(Grid\Displayers\SortableDisplay::class);
+            ->displayUsing(Displayers\SortableDisplay::class);
 
         return $this;
     }
