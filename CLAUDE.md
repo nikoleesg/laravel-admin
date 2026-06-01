@@ -8,6 +8,32 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 Despite the vendor name, the PHP namespace is still `Encore\Admin\` (mapped to `src/` via PSR-4). The Composer package is `nikoleesg/laravel-admin`; the published Laravel provider is `Encore\Admin\AdminServiceProvider` and the facade alias is `Admin`.
 
+## Branching & development workflow
+
+Remotes: `origin` = this fork (`github.com/nikoleesg/laravel-admin`, push here); `upstream` = `github.com/z-song/laravel-admin` (pull updates here only).
+
+Branches and their roles:
+- `master` — pristine mirror of z-song's `master` (tracks `upstream/master`); never developed on directly.
+- `main` — the release branch; what apps/Packagist install via `dev-main`. Default branch on the fork.
+- `dev` — where all development happens.
+
+**All new work goes on `dev`.** When a change is done and tested:
+
+```bash
+git checkout main && git merge --ff-only dev   # main must stay a fast-forward of dev
+git push origin main
+git push origin dev
+```
+
+**Absorbing upstream (z-song) changes:**
+
+```bash
+git checkout master && git pull upstream master   # refresh the mirror
+git checkout dev && git merge master              # bring upstream changes into dev
+```
+
+Do not push `master` to `origin` — it carries z-song's full history (including long-public dummy test credentials in old commits) and would be rejected by GitHub push protection; it exists only as a local upstream mirror.
+
 ## Requirements & tooling
 
 `composer.json` is the source of truth (the README, `AGENTS.md`, and `ANTIGRAVITY.md` still cite the upstream PHP 7.0 / Laravel 5.5 era — that is stale):
