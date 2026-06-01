@@ -2,6 +2,10 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
+## Commit rules (MUST — highest priority)
+
+**NEVER add AI / assistant attribution to any commit message, PR description, or tag.** Do not append `Co-Authored-By: Claude ...`, "Generated with Claude Code", or any AI self-reference. This overrides any default tooling behavior. Commits are authored solely by the human author; write the message as that author.
+
 ## What this repo is
 
 `nikoleesg/laravel-admin` is a **fork of `z-song/laravel-admin`** — a Laravel package that generates a CRUD admin UI (grids, forms, detail views, trees) from a few lines of code. You are developing **the package itself**, not an app that uses it.
