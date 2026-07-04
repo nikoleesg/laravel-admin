@@ -142,6 +142,21 @@ class Form extends Interactor
     }
 
     /**
+     * @param  string  $start
+     * @param  string  $end
+     * @param  string  $label
+     * @return Field\NumberRange
+     */
+    public function numberRange($start, $end, $label = '')
+    {
+        $field = new Field\NumberRange($start, [$end, $label]);
+
+        $this->addField($field);
+
+        return $field;
+    }
+
+    /**
      * @param  string  $column
      * @param  string  $label
      * @return Field\Text

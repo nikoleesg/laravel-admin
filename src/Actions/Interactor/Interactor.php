@@ -20,7 +20,7 @@ abstract class Interactor
         'textarea', 'select', 'multipleSelect', 'checkbox', 'radio',
         'file', 'image', 'date', 'datetime', 'time', 'hidden', 'multipleImage',
         'multipleFile', 'modalLarge', 'modalSmall', 'disableClose', 'disableSubmit',
-        'html',
+        'html', 'numberRange',
     ];
 
     /**

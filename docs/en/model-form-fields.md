@@ -387,6 +387,15 @@ $form->currency($column[, $label])->symbol('￥');
 $form->number($column[, $label]);
 ```
 
+## Number range input
+`$startColumn`、`$endColumn` is the start and end number fields. This renders two plain HTML5 `number` inputs (no spin buttons), accepting decimals by default:
+```php
+$form->numberRange($startColumn, $endColumn, 'Number Range');
+
+// Set the min/max/step attributes, shared by both inputs
+$form->numberRange($startColumn, $endColumn, 'Price Range')->min(0)->max(100000)->step(0.01);
+```
+
 ## Rate input
 ```php
 $form->rate($column[, $label]);

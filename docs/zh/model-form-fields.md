@@ -400,6 +400,15 @@ $form->currency($column[, $label])->symbol('￥');
 $form->number($column[, $label]);
 ```
 
+## 数字范围输入框
+`$startColumn`、`$endColumn`为开始和结束数字字段，渲染为两个普通的 HTML5 `number` 输入框（没有加减按钮），默认允许输入小数：
+```php
+$form->numberRange($startColumn, $endColumn, 'Number Range');
+
+// 设置 min/max/step 属性，两个输入框共用
+$form->numberRange($startColumn, $endColumn, 'Price Range')->min(0)->max(100000)->step(0.01);
+```
+
 ## 比例输入框
 ```php
 $form->rate($column[, $label]);

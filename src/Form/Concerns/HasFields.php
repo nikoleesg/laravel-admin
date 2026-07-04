@@ -36,6 +36,7 @@ use Illuminate\Support\Arr;
  * @method Field\DateTimeRange datetimeRange($start, $end, $label = '')
  * @method Field\TimeRange timeRange($start, $end, $label = '')
  * @method Field\Number number($column, $label = '')
+ * @method Field\NumberRange numberRange($start, $end, $label = '')
  * @method Field\Currency currency($column, $label = '')
  * @method Field\SwitchField switch($column, $label = '')
  * @method Field\Display display($column, $label = '')
@@ -96,6 +97,7 @@ trait HasFields
         'month' => Field\Month::class,
         'multipleSelect' => Field\MultipleSelect::class,
         'number' => Field\Number::class,
+        'numberRange' => Field\NumberRange::class,
         'password' => Field\Password::class,
         'radio' => Field\Radio::class,
         'radioButton' => Field\RadioButton::class,
