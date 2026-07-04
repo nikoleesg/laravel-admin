@@ -41,11 +41,11 @@ class DateRange extends Field
      */
     public function prepare($value)
     {
-        if ($value === '') {
-            $value = null;
+        if (is_array($value)) {
+            return array_map(fn ($item) => $item === '' ? null : $item, $value);
         }
 
-        return $value;
+        return $value === '' ? null : $value;
     }
 
     public function render()
