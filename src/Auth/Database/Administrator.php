@@ -7,6 +7,7 @@ use Illuminate\Auth\Authenticatable;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Notifications\Notifiable;
 use Laravolt\Avatar\Avatar;
 use Parental\HasChildren;
 
@@ -22,6 +23,7 @@ class Administrator extends Model implements AuthenticatableContract
     use DefaultDatetimeFormat;
     use HasChildren;
     use HasPermissions;
+    use Notifiable;
 
     protected $fillable = [
         'username',
