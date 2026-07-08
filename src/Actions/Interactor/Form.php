@@ -357,6 +357,33 @@ class Form extends Interactor
     }
 
     /**
+     * @param  string  $title
+     * @return Field\Divider
+     */
+    public function divider($title = '')
+    {
+        $field = new Field\Divider($title);
+
+        $this->addField($field);
+
+        return $field;
+    }
+
+    /**
+     * @param  string  $column
+     * @param  string  $label
+     * @return Field\KeyValue
+     */
+    public function keyValue($column, $label = '')
+    {
+        $field = new Field\KeyValue($column, $this->formatLabel($label));
+
+        $this->addField($field);
+
+        return $field;
+    }
+
+    /**
      * @return $this
      */
     public function confirm($message)
@@ -478,7 +505,7 @@ class Form extends Interactor
     /**
      * Merge validation messages from input validators.
      *
-     * @param  \Illuminate\Validation\Validator[]  $validators
+     * @param  Validator[]  $validators
      * @return MessageBag
      */
     protected function mergeValidationMessages($validators)
