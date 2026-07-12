@@ -24,6 +24,7 @@ use Illuminate\Http\Request;
  * @method Field\Textarea textarea($column, $label = '')
  * @method Field\Select select($column, $label = '')
  * @method Field\MultipleSelect multipleSelect($column, $label = '')
+ * @method Field\Listbox listbox($column, $label = '')
  * @method Field\Checkbox checkbox($column, $label = '')
  * @method Field\Radio radio($column, $label = '')
  * @method Field\File file($column, $label = '')

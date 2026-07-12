@@ -213,6 +213,20 @@ class Form extends Interactor
     /**
      * @param  string  $column
      * @param  string  $label
+     * @return Field\Listbox
+     */
+    public function listbox($column, $label = '')
+    {
+        $field = new Field\Listbox($column, $this->formatLabel($label));
+
+        $this->addField($field);
+
+        return $field;
+    }
+
+    /**
+     * @param  string  $column
+     * @param  string  $label
      * @return Field\Checkbox
      */
     public function checkbox($column, $label = '')
