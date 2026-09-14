@@ -3,13 +3,14 @@
 namespace Encore\Admin\Grid\Displayers;
 
 use Encore\Admin\Admin;
+use Exception;
 
 class Orderable extends AbstractDisplayer
 {
     public function display()
     {
         if (!trait_exists('\Spatie\EloquentSortable\SortableTrait')) {
-            throw new \Exception('To use orderable grid, please install package [spatie/eloquent-sortable] first.');
+            throw new Exception('To use orderable grid, please install package [spatie/eloquent-sortable] first.');
         }
 
         Admin::script($this->script());

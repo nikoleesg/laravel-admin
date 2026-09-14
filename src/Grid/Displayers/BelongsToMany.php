@@ -2,6 +2,7 @@
 
 namespace Encore\Admin\Grid\Displayers;
 
+use Exception;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany as Relation;
 use Illuminate\Support\Arr;
 
@@ -39,7 +40,7 @@ class BelongsToMany extends BelongsTo
             return static::$otherKey[$this->getName()] = end($fullKeyArray);
         }
 
-        throw new \Exception('Column of this field must be a `BelongsToMany` relation.');
+        throw new Exception('Column of this field must be a `BelongsToMany` relation.');
     }
 
     /**

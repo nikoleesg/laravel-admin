@@ -5,6 +5,7 @@ namespace Encore\Admin\Console;
 use Illuminate\Console\GeneratorCommand;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
+use ReflectionClass;
 
 class MakeCommand extends GeneratorCommand
 {
@@ -110,7 +111,7 @@ class MakeCommand extends GeneratorCommand
             return $title;
         }
 
-        return __((new \ReflectionClass($this->modelName))->getShortName());
+        return __((new ReflectionClass($this->modelName))->getShortName());
     }
 
     /**

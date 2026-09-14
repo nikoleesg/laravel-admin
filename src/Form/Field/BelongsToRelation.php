@@ -4,6 +4,7 @@ namespace Encore\Admin\Form\Field;
 
 use Encore\Admin\Admin;
 use Encore\Admin\Grid\Selectable;
+use InvalidArgumentException;
 
 trait BelongsToRelation
 {
@@ -36,7 +37,7 @@ trait BelongsToRelation
     protected function setSelectable($selectable)
     {
         if (!class_exists($selectable) || !is_subclass_of($selectable, Selectable::class)) {
-            throw new \InvalidArgumentException(
+            throw new InvalidArgumentException(
                 "[Class [{$selectable}] must be a sub class of Encore\Admin\Grid\Selectable"
             );
         }

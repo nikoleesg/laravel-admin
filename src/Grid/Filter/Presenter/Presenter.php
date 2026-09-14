@@ -3,6 +3,7 @@
 namespace Encore\Admin\Grid\Filter\Presenter;
 
 use Encore\Admin\Grid\Filter\AbstractFilter;
+use ReflectionClass;
 
 abstract class Presenter
 {
@@ -28,7 +29,7 @@ abstract class Presenter
      */
     public function view(): string
     {
-        $reflect = new \ReflectionClass(get_called_class());
+        $reflect = new ReflectionClass(get_called_class());
 
         return 'admin::filter.'.strtolower($reflect->getShortName());
     }

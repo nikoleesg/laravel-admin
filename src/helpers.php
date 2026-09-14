@@ -1,5 +1,7 @@
 <?php
 
+use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\URL;
 use Illuminate\Support\MessageBag;
 
 if (!function_exists('admin_path')) {
@@ -29,7 +31,7 @@ if (!function_exists('admin_url')) {
      */
     function admin_url($path = '', $parameters = [], $secure = null)
     {
-        if (\Illuminate\Support\Facades\URL::isValidUrl($path)) {
+        if (URL::isValidUrl($path)) {
             return $path;
         }
 
@@ -185,7 +187,7 @@ if (!function_exists('array_delete')) {
      */
     function array_delete(&$array, $value)
     {
-        $value = \Illuminate\Support\Arr::wrap($value);
+        $value = Arr::wrap($value);
 
         foreach ($array as $index => $item) {
             if (in_array($item, $value)) {

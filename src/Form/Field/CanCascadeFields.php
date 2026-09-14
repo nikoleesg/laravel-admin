@@ -4,7 +4,9 @@ namespace Encore\Admin\Form\Field;
 
 use Encore\Admin\Admin;
 use Encore\Admin\Form;
+use Exception;
 use Illuminate\Support\Arr;
+use InvalidArgumentException;
 
 /**
  * @property Form $form
@@ -151,7 +153,7 @@ trait CanCascadeFields
             case 'oneNotIn':
                 return count(array_intersect($value, $old)) == 0;
             default:
-                throw new \Exception("Operator [$operator] not support.");
+                throw new Exception("Operator [$operator] not support.");
         }
     }
 
@@ -261,7 +263,7 @@ var checked = $('{$this->getElementClassSelector()}:checked').map(function(){
 }).get();
 SCRIPT;
             default:
-                throw new \InvalidArgumentException('Invalid form field type');
+                throw new InvalidArgumentException('Invalid form field type');
         }
     }
 }

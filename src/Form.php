@@ -24,6 +24,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\MessageBag;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Validator;
+use InvalidArgumentException;
 use Spatie\EloquentSortable\Sortable;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -1268,7 +1269,7 @@ class Form implements Renderable
     public function confirm(string $message, $on = null)
     {
         if ($on && !in_array($on, ['create', 'edit'])) {
-            throw new \InvalidArgumentException("The second paramater `\$on` must be one of ['create', 'edit']");
+            throw new InvalidArgumentException("The second paramater `\$on` must be one of ['create', 'edit']");
         }
 
         if ($on == 'create' && !$this->isCreating()) {

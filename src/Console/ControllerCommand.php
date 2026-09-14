@@ -2,6 +2,8 @@
 
 namespace Encore\Admin\Console;
 
+use ReflectionClass;
+
 class ControllerCommand extends MakeCommand
 {
     /**
@@ -37,7 +39,7 @@ class ControllerCommand extends MakeCommand
      */
     protected function getControllerName()
     {
-        $name = (new \ReflectionClass($this->modelName))->getShortName();
+        $name = (new ReflectionClass($this->modelName))->getShortName();
 
         return $name.'Controller';
     }

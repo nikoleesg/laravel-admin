@@ -3,6 +3,7 @@
 namespace Encore\Admin;
 
 use Encore\Admin\Auth\Database\Permission;
+use Exception;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Config;
@@ -280,7 +281,7 @@ abstract class Extension
 
         $message = "Invalid menu:\r\n".implode("\r\n", Arr::flatten($validator->errors()->messages()));
 
-        throw new \Exception($message);
+        throw new Exception($message);
     }
 
     /**
@@ -322,7 +323,7 @@ abstract class Extension
 
         $message = "Invalid permission:\r\n".implode("\r\n", Arr::flatten($validator->errors()->messages()));
 
-        throw new \Exception($message);
+        throw new Exception($message);
     }
 
     /**

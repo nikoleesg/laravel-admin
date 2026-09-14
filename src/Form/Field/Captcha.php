@@ -3,6 +3,8 @@
 namespace Encore\Admin\Form\Field;
 
 use Encore\Admin\Form;
+use Exception;
+use Mews\Captcha\Captcha as MewsCaptcha;
 
 class Captcha extends Text
 {
@@ -12,8 +14,8 @@ class Captcha extends Text
 
     public function __construct($column, $arguments = [])
     {
-        if (!class_exists(\Mews\Captcha\Captcha::class)) {
-            throw new \Exception('To use captcha field, please install [mews/captcha] first.');
+        if (!class_exists(MewsCaptcha::class)) {
+            throw new Exception('To use captcha field, please install [mews/captcha] first.');
         }
 
         $this->column = '__captcha__';

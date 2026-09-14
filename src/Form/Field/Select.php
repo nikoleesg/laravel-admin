@@ -8,6 +8,7 @@ use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
+use InvalidArgumentException;
 
 class Select extends Field
 {
@@ -229,7 +230,7 @@ EOT;
         if (!class_exists($model)
             || !in_array(Model::class, class_parents($model))
         ) {
-            throw new \InvalidArgumentException("[$model] must be a valid model class");
+            throw new InvalidArgumentException("[$model] must be a valid model class");
         }
 
         $this->options = function ($value) use ($model, $idField, $textField) {

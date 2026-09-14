@@ -10,6 +10,7 @@ use Encore\Admin\Grid\Filter\Presenter\Presenter;
 use Encore\Admin\Grid\Filter\Presenter\Radio;
 use Encore\Admin\Grid\Filter\Presenter\Select;
 use Encore\Admin\Grid\Filter\Presenter\Text;
+use Exception;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 
@@ -536,6 +537,6 @@ abstract class AbstractFilter
             return $this->presenter()->{$method}(...$params);
         }
 
-        throw new \Exception('Method "'.$method.'" not exists.');
+        throw new Exception('Method "'.$method.'" not exists.');
     }
 }
