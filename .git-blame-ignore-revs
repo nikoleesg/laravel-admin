@@ -1,0 +1,5 @@
+# Bulk formatting commits; use with
+#   git config blame.ignoreRevsFile .git-blame-ignore-revs
+
+# style: apply pint (laravel preset) across src/, config/ and resources/lang
+65cfc502b9c72564eee25d966293773375490f25
