@@ -39,7 +39,12 @@ jobs:
           restore-keys: composer-${{ runner.os }}-php${{ matrix.php }}-laravel${{ matrix.laravel }}-
 
       - name: Install dependencies
+        # Composer >= 2.10 refuses to install packages with open security
+        # advisories. Laravel 11 is past its security-support window, so its
+        # advisories will never close; we still test against it because
+        # composer.json declares support for it.
         run: |
+          composer config policy.advisories.block false
           composer require "laravel/framework:${{ matrix.laravel }}" "laravel/laravel:${{ matrix.laravel }}" --no-update --no-interaction
           composer update --prefer-dist --no-interaction --no-progress
 
