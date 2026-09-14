@@ -95,8 +95,6 @@ class EscapedTitlesTest extends TestCase
     {
         $grid = new Grid(new UserModel);
 
-        // fixColumns() swaps the view and resets the variables, so it must
-        // run before the title is set.
         if ($fixed) {
             $grid->fixColumns(1);
         }
