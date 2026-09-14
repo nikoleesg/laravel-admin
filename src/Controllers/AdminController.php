@@ -52,6 +52,16 @@ class AdminController extends Controller
     }
 
     /**
+     * Public accessor used by the grid to read the help content.
+     *
+     * @return string|null
+     */
+    public function getHelpContent()
+    {
+        return $this->helpContent();
+    }
+
+    /**
      * Index interface.
      *
      *
