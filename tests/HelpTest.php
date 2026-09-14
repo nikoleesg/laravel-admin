@@ -51,7 +51,7 @@ class HelpTest extends TestCase
             return null;
         });
 
-        $grid = new Grid(new UserModel());
+        $grid = new Grid(new UserModel);
 
         $this->assertNull($grid->helpContent());
         $this->assertFalse($grid->showHelpBtn());

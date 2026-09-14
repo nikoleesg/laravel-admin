@@ -1,6 +1,9 @@
 <?php
 
 use Encore\Admin\Auth\Database\Administrator;
+use Tests\Models\Profile;
+use Tests\Models\Tag;
+use Tests\Models\User;
 use Tests\Models\User as UserModel;
 
 class UserFormTest extends TestCase
@@ -40,22 +43,22 @@ class UserFormTest extends TestCase
     public function testSubmitForm()
     {
         $data = [
-            'username'              => 'John Doe',
-            'email'                 => 'hello@world.com',
-            'mobile'                => '13421234123',
-            'password'              => '123456',
+            'username' => 'John Doe',
+            'email' => 'hello@world.com',
+            'mobile' => '13421234123',
+            'password' => '123456',
             'password_confirmation' => '123456',
-            //"avatar"   => "test.jpg",
+            // "avatar"   => "test.jpg",
             'profile' => [
                 'first_name' => 'John',
-                'last_name'  => 'Doe',
-                'postcode'   => '123456',
-                'address'    => 'Jinshajiang RD',
-                'latitude'   => '131.2123123456',
-                'longitude'  => '21.342123456',
-                'color'      => '#ffffff',
-                'start_at'   => date('Y-m-d H:i:s', time()),
-                'end_at'     => date('Y-m-d H:i:s', time()),
+                'last_name' => 'Doe',
+                'postcode' => '123456',
+                'address' => 'Jinshajiang RD',
+                'latitude' => '131.2123123456',
+                'longitude' => '21.342123456',
+                'color' => '#ffffff',
+                'start_at' => date('Y-m-d H:i:s', time()),
+                'end_at' => date('Y-m-d H:i:s', time()),
             ],
         ];
 
@@ -101,11 +104,11 @@ class UserFormTest extends TestCase
 
     protected function seedsTable($count = 100)
     {
-        factory(\Tests\Models\User::class, $count)
+        factory(User::class, $count)
             ->create()
             ->each(function ($u) {
-                $u->profile()->save(factory(\Tests\Models\Profile::class)->make());
-                $u->tags()->saveMany(factory(\Tests\Models\Tag::class, 5)->make());
+                $u->profile()->save(factory(Profile::class)->make());
+                $u->tags()->saveMany(factory(Tag::class, 5)->make());
             });
     }
 

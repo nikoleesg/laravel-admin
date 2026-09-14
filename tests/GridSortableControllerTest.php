@@ -34,7 +34,7 @@ class GridSortableControllerTest extends TestCase
         return (new GridSortableController)->sort(new Request(['_model' => $model, '_sort' => $sort]));
     }
 
-    public function test_it_reorders_model_when_class_name_is_signed()
+    public function testItReordersModelWhenClassNameIsSigned()
     {
         // Reversed key order is what actually drives the new ordering.
         $ids = SortableItem::orderBy('order_column')->pluck('id')->reverse()->values();
@@ -51,7 +51,7 @@ class GridSortableControllerTest extends TestCase
         );
     }
 
-    public function test_it_rejects_unsigned_class_name()
+    public function testItRejectsUnsignedClassName()
     {
         $exception = null;
 
@@ -70,7 +70,7 @@ class GridSortableControllerTest extends TestCase
         );
     }
 
-    public function test_it_rejects_signed_non_sortable_class()
+    public function testItRejectsSignedNonSortableClass()
     {
         $exception = null;
 
@@ -83,7 +83,7 @@ class GridSortableControllerTest extends TestCase
         $this->assertSame(422, $exception->getStatusCode());
     }
 
-    public function test_it_rejects_signed_nonexistent_class()
+    public function testItRejectsSignedNonexistentClass()
     {
         $exception = null;
 

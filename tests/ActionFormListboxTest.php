@@ -94,7 +94,8 @@ class ActionFormListboxTest extends TestCase
 
     protected function makeAction(array $options = [1 => 'Admin', 'editor' => 'Editor'])
     {
-        return new class($options) extends Action {
+        return new class($options) extends Action
+        {
             protected $options;
 
             public function __construct(array $options)
@@ -121,8 +122,10 @@ class ActionFormListboxTest extends TestCase
 
     protected function makeActionWithValues(array $options, array $values)
     {
-        return new class($options, $values) extends Action {
+        return new class($options, $values) extends Action
+        {
             protected $options;
+
             protected $values;
 
             public function __construct(array $options, array $values)
@@ -150,8 +153,10 @@ class ActionFormListboxTest extends TestCase
 
     protected function makeActionWithDefaults(array $options, array $defaults)
     {
-        return new class($options, $defaults) extends Action {
+        return new class($options, $defaults) extends Action
+        {
             protected $options;
+
             protected $defaults;
 
             public function __construct(array $options, array $defaults)

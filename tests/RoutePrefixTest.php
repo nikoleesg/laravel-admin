@@ -18,8 +18,7 @@ class RoutePrefixTest extends TestCase
     /**
      * The URL path the admin is served under for this prefix.
      *
-     * @param string $path
-     *
+     * @param  string  $path
      * @return string
      */
     protected function adminPath($path = '')
@@ -56,11 +55,11 @@ class RoutePrefixTest extends TestCase
 
     public function testModalDisplayerRendersUnderPrefix()
     {
-        $grid = new Grid(new User());
+        $grid = new Grid(new User);
         $column = new Column('id', 'ID');
         $column->setGrid($grid);
 
-        $displayer = new Modal('1', $grid, $column, User::first() ?: new User());
+        $displayer = new Modal('1', $grid, $column, User::first() ?: new User);
 
         $displayer->display(RoutePrefixRenderable::class);
 

@@ -27,7 +27,7 @@ class HelpController extends AdminController
      */
     protected function grid()
     {
-        $grid = new Grid(new User());
+        $grid = new Grid(new User);
 
         $grid->id('ID');
         $grid->username();

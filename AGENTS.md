@@ -40,7 +40,7 @@ composer update
 
 ### Code Style
 
-The linter is `laravel/pint` (default preset, no `pint.json`). Run `./vendor/bin/pint --test` to check and `./vendor/bin/pint` to fix. Code should follow PSR standards and match the existing codebase style.
+The linter is `laravel/pint`; `pint.json` uses the `laravel` preset with `php_unit_method_casing` set to `camel_case` so test methods stay `testFooBar()`. Run `./vendor/bin/pint --test` to check and `./vendor/bin/pint` to fix. Code should follow PSR standards and match the existing codebase style.
 
 ## Code Style Guidelines
 

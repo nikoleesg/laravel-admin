@@ -12,8 +12,8 @@ class ResourceGeneratorTest extends TestCase
     public function testMakeCommandOutputsResourceCode()
     {
         Artisan::call('admin:make', [
-            'name'     => 'ProfileController',
-            '--model'  => Profile::class,
+            'name' => 'ProfileController',
+            '--model' => Profile::class,
             '--output' => true,
         ]);
 
@@ -78,7 +78,8 @@ class ResourceGeneratorTest extends TestCase
             $table->softDeletes();
         });
 
-        $model = new class() extends Model {
+        $model = new class extends Model
+        {
             protected $table = 'test_generator_columns';
         };
 

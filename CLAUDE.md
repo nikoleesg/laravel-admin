@@ -45,7 +45,7 @@ composer install                          # install deps
 composer test                             # run the full suite (./vendor/bin/phpunit)
 ./vendor/bin/phpunit tests/UsersTest.php  # single test file
 ./vendor/bin/phpunit --filter=testMethodName
-./vendor/bin/pint                         # format code (laravel/pint is the linter; no pint.json, uses defaults)
+./vendor/bin/pint                         # format code (laravel/pint; pint.json = laravel preset + camelCase test methods)
 ./vendor/bin/pint --test                  # check formatting without writing
 ```
 

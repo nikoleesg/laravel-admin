@@ -1,6 +1,7 @@
 <?php
 
 use Encore\Admin\Auth\Database\Administrator;
+use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\File;
 use Tests\Models\Image;
 use Tests\Models\MultipleImage;
@@ -167,7 +168,7 @@ class ImageUploadTest extends TestCase
 
         $path = __DIR__.'/assets/test.jpg';
 
-        $file = new \Illuminate\Http\UploadedFile($path, 'test.jpg', 'image/jpeg', null, true);
+        $file = new UploadedFile($path, 'test.jpg', 'image/jpeg', null, true);
 
         $size = rand(10, 20);
         $files = ['pictures' => array_pad([], $size, $file)];

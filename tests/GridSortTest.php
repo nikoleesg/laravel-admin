@@ -18,15 +18,14 @@ class GridSortTest extends TestCase
     /**
      * Build the grid SQL for a given `_sort` request input.
      *
-     * @param mixed $sort
-     *
+     * @param  mixed  $sort
      * @return string
      */
     protected function sortSql($sort)
     {
         $this->app['request']->replace(['_sort' => $sort]);
 
-        $grid = new Grid(new UserModel());
+        $grid = new Grid(new UserModel);
         $grid->model()->with('profile');
 
         return $grid->model()->getQueryBuilder()->toSql();
@@ -66,23 +65,23 @@ class GridSortTest extends TestCase
     public static function malformedSortProvider()
     {
         return [
-            'raw type in cast path'   => [['column' => 'id', 'type' => 'asc, (SELECT 1)', 'cast' => 'unsigned']],
-            'raw cast'                => [['column' => 'id', 'type' => 'asc', 'cast' => 'unsigned) asc, (SELECT 1']],
-            'unknown cast'            => [['column' => 'id', 'type' => 'asc', 'cast' => 'blob']],
-            'raw json column'         => [['column' => "data') AS x, (SELECT 1) --", 'type' => 'asc']],
-            'raw json path'           => [['column' => "data.a') --", 'type' => 'asc']],
-            'quoted column'           => [['column' => 'user"name', 'type' => 'asc']],
-            'array column'            => [['column' => ['id'], 'type' => 'asc']],
-            'array type'              => [['column' => 'id', 'type' => ['asc']]],
-            'array cast'              => [['column' => 'id', 'type' => 'asc', 'cast' => ['unsigned']]],
-            'scalar sort'             => ['id'],
-            'missing type'            => [['column' => 'id']],
-            'empty column'            => [['column' => '', 'type' => 'asc']],
+            'raw type in cast path' => [['column' => 'id', 'type' => 'asc, (SELECT 1)', 'cast' => 'unsigned']],
+            'raw cast' => [['column' => 'id', 'type' => 'asc', 'cast' => 'unsigned) asc, (SELECT 1']],
+            'unknown cast' => [['column' => 'id', 'type' => 'asc', 'cast' => 'blob']],
+            'raw json column' => [['column' => "data') AS x, (SELECT 1) --", 'type' => 'asc']],
+            'raw json path' => [['column' => "data.a') --", 'type' => 'asc']],
+            'quoted column' => [['column' => 'user"name', 'type' => 'asc']],
+            'array column' => [['column' => ['id'], 'type' => 'asc']],
+            'array type' => [['column' => 'id', 'type' => ['asc']]],
+            'array cast' => [['column' => 'id', 'type' => 'asc', 'cast' => ['unsigned']]],
+            'scalar sort' => ['id'],
+            'missing type' => [['column' => 'id']],
+            'empty column' => [['column' => '', 'type' => 'asc']],
         ];
     }
 
     /**
-     * @param mixed $sort
+     * @param  mixed  $sort
      */
     #[DataProvider('malformedSortProvider')]
     public function testMalformedSortIsIgnored($sort)

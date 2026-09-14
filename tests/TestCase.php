@@ -1,9 +1,8 @@
 <?php
 
-use Laravel\BrowserKitTesting\TestCase as BaseTestCase;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
+use Laravel\BrowserKitTesting\TestCase as BaseTestCase;
 
 require_once __DIR__.'/CreatesApplicationTrait.php';
 
@@ -25,7 +24,7 @@ abstract class TestCase extends BaseTestCase
     {
         putenv('APP_ENV=testing');
         parent::setUp();
-        
+
         $this->app['config']->set('app.env', 'testing');
 
         $adminConfig = require __DIR__.'/config/admin.php';
@@ -40,7 +39,7 @@ abstract class TestCase extends BaseTestCase
         $this->app['config']->set('filesystems', require __DIR__.'/config/filesystems.php');
         $this->app['config']->set('admin', $adminConfig);
 
-        if (!is_null($this->adminRoutePrefix)) {
+        if (! is_null($this->adminRoutePrefix)) {
             $this->app['config']->set('admin.route.prefix', $this->adminRoutePrefix);
         }
 
@@ -75,13 +74,13 @@ abstract class TestCase extends BaseTestCase
     protected function tearDown(): void
     {
         try {
-            (new CreateAdminTables())->down();
-            (new CreateTestTables())->down();
+            (new CreateAdminTables)->down();
+            (new CreateTestTables)->down();
             DB::table('migrations')->whereIn('migration', [
                 '2016_01_04_173148_create_admin_tables',
                 '2026_02_19_094712_add_profile_columns_to_admin_users_table',
             ])->delete();
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             //
         }
 
@@ -91,7 +90,6 @@ abstract class TestCase extends BaseTestCase
     public function migrateTestTables()
     {
         require_once __DIR__.'/migrations/2016_11_22_093148_create_test_tables.php';
-        (new CreateTestTables())->up();
+        (new CreateTestTables)->up();
     }
-
 }
