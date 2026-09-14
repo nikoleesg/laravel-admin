@@ -2,7 +2,7 @@
 
 namespace Encore\Admin\Widgets;
 
-use Admin;
+use Encore\Admin\Admin;
 use Illuminate\Support\Arr;
 
 class DataTable extends Widget
