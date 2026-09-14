@@ -5,7 +5,7 @@
                 @unless($disable_close)
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 @endunless
-                <h4 class="modal-title">{!! $title !!}</h4>
+                <h4 class="modal-title">{{ $title }}</h4>
             </div>
             <form>
             <div class="modal-body">
