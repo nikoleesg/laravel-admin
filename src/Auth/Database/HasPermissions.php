@@ -44,13 +44,30 @@ trait HasPermissions
     /**
      * Check if user has no permission.
      *
-     * @param $permission
+     * Signature mirrors Illuminate\Foundation\Auth\Access\Authorizable so the
+     * trait can override it on models extending Foundation\Auth\User.
+     *
+     * @param $abilities
+     * @param array $arguments
      *
      * @return bool
      */
-    public function cannot(string $permission): bool
+    public function cannot($abilities, $arguments = []): bool
     {
-        return !$this->can($permission);
+        return !$this->can($abilities, $arguments);
+    }
+
+    /**
+     * Alias of cannot(), matching Authorizable::cant().
+     *
+     * @param $abilities
+     * @param array $arguments
+     *
+     * @return bool
+     */
+    public function cant($abilities, $arguments = []): bool
+    {
+        return $this->cannot($abilities, $arguments);
     }
 
     /**
