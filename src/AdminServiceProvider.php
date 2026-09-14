@@ -47,7 +47,6 @@ class AdminServiceProvider extends ServiceProvider
         'admin.permission' => Middleware\Permission::class,
         'admin.bootstrap' => Middleware\Bootstrap::class,
         'admin.session' => Middleware\Session::class,
-        'admin.shareErrors' => Middleware\ShareErrors::class,
     ];
 
     /**
@@ -62,7 +61,6 @@ class AdminServiceProvider extends ServiceProvider
             'admin.log',
             'admin.bootstrap',
             'admin.permission',
-            'admin.shareErrors',
             //            'admin.session',
         ],
     ];
