@@ -2,6 +2,8 @@
 
 namespace Encore\Admin\Traits;
 
+use DOMDocument;
+
 trait HasAssets
 {
     /**
@@ -337,7 +339,7 @@ trait HasAssets
     {
         $string = view($component, $data)->render();
 
-        $dom = new \DOMDocument();
+        $dom = new DOMDocument();
 
         libxml_use_internal_errors(true);
         $dom->loadHTML('<?xml encoding="utf-8" ?>'.$string);

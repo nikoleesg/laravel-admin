@@ -6,11 +6,13 @@ use Closure;
 use Encore\Admin\Actions\RowAction;
 use Encore\Admin\Grid;
 use Encore\Admin\Grid\Displayers\AbstractDisplayer;
+use Exception;
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Database\Eloquent\Model as BaseModel;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
+use InvalidArgumentException;
 
 class Column
 {
@@ -474,7 +476,7 @@ class Column
     public function action($action)
     {
         if (!is_subclass_of($action, RowAction::class)) {
-            throw new \InvalidArgumentException("Action class [$action] must be sub-class of [Encore\Admin\Actions\GridAction]");
+            throw new InvalidArgumentException("Action class [$action] must be sub-class of [Encore\Admin\Actions\GridAction]");
         }
 
         $grid = $this->grid;
@@ -601,7 +603,7 @@ class Column
         }
 
         if (!class_exists($class) || !is_subclass_of($class, AbstractDisplayer::class)) {
-            throw new \Exception("Invalid column definition [$class]");
+            throw new Exception("Invalid column definition [$class]");
         }
 
         $grid = $this->grid;

@@ -6,6 +6,7 @@ use Encore\Admin\Auth\Permission as Checker;
 use Encore\Admin\Facades\Admin;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use InvalidArgumentException;
 
 class Permission
 {
@@ -67,7 +68,7 @@ class Permission
         $method = array_shift($args);
 
         if (!method_exists(Checker::class, $method)) {
-            throw new \InvalidArgumentException("Invalid permission method [$method].");
+            throw new InvalidArgumentException("Invalid permission method [$method].");
         }
 
         call_user_func_array([Checker::class, $method], [$args]);

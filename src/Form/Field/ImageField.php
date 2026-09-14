@@ -4,7 +4,6 @@ namespace Encore\Admin\Form\Field;
 
 use Illuminate\Support\Str;
 use Intervention\Image\ImageManager;
-use Intervention\Image\Drivers\Gd\Driver;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 trait ImageField
@@ -22,6 +21,18 @@ trait ImageField
      * @var array
      */
     protected $thumbnails = [];
+
+    /**
+     * Build an Intervention image manager using the configured driver.
+     *
+     * @return ImageManager
+     */
+    protected function imageManager()
+    {
+        return config('admin.upload.image_driver', 'gd') === 'imagick'
+            ? ImageManager::imagick()
+            : ImageManager::gd();
+    }
 
     /**
      * Default directory for file to upload.
@@ -43,8 +54,7 @@ trait ImageField
     public function callInterventionMethods($target)
     {
         if (!empty($this->interventionCalls)) {
-            $manager = new ImageManager(new Driver());
-            $image = $manager->read($target);
+            $image = $this->imageManager()->read($target);
 
             foreach ($this->interventionCalls as $call) {
                 call_user_func_array(
@@ -72,10 +82,6 @@ trait ImageField
     {
         if (static::hasMacro($method)) {
             return $this;
-        }
-
-        if (!class_exists(ImageManager::class)) {
-            throw new \Exception('To use image handling and manipulation, please install [intervention/image] first.');
         }
 
         $this->interventionCalls[] = [
@@ -190,10 +196,9 @@ trait ImageField
             $path = $path.'-'.$name.'.'.$ext;
 
             $action = $size[2] ?? 'resize';
-            
-            $manager = new ImageManager(new Driver());
-            $image = $manager->read($file->getRealPath());
-            
+
+            $image = $this->imageManager()->read($file->getRealPath());
+
             if ($action === 'resize') {
                 $image->scale($size[0], $size[1]);
                 $image->resizeCanvas($size[0], $size[1], 'ffffff', 'center');

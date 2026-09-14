@@ -6,6 +6,7 @@ use Closure;
 use Encore\Admin\Tree\Tools;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Database\Eloquent\Model;
+use InvalidArgumentException;
 
 class Tree implements Renderable
 {
@@ -204,7 +205,7 @@ class Tree implements Renderable
         $tree = json_decode($serialize, true);
 
         if (json_last_error() != JSON_ERROR_NONE) {
-            throw new \InvalidArgumentException(json_last_error_msg());
+            throw new InvalidArgumentException(json_last_error_msg());
         }
 
         $this->model->saveOrder($tree);

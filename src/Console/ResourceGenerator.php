@@ -4,6 +4,7 @@ namespace Encore\Admin\Console;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Schema;
+use InvalidArgumentException;
 
 class ResourceGenerator
 {
@@ -83,7 +84,7 @@ class ResourceGenerator
         }
 
         if (!class_exists($model) || !is_string($model) || !is_subclass_of($model, Model::class)) {
-            throw new \InvalidArgumentException("Invalid model [$model] !");
+            throw new InvalidArgumentException("Invalid model [$model] !");
         }
 
         return new $model();

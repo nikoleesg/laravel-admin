@@ -4,6 +4,7 @@ namespace Encore\Admin\Grid;
 
 use Encore\Admin\Grid;
 use Encore\Admin\Middleware\Pjax;
+use Exception;
 use Illuminate\Database\Eloquent\Model as EloquentModel;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -399,7 +400,7 @@ class Model
             return $this->model->getCollection();
         }
 
-        throw new \Exception('Grid query error');
+        throw new Exception('Grid query error');
     }
 
     /**
@@ -699,7 +700,7 @@ class Model
             ];
         }
 
-        throw new \Exception('Related sortable only support `HasOne` and `BelongsTo` relation.');
+        throw new Exception('Related sortable only support `HasOne` and `BelongsTo` relation.');
     }
 
     /**

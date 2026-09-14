@@ -7,6 +7,7 @@ use Encore\Admin\Grid\Selectable\Checkbox;
 use Encore\Admin\Grid\Selectable\Radio;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Arr;
+use InvalidArgumentException;
 
 /**
  * @mixin Grid
@@ -142,7 +143,7 @@ BTN;
     protected function initGrid()
     {
         if (!class_exists($this->model) || !is_subclass_of($this->model, Model::class)) {
-            throw new \InvalidArgumentException("Invalid model [{$this->model}]");
+            throw new InvalidArgumentException("Invalid model [{$this->model}]");
         }
 
         /** @var Model $model */

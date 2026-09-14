@@ -2,12 +2,16 @@
 
 namespace Encore\Admin;
 
+use Encore\Admin\Grid\Filter;
+use Encore\Admin\Grid\Filter\TimestampBetween;
 use Encore\Admin\Layout\Content;
 use Illuminate\Routing\Router;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Str;
+use Illuminate\View\Compilers\BladeCompiler;
+use ReflectionClass;
 
 class AdminServiceProvider extends ServiceProvider
 {
@@ -47,7 +51,6 @@ class AdminServiceProvider extends ServiceProvider
         'admin.permission' => Middleware\Permission::class,
         'admin.bootstrap' => Middleware\Bootstrap::class,
         'admin.session' => Middleware\Session::class,
-        'admin.shareErrors' => Middleware\ShareErrors::class,
     ];
 
     /**
@@ -62,7 +65,6 @@ class AdminServiceProvider extends ServiceProvider
             'admin.log',
             'admin.bootstrap',
             'admin.permission',
-            'admin.shareErrors',
             //            'admin.session',
         ],
     ];
@@ -121,7 +123,7 @@ class AdminServiceProvider extends ServiceProvider
             return;
         }
 
-        \Encore\Admin\Grid\Filter::extend('timestampBetween', \Encore\Admin\Grid\Filter\TimestampBetween::class);
+        Filter::extend('timestampBetween', TimestampBetween::class);
     }
 
     /**
@@ -148,15 +150,7 @@ class AdminServiceProvider extends ServiceProvider
         if ($this->app->runningInConsole()) {
             $this->publishes([__DIR__.'/../config' => config_path()], 'laravel-admin-config');
 
-            $version = $this->app->version();
-            if (version_compare($version, '12.0.0', '>=')) {
-                $this->publishes([__DIR__.'/../resources/lang' => resource_path('lang')], 'laravel-admin-lang');
-            } elseif (version_compare($version, '9.0.0', '>=')) {
-                $this->publishes([__DIR__.'/../resources/lang' => base_path('lang')], 'laravel-admin-lang');
-            } else {
-                $this->publishes([__DIR__.'/../resources/lang' => resource_path('lang')], 'laravel-admin-lang');
-            }
-
+            $this->publishes([__DIR__.'/../resources/lang' => $this->app->langPath()], 'laravel-admin-lang');
             $this->publishes([__DIR__.'/../database/migrations' => database_path('migrations')], 'laravel-admin-migrations');
             $this->publishes([__DIR__.'/../resources/assets' => public_path('vendor/laravel-admin')], 'laravel-admin-assets');
         }
@@ -169,7 +163,7 @@ class AdminServiceProvider extends ServiceProvider
      */
     protected function compatibleBlade()
     {
-        $reflectionClass = new \ReflectionClass('\Illuminate\View\Compilers\BladeCompiler');
+        $reflectionClass = new ReflectionClass(BladeCompiler::class);
 
         if ($reflectionClass->hasMethod('withoutDoubleEncoding')) {
             Blade::withoutDoubleEncoding();

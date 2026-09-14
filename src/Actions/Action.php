@@ -2,8 +2,10 @@
 
 namespace Encore\Admin\Actions;
 
+use BadMethodCallException;
 use Encore\Admin\Admin;
 use Encore\Admin\Form\Field;
+use Exception;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 
@@ -109,7 +111,7 @@ abstract class Action implements Renderable
         }
 
         if ($hasForm && $hasDialog) {
-            throw new \Exception('Can only define one of the methods in `form` and `dialog`');
+            throw new Exception('Can only define one of the methods in `form` and `dialog`');
         }
     }
 
@@ -403,7 +405,7 @@ SCRIPT;
             return $this->interactor->{$method}(...$arguments);
         }
 
-        throw new \BadMethodCallException("Method {$method} does not exist.");
+        throw new BadMethodCallException("Method {$method} does not exist.");
     }
 
     /**

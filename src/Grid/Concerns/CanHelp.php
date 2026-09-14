@@ -2,7 +2,7 @@
 
 namespace Encore\Admin\Grid\Concerns;
 
-use Closure;
+use Encore\Admin\Controllers\AdminController;
 use Encore\Admin\Grid;
 
 trait CanHelp
@@ -61,10 +61,8 @@ trait CanHelp
     {
         $controller = optional(request()->route())->getController();
 
-        if ($controller && method_exists($controller, 'helpContent')) {
-            return Closure::bind(function () {
-                return $this->helpContent();
-            }, $controller, $controller)();
+        if ($controller instanceof AdminController) {
+            return $controller->getHelpContent();
         }
 
         return null;

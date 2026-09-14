@@ -3,6 +3,7 @@
 namespace Encore\Admin\Traits;
 
 use Encore\Admin\Tree;
+use Exception;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
@@ -303,7 +304,7 @@ trait ModelTree
             $parentColumn = $branch->getParentColumn();
 
             if (Request::has($parentColumn) && Request::input($parentColumn) == $branch->getKey()) {
-                throw new \Exception(trans('admin.parent_select_error'));
+                throw new Exception(trans('admin.parent_select_error'));
             }
 
             if (Request::has('_order')) {

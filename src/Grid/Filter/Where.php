@@ -3,6 +3,7 @@
 namespace Encore\Admin\Grid\Filter;
 
 use Illuminate\Support\Arr;
+use ReflectionFunction;
 
 class Where extends AbstractFilter
 {
@@ -48,7 +49,7 @@ class Where extends AbstractFilter
      */
     public static function getQueryHash(\Closure $closure, $label = '')
     {
-        $reflection = new \ReflectionFunction($closure);
+        $reflection = new ReflectionFunction($closure);
 
         return md5($reflection->getFileName().$reflection->getStartLine().$reflection->getEndLine().$label);
     }

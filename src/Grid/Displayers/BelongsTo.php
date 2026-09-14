@@ -4,6 +4,7 @@ namespace Encore\Admin\Grid\Displayers;
 
 use Encore\Admin\Admin;
 use Encore\Admin\Grid\Selectable;
+use InvalidArgumentException;
 
 class BelongsTo extends AbstractDisplayer
 {
@@ -37,7 +38,7 @@ class BelongsTo extends AbstractDisplayer
     public function display($selectable = null, $column = '')
     {
         if (!class_exists($selectable) || !is_subclass_of($selectable, Selectable::class)) {
-            throw new \InvalidArgumentException(
+            throw new InvalidArgumentException(
                 "[Class [{$selectable}] must be a sub class of Encore\Admin\Grid\Selectable"
             );
         }

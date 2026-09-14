@@ -10,6 +10,7 @@ use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
+use InvalidArgumentException;
 
 /**
  * Class Filter.
@@ -631,7 +632,7 @@ class Filter implements Renderable
     public static function extend($name, $filterClass)
     {
         if (!is_subclass_of($filterClass, AbstractFilter::class)) {
-            throw new \InvalidArgumentException("The class [$filterClass] must be a type of ".AbstractFilter::class.'.');
+            throw new InvalidArgumentException("The class [$filterClass] must be a type of ".AbstractFilter::class.'.');
         }
 
         static::$supports[$name] = $filterClass;

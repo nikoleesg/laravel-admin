@@ -2,6 +2,7 @@
 
 namespace Encore\Admin\Form\Field;
 
+use Exception;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany as HasManyRelation;
 use Illuminate\Support\Arr;
@@ -44,7 +45,7 @@ class MultipleSelect extends Select
             }
         }
 
-        throw new \Exception('Column of this field must be a `BelongsToMany` or `HasMany` relation.');
+        throw new Exception('Column of this field must be a `BelongsToMany` or `HasMany` relation.');
     }
 
     /**

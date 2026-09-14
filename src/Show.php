@@ -20,6 +20,7 @@ use Illuminate\Database\Eloquent\Relations\Relation as EloquentRelation;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
+use InvalidArgumentException;
 
 class Show implements Renderable
 {
@@ -469,7 +470,7 @@ class Show implements Renderable
                 return $this->addRelation($method, $arguments[1], $arguments[0]);
             }
 
-            throw new \InvalidArgumentException('Invalid eloquent relation');
+            throw new InvalidArgumentException('Invalid eloquent relation');
         }
 
         return false;

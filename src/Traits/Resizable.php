@@ -2,6 +2,7 @@
 
 namespace Encore\Admin\Traits;
 
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 trait Resizable
@@ -26,7 +27,7 @@ trait Resizable
 
         $thumbnail = $this->getThumbnail($image, $type);
 
-        return \Illuminate\Support\Facades\Storage::disk(config('admin.upload.disk'))->exists($thumbnail) ? $thumbnail : $image;
+        return Storage::disk(config('admin.upload.disk'))->exists($thumbnail) ? $thumbnail : $image;
     }
 
     /**
