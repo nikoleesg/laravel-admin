@@ -258,5 +258,17 @@ All extensions can be configured in `config/admin.php`:
     'timestamp-between' => [
         'enable' => true,
     ],
+
+    // Merged into the daterangepicker JS options of every ->daterangepicker() field.
+    'daterangepicker' => [
+        'config' => [],
+    ],
+
+    // Merged into the DataTables JS options of every Widgets\DataTable.
+    'data-table' => [
+        'options' => [],
+    ],
 ],
 ```
+
+These keys are shipped in the package's `config/admin.php`, so a freshly published config already contains them. If your app's `config/admin.php` was published from an earlier version, add the block above (or just the keys you need) — the code falls back to the same defaults when a key is missing.
