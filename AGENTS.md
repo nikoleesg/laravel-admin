@@ -40,14 +40,15 @@ composer update
 
 ### Code Style
 
-This project does not have a configured linter. Code should follow PSR standards and match the existing codebase style.
+The linter is `laravel/pint` (default preset, no `pint.json`). Run `./vendor/bin/pint --test` to check and `./vendor/bin/pint` to fix. Code should follow PSR standards and match the existing codebase style.
 
 ## Code Style Guidelines
 
 ### PHP Version and Requirements
 
-- Minimum PHP 7.0.0
-- Laravel >= 5.5
+- PHP `^8.3`
+- Laravel `^11.0 || ^12.0`
+- `composer.json` is the source of truth for requirements
 
 ### Namespace and Autoloading
 
@@ -177,7 +178,7 @@ public function grid($model, Closure $callable)
 
 ### Type Declarations
 
-- Use return type hints when possible (PHP 7.0+)
+- Use return type hints when possible
 - Use nullable types with `?` for optional parameters
 - Use docblocks for complex type hints
 
@@ -307,12 +308,12 @@ tests/
 
 ## Important Notes
 
-- This package requires a Laravel application to run tests
-- Database tests require MySQL configuration (see `tests/TestCase.php`)
+- Tests boot a Laravel application via `CreatesApplicationTrait` (see `tests/TestCase.php`)
+- Tests run against an in-memory SQLite database (`:memory:`); no database server is needed
 - Uses `laravel/browser-kit-testing` for feature tests
 - Version: 1.8.17
 
 ## Known Issues
 
 - Tests use backward-compatible BrowserKit-style methods (see `tests/TestCase.php`)
-- Database tests require MySQL configuration (see `tests/TestCase.php`)
+- `phpunit.xml.dist` sets `stopOnFailure="true"`, so a run halts at the first failure

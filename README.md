@@ -14,32 +14,19 @@
 </p>
 
 <p align="center">
-    <a href="https://travis-ci.org/z-song/laravel-admin">
-        <img src="https://travis-ci.org/z-song/laravel-admin.svg?branch=master" alt="Build Status">
+    <a href="https://packagist.org/packages/nikoleesg/laravel-admin">
+        <img src="https://img.shields.io/packagist/l/nikoleesg/laravel-admin.svg?style=flat-square" alt="License">
     </a>
-    <a href="https://styleci.io/repos/48796179">
-        <img src="https://styleci.io/repos/48796179/shield" alt="StyleCI">
+    <a href="https://packagist.org/packages/nikoleesg/laravel-admin">
+        <img src="https://img.shields.io/packagist/dt/nikoleesg/laravel-admin.svg?style=flat-square" alt="Total Downloads">
     </a>
-    <a href="https://packagist.org/packages/encore/laravel-admin">
-        <img src="https://img.shields.io/packagist/l/encore/laravel-admin.svg?maxAge=2592000&&style=flat-square" alt="Packagist">
-    </a>
-    <a href="https://packagist.org/packages/encore/laravel-admin">
-        <img src="https://img.shields.io/packagist/dt/encore/laravel-admin.svg?style=flat-square" alt="Total Downloads">
-    </a>
-    <a href="https://github.com/z-song/laravel-admin">
-        <img src="https://img.shields.io/badge/Awesome-Laravel-brightgreen.svg?style=flat-square" alt="Awesome Laravel">
-    </a>
-    <a href="#backers" alt="sponsors on Open Collective">
-        <img src="https://opencollective.com/laravel-admin/backers/badge.svg?style=flat-square" />
-    </a> 
-    <a href="https://www.paypal.me/zousong" alt="Paypal donate">
-        <img src="https://img.shields.io/badge/Donate-Paypal-green.svg?style=flat-square" />
-    </a> 
-</div>
+</p>
 
 <p align="center">
     Inspired by <a href="https://github.com/sleeping-owl/admin" target="_blank">SleepingOwlAdmin</a> and <a href="https://github.com/zofe/rapyd-laravel" target="_blank">rapyd-laravel</a>.
 </p>
+
+> **About this fork.** `nikoleesg/laravel-admin` is a maintained fork of [`z-song/laravel-admin`](https://github.com/z-song/laravel-admin), which has been unmaintained since early 2023. It targets current PHP and Laravel releases and inlines several of the upstream extensions (see [Fork enhancements](#fork-enhancements)). The PHP namespace remains `Encore\Admin`, and the package `replace`s `encore/laravel-admin`, so existing code keeps working.
 
 Sponsor
 ------------
@@ -51,8 +38,8 @@ Sponsor
 
 Requirements
 ------------
- - PHP >= 7.0.0
- - Laravel >= 5.5.0
+ - PHP >= 8.3
+ - Laravel 11 or 12
  - Fileinfo PHP Extension
 
 ### Optional Features
@@ -62,12 +49,10 @@ Requirements
 Installation
 ------------
 
-> This package requires PHP 7+ and Laravel 5.5, for old versions please refer to [1.4](https://laravel-admin.org/docs/v1.4/#/)
-
-First, install laravel 5.5, and make sure that the database connection settings are correct.
+First, install Laravel (11 or 12) and make sure that the database connection settings are correct.
 
 ```
-composer require encore/laravel-admin
+composer require nikoleesg/laravel-admin
 ```
 
 Then run these commands to publish assets and config：
@@ -90,11 +75,32 @@ The file `config/admin.php` contains an array of configurations, you can find th
 
 Right to left support
 ------------
-just go to this path `<YOUR_PROJECT_PATH>\vendor\encore\laravel-admin\src\Traits\HasAssets.php` and modify `$baseCss` array for loading right to left (rtl) version of bootstap and AdminLTE css files.    
+just go to this path `<YOUR_PROJECT_PATH>\vendor\nikoleesg\laravel-admin\src\Traits\HasAssets.php` and modify `$baseCss` array for loading right to left (rtl) version of bootstap and AdminLTE css files.    
 **bootstrap.min.css** change it to **bootstrap.rtl.min.css**    
 **AdminLTE.min.css** change it to **AdminLTE.rtl.min.css**  
 
+## Fork enhancements
+
+The following upstream extensions are built into this fork and need no separate `composer require`. They are configured (and, where applicable, toggled) under the `extensions` key of `config/admin.php`.
+
+- **Grid**: `$grid->sortable()` for drag-and-drop row ordering (models implementing `spatie/eloquent-sortable`); image columns `->lightbox()` / `->gallery()` (grid-lightbox).
+- **Form**: `$form->daterangepicker()` and `$form->dateRange()` fields (daterangepicker).
+- **Filter**: `$filter->timestampBetween()` for unix-timestamp columns.
+- **Widgets**: `Widgets\DataTable` (data-table).
+- **Administrator model**: single-table inheritance via `tightenco/parental`, plus extra profile columns (`first_name`, `last_name`, `gender`, `lat`, `lng`, …) and generated avatars via `laravolt/avatar`.
+
+Development
+------------
+
+```bash
+composer install
+composer test              # phpunit, SQLite :memory: — no database server needed
+./vendor/bin/pint --test   # check code style (laravel/pint)
+```
+
 ## Extensions
+
+The upstream extensions below were written for `z-song/laravel-admin` 1.x; most still work with this fork, but they are not maintained here.
 
 | Extension                                        | Description                              | laravel-admin                              |
 | ------------------------------------------------ | ---------------------------------------- |---------------------------------------- |

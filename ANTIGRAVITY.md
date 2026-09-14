@@ -23,7 +23,7 @@ This fork has integrated several enhancements natively. When developing, you MUS
 When modifying Grid, Form, Show, or related components, verify that these native extensions are not broken by structural or layout changes.
 
 ## 3. Code Style & Architecture Guidelines
-- **Framework Compatibility**: The minimum requirements are PHP 7.0+ and Laravel 5.5+.
+- **Framework Compatibility**: PHP `^8.3` and Laravel `^11.0 || ^12.0` (see `composer.json`).
 - **Namespacing**: Follow PSR-4 inside `src/` mapped to `Encore\Admin\`.
 - **Assets & Views**: 
   - Views are located in `resources/views`. Use Laravel Blade syntax.
@@ -34,7 +34,7 @@ When modifying Grid, Form, Show, or related components, verify that these native
 ## 4. Testing
 - Run tests via `composer test` or `./vendor/bin/phpunit`.
 - The package uses `laravel/browser-kit-testing` for feature tests. Backward-compatible BrowserKit methods (`visit()`, `see()`, etc.) are heavily utilized in `tests/`.
-- **MySQL Requirement**: Database tests require a valid MySQL configuration. Test classes extend `Tests\TestCase` which handles Laravel bootstrapping.
+- **Database**: Tests run against an in-memory SQLite database (`:memory:`); no database server is needed. Test classes extend `Tests\TestCase` which handles Laravel bootstrapping.
 
 ## 5. Contribution & Workflow
 - Break large changes into smaller, logical chunks.

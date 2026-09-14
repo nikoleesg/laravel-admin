@@ -8,4 +8,5 @@ composer.lock
 .php_cs.cache
 .vscode/
 .antigravitycli/
+.omo/
 .phpunit.result.cache
