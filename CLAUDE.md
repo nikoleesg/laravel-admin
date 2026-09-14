@@ -14,14 +14,14 @@ Despite the vendor name, the PHP namespace is still `Encore\Admin\` (mapped to `
 
 ## Branching & development workflow
 
-Remotes: `origin` = this fork (`github.com/nikoleesg/laravel-admin`, push here); `upstream` = `github.com/z-song/laravel-admin` (pull updates here only).
+The only remote is `origin` (`github.com/nikoleesg/laravel-admin`). This fork is **detached from upstream**: `z-song/laravel-admin` has been unmaintained since early 2023 and nothing is pulled from it any more. Do not add an `upstream` remote, do not merge or cherry-pick from z-song, and do not recreate a `master` branch.
 
 Branches and their roles:
-- `master` — pristine mirror of z-song's `master` (tracks `upstream/master`); never developed on directly.
 - `main` — the release branch; what apps/Packagist install via `dev-main`. Default branch on the fork.
 - `dev` — where all development happens.
+- `<type>/<topic>` — short-lived branches off `dev` for a single fix or feature (e.g. `fix/grid-sort-validation`, `chore/dependabot-config`); merged back into `dev` and deleted.
 
-**All new work goes on `dev`.** When a change is done and tested:
+**All new work goes on `dev`** (directly, or via a topic branch). When a change is done and tested:
 
 ```bash
 git checkout main && git merge --ff-only dev   # main must stay a fast-forward of dev
@@ -29,14 +29,7 @@ git push origin main
 git push origin dev
 ```
 
-**Absorbing upstream (z-song) changes:**
-
-```bash
-git checkout master && git pull upstream master   # refresh the mirror
-git checkout dev && git merge master              # bring upstream changes into dev
-```
-
-Do not push `master` to `origin` — it carries z-song's full history (including long-public dummy test credentials in old commits) and would be rejected by GitHub push protection; it exists only as a local upstream mirror.
+History note: `dev`/`main` carry a *rewritten* copy of the upstream history (test credentials scrubbed). Those commits share no usable merge base with z-song's real `master`, which is why merging from upstream is not an option — a merge would drag the original credential-bearing commits into `dev` and be rejected by GitHub push protection.
 
 ## Requirements & tooling
 
