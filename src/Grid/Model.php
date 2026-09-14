@@ -37,6 +37,12 @@ class Model
     protected $queries;
 
     /**
+     * Accepted `_sort[cast]` values: a bare SQL type name, optionally with
+     * numeric length/precision arguments (e.g. `decimal(10,2)`, `char(8)`).
+     */
+    protected const CAST_PATTERN = '/^\s*(?:(?:signed|unsigned)(?:\s+(?:int|integer))?|binary|char|nchar|varchar|text|decimal|numeric|double|float|real|int|integer|date|datetime|time|year|json)(?:\s*\(\s*\d{1,3}(?:\s*,\s*\d{1,3})?\s*\))?\s*$/i';
+
+    /**
      * Sort parameters of the model.
      *
      * @var array
@@ -515,15 +521,12 @@ class Model
      */
     protected function setSort()
     {
-        $this->sort = \request($this->sortName, []);
-        if (!is_array($this->sort)) {
+        $this->sort = $this->validSort(\request($this->sortName, []));
+        if (empty($this->sort)) {
             return;
         }
 
-        $columnName = $this->sort['column'] ?? null;
-        if ($columnName === null || empty($this->sort['type'])) {
-            return;
-        }
+        $columnName = $this->sort['column'];
 
         $columnNameContainsDots = Str::contains($columnName, '.');
         $isRelation = $this->queries->contains(function ($query) use ($columnName) {
@@ -541,13 +544,16 @@ class Model
                 //json
                 $this->resetOrderBy();
                 $explodedCols = explode('.', $this->sort['column']);
-                $col = array_shift($explodedCols);
+                $col = $this->model->getConnection()->getQueryGrammar()->wrap(array_shift($explodedCols));
                 $parts = implode('.', $explodedCols);
                 $columnName = "JSON_EXTRACT({$col}, '$.{$parts}')";
             }
 
             // get column. if contains "cast", set set column as cast
             if (!empty($this->sort['cast'])) {
+                if (!$columnNameContainsDots) {
+                    $columnName = $this->model->getConnection()->getQueryGrammar()->wrap($columnName);
+                }
                 $column = "CAST({$columnName} AS {$this->sort['cast']}) {$this->sort['type']}";
                 $method = 'orderByRaw';
                 $arguments = [$column];
@@ -562,6 +568,48 @@ class Model
                 'arguments' => $arguments,
             ]);
         }
+    }
+
+    /**
+     * Validate the raw `_sort` request input.
+     *
+     * Every part of it ends up in SQL (`orderBy`, `orderByRaw`, `JSON_EXTRACT`,
+     * `CAST`), so anything not matching the expected shape is dropped and the
+     * grid falls back to its default ordering.
+     *
+     * @param mixed $sort
+     *
+     * @return array
+     */
+    protected function validSort($sort)
+    {
+        if (!is_array($sort)) {
+            return [];
+        }
+
+        $column = $sort['column'] ?? null;
+        $type = $sort['type'] ?? null;
+        $cast = $sort['cast'] ?? null;
+
+        if (!is_string($column) || !preg_match('/^[A-Za-z0-9_]+(\.[A-Za-z0-9_]+)*$/', $column)) {
+            return [];
+        }
+
+        if (!is_string($type) || !in_array($type = strtolower($type), ['asc', 'desc'], true)) {
+            return [];
+        }
+
+        $valid = ['column' => $column, 'type' => $type];
+
+        if ($cast !== null && $cast !== '') {
+            if (!is_string($cast) || !preg_match(static::CAST_PATTERN, $cast)) {
+                return [];
+            }
+
+            $valid['cast'] = strtoupper(preg_replace('/\s+/', ' ', trim($cast)));
+        }
+
+        return $valid;
     }
 
     /**
