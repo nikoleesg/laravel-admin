@@ -35,12 +35,18 @@ class GeneratedAvatar
 
     /**
      * PNG bytes for the given name, rendered on first use and cached forever.
+     *
+     * The cache holds the image base64-encoded: raw PNG bytes are not valid
+     * UTF-8 and text-backed stores (the MySQL `cache` table, for one) reject
+     * them.
      */
     public static function png(string $name): string
     {
-        return Cache::rememberForever(static::cacheKey($name), function () use ($name) {
-            return static::render($name);
+        $encoded = Cache::rememberForever(static::cacheKey($name), function () use ($name) {
+            return base64_encode(static::render($name));
         });
+
+        return base64_decode($encoded);
     }
 
     /**

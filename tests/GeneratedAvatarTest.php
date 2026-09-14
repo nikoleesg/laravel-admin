@@ -38,6 +38,12 @@ class GeneratedAvatarTest extends TestCase
 
         $this->assertTrue(Cache::has(GeneratedAvatar::cacheKey($user->name)));
         $this->assertSame($response->getContent(), GeneratedAvatar::png($user->name));
+
+        // Text-backed cache stores (e.g. the MySQL `cache` table) reject raw
+        // binary, so the cached value must be plain ASCII.
+        $cached = Cache::get(GeneratedAvatar::cacheKey($user->name));
+        $this->assertMatchesRegularExpression('/^[A-Za-z0-9+\/=]+$/', $cached);
+        $this->assertSame($response->getContent(), base64_decode($cached));
     }
 
     public function testAvatarRouteRequiresAuthentication()
