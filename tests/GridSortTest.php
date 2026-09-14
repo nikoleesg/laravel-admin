@@ -2,6 +2,7 @@
 
 use Encore\Admin\Auth\Database\Administrator;
 use Encore\Admin\Grid;
+use PHPUnit\Framework\Attributes\DataProvider;
 use Tests\Models\Profile as ProfileModel;
 use Tests\Models\User as UserModel;
 
@@ -81,10 +82,9 @@ class GridSortTest extends TestCase
     }
 
     /**
-     * @dataProvider malformedSortProvider
-     *
      * @param mixed $sort
      */
+    #[DataProvider('malformedSortProvider')]
     public function testMalformedSortIsIgnored($sort)
     {
         $sql = $this->sortSql($sort);

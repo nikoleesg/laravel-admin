@@ -316,4 +316,4 @@ tests/
 ## Known Issues
 
 - Tests use backward-compatible BrowserKit-style methods (see `tests/TestCase.php`)
-- `phpunit.xml.dist` sets `stopOnFailure="true"`, so a run halts at the first failure
+- the suite runs to completion; pass `--stop-on-failure` to halt at the first failure

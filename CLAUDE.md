@@ -49,7 +49,7 @@ composer test                             # run the full suite (./vendor/bin/php
 ./vendor/bin/pint --test                  # check formatting without writing
 ```
 
-Note: `phpunit.xml.dist` sets `stopOnFailure="true"`, so the run halts at the first failure.
+Note: the suite runs to completion; pass `--stop-on-failure` to halt at the first failure.
 
 ## Testing model (important — differs from older docs)
 

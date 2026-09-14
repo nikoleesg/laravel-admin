@@ -6,6 +6,7 @@ use Encore\Admin\Grid\Column;
 use Encore\Admin\Grid\Displayers\Lightbox;
 use Encore\Admin\Widgets\Box;
 use Illuminate\Support\HtmlString;
+use PHPUnit\Framework\Attributes\DataProvider;
 use Tests\Models\User as UserModel;
 
 /**
@@ -47,9 +48,7 @@ class EscapedTitlesTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider titleViews
-     */
+    #[DataProvider('titleViews')]
     public function testTitleIsEscaped($view, array $data)
     {
         $html = view($view, $data + ['title' => $this->payload])->render();
@@ -58,9 +57,7 @@ class EscapedTitlesTest extends TestCase
         $this->assertStringNotContainsString($this->payload, $html);
     }
 
-    /**
-     * @dataProvider titleViews
-     */
+    #[DataProvider('titleViews')]
     public function testHtmlStringTitleIsLeftIntact($view, array $data)
     {
         $html = view($view, $data + ['title' => new HtmlString($this->safeHtml)])->render();
@@ -88,9 +85,7 @@ class EscapedTitlesTest extends TestCase
         $this->assertStringNotContainsString($this->payload, $html);
     }
 
-    /**
-     * @dataProvider gridViews
-     */
+    #[DataProvider('gridViews')]
     public function testGridTitleIsEscaped($fixed)
     {
         $grid = new Grid(new UserModel);

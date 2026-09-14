@@ -86,9 +86,6 @@ abstract class TestCase extends BaseTestCase
         }
 
         parent::tearDown();
-
-        restore_error_handler();
-        restore_exception_handler();
     }
 
     public function migrateTestTables()
