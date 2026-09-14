@@ -35,7 +35,7 @@ class FileUploadTest extends TestCase
             ->attach(__DIR__.'/AuthTest.php', 'file1')
             ->attach(__DIR__.'/InstallTest.php', 'file2')
             ->attach(__DIR__.'/IndexTest.php', 'file3')
-            ->attach(__DIR__.'/LaravelTest.php', 'file4')
+            ->attach(__DIR__.'/UsersTest.php', 'file4')
             ->attach(__DIR__.'/routes.php', 'file5')
             ->attach(__DIR__.'/migrations/2016_11_22_093148_create_test_tables.php', 'file6')
             ->press('Submit');
@@ -54,7 +54,7 @@ class FileUploadTest extends TestCase
             'file1' => 'files/AuthTest.php',
             'file2' => 'files/InstallTest.php',
             'file3' => 'files/IndexTest.php',
-            'file4' => 'files/LaravelTest.php',
+            'file4' => 'files/UsersTest.php',
             'file5' => 'files/routes.php',
             'file6' => 'files/2016_11_22_093148_create_test_tables.php',
         ];

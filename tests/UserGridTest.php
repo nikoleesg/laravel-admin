@@ -141,17 +141,21 @@ class UserGridTest extends TestCase
     {
         $this->seedsTable(50);
 
-        $this->visit('admin/users')
-            ->see('Users');
+        // Faker never produces this fragment, so the matching set is exactly
+        // the usernames set here and the grid can never come back empty.
+        $needle = 'zqx';
 
-        $this->assertCount(50, UserModel::all());
-        $this->assertCount(50, ProfileModel::all());
+        foreach ([3 => 'zqx.alpha', 17 => 'Beta_ZQX', 42 => 'gamma-zqx-42'] as $id => $username) {
+            UserModel::where('id', $id)->update(['username' => $username]);
+        }
 
-        $users = UserModel::where('username', 'like', '%mi%')->get();
+        $users = UserModel::where('username', 'like', "%{$needle}%")->get();
 
-        $this->visit('admin/users?username=mi');
+        $this->assertCount(3, $users);
 
-        $this->assertCount($this->crawler()->filter('table tr')->count() - 1, $users);
+        $this->visit('admin/users?username='.$needle);
+
+        $this->assertCount(3, $this->crawler()->filter('td a i[class*=fa-edit]'));
 
         foreach ($users as $user) {
             $this->seeInElement('td', $user->username);

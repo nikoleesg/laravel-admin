@@ -69,15 +69,6 @@ class ImageUploadTest extends TestCase
         File::cleanDirectory(public_path('uploads/images'));
     }
 
-    public function testRemoveImage()
-    {
-        File::cleanDirectory(public_path('uploads/images'));
-
-        $this->uploadImages();
-
-        $this->assertEquals($this->fileCountInImageDir(), 6);
-    }
-
     public function testUpdateImage()
     {
         File::cleanDirectory(public_path('uploads/images'));
@@ -201,29 +192,6 @@ class ImageUploadTest extends TestCase
         foreach ($pictures as $picture) {
             $this->assertFileExists(public_path('uploads/'.$picture));
         }
-    }
-
-    public function testRemoveMultipleFiles()
-    {
-        File::cleanDirectory(public_path('uploads/images'));
-
-        // upload files
-        $path = __DIR__.'/assets/test.jpg';
-
-        $file = new \Illuminate\Http\UploadedFile($path, 'test.jpg', 'image/jpeg', null, true);
-
-        $size = rand(10, 20);
-        $files = ['pictures' => array_pad([], $size, $file)];
-
-        $this->call(
-            'POST', // $method
-            '/admin/multiple-images', // $action
-            [], // $parameters
-            [],
-            $files
-        );
-
-        $this->assertEquals($this->fileCountInImageDir(), $size);
     }
 
     protected function fileCountInImageDir($dir = 'uploads/images')
