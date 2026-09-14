@@ -53,7 +53,27 @@ class Administrator extends Model implements AuthenticatableContract
         'description',
     ];
 
-    protected string $typeColumn = 'type';
+    /**
+     * Column that Parental reads to resolve a row into a child class.
+     *
+     * @var string
+     */
+    protected $childColumn = 'type';
+
+    /**
+     * Single-table-inheritance map for `admin.database.user_types`.
+     *
+     * Keys are the short aliases stored in the `type` column, values are the
+     * child classes (each must extend this model and use `Parental\HasParent`).
+     * When a value in `type` is not present in the map, Parental treats it as a
+     * fully-qualified class name; `null` resolves to this base model.
+     *
+     * @return array<string, class-string<static>>
+     */
+    public function childTypes(): array
+    {
+        return config('admin.database.user_types', []);
+    }
 
     /**
      * Create a new Eloquent model instance.

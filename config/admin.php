@@ -179,6 +179,14 @@ return [
         'users_table' => 'admin_users',
         'users_model' => Encore\Admin\Auth\Database\Administrator::class ,
 
+        // Single-table-inheritance map for the users model (tightenco/parental).
+        // Keys are the aliases stored in the users table `type` column, values
+        // are child classes that extend the users model and use Parental\HasParent.
+        // A `type` value not present here is treated as a fully-qualified class name.
+        'user_types' => [
+            // 'manager' => App\Models\Admin\Manager::class,
+        ],
+
         // Role table and model.
         'roles_table' => 'admin_roles',
         'roles_model' => Encore\Admin\Auth\Database\Role::class ,
