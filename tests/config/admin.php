@@ -159,6 +159,17 @@ return [
      * Settings for extensions.
      */
     'extensions' => [
-
+        'grid-lightbox' => [
+            'enable' => true,
+        ],
+        'timestamp-between' => [
+            'enable' => true,
+        ],
+        'daterangepicker' => [
+            'config' => [],
+        ],
+        'data-table' => [
+            'options' => [],
+        ],
     ],
 ];
