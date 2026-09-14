@@ -2,12 +2,16 @@
 
 namespace Encore\Admin;
 
+use Encore\Admin\Grid\Filter;
+use Encore\Admin\Grid\Filter\TimestampBetween;
 use Encore\Admin\Layout\Content;
 use Illuminate\Routing\Router;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Str;
+use Illuminate\View\Compilers\BladeCompiler;
+use ReflectionClass;
 
 class AdminServiceProvider extends ServiceProvider
 {
@@ -119,7 +123,7 @@ class AdminServiceProvider extends ServiceProvider
             return;
         }
 
-        \Encore\Admin\Grid\Filter::extend('timestampBetween', \Encore\Admin\Grid\Filter\TimestampBetween::class);
+        Filter::extend('timestampBetween', TimestampBetween::class);
     }
 
     /**
@@ -159,7 +163,7 @@ class AdminServiceProvider extends ServiceProvider
      */
     protected function compatibleBlade()
     {
-        $reflectionClass = new \ReflectionClass('\Illuminate\View\Compilers\BladeCompiler');
+        $reflectionClass = new ReflectionClass(BladeCompiler::class);
 
         if ($reflectionClass->hasMethod('withoutDoubleEncoding')) {
             Blade::withoutDoubleEncoding();
