@@ -400,11 +400,37 @@ return [
      | Settings for extensions.
      |--------------------------------------------------------------------------
      |
-     | You can find all available extensions here
-     | https://github.com/laravel-admin-extensions.
+     | Third-party extensions (https://github.com/laravel-admin-extensions)
+     | read their settings from `admin.extensions.<name>`.
+     |
+     | The entries below belong to the extensions that ship natively with this
+     | package. Every key is optional; the values shown are the defaults the
+     | code falls back to when the key is missing.
      |
      */
     'extensions' => [
+
+        // Grid column ->lightbox() / ->gallery() (magnific-popup assets).
+        'grid-lightbox' => [
+            'enable' => true,
+        ],
+
+        // Grid filter ->timestampBetween() for unix-timestamp columns.
+        'timestamp-between' => [
+            'enable' => true,
+        ],
+
+        // Form field ->daterangepicker(). `config` is merged into the
+        // daterangepicker JS options for every field.
+        'daterangepicker' => [
+            'config' => [],
+        ],
+
+        // Widgets\DataTable. `options` is merged into the DataTables JS
+        // options for every widget (e.g. ['language' => 'chinese']).
+        'data-table' => [
+            'options' => [],
+        ],
 
     ],
 ];
