@@ -174,33 +174,7 @@ $grid->datatable();
 
 ---
 
-### 4. Latlong Picker
-
-Select latitude and longitude on a map (Google Map & Amap only).
-
-**Form Usage:**
-```php
-$form->latlong('latitude', 'longitude', 'Position');
-
-// With options
-$form->latlong('latitude', 'longitude', 'Position')->height(500);
-$form->latlong('latitude', 'longitude', 'Position')->zoom(16);
-```
-
-**Show Page Usage:**
-```php
-$show->field('Position')->latlong('lat_column', 'long_column', $height = 400, $zoom = 16);
-```
-
-**Configuration (.env):**
-```env
-GOOGLE_API_KEY=your_google_api_key
-AMAP_API_KEY=your_amap_api_key
-```
-
----
-
-### 5. Grid Lightbox & Gallery
+### 4. Grid Lightbox & Gallery
 
 Display images in a lightbox or gallery view.
 
@@ -219,7 +193,7 @@ $grid->picture()->lightbox(['class' => 'rounded']);
 
 ---
 
-### 6. Timestamp Between Filter
+### 5. Timestamp Between Filter
 
 Filter by date range with timestamp conversion.
 
@@ -237,19 +211,6 @@ All extensions can be configured in `config/admin.php`:
 
 ```php
 'extensions' => [
-
-    'latlong' => [
-        'enable' => true,
-        'default' => 'google',
-        'providers' => [
-            'google' => [
-                'api_key' => env('GOOGLE_API_KEY', ''),
-            ],
-            'amap' => [
-                'api_key' => env('AMAP_API_KEY', ''),
-            ],
-        ],
-    ],
 
     'grid-lightbox' => [
         'enable' => true,

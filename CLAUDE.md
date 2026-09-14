@@ -89,7 +89,7 @@ This fork inlines several upstream "extensions" directly into the package. When 
 
 - **STI** on the `Administrator` model via `tightenco/parental`, plus extra profile columns (`first_name`, `last_name`, `gender`, `lat`, `lng`, …).
 - Grid: `->sortable()`, `->datatable()`, `->dateRange()`, picture `->lightbox()` (grid-lightbox; assets registered in the provider).
-- Form/Show: `->latlong()` picker (`src/Latlong/`), DateRangePicker.
+- Form: `->daterangepicker()` / `->dateRange()` (DateRangePicker).
 - Filter: `->timestampBetween()` — registered via `Grid\Filter::extend('timestampBetween', ...)` and gated by `config('admin.extensions.timestamp-between.enable')`. Grid-lightbox is likewise gated by `config('admin.extensions.grid-lightbox.enable')`.
 
 These toggles live under the `extensions` key of `config/admin.php`. New self-contained features should follow the same pattern: register conditionally in the provider, default-on, with a config gate.

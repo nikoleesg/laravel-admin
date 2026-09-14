@@ -118,7 +118,6 @@ The **Model form** and **Data form** draw from the *same* field registry (`Form:
 | `list` | ✅ | ✅ | ❌ | |
 | `timezone` | ✅ | ✅ | ❌ | |
 | `embeds` | ✅ | ⚠️ `no model` | ❌ | No model → nothing to bind |
-| `latlong` | ✅ | ✅ | ❌ | Fork-specific field |
 
 ### Relations · need an Eloquent model
 

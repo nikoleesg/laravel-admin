@@ -17,7 +17,6 @@ This fork has integrated several enhancements natively. When developing, you MUS
   - **Grid Sortable** (`->sortable()`)
   - **DateRangePicker** (`->dateRange()`)
   - **DataTable** (`->datatable()`)
-  - **Latlong Picker** (`->latlong()`)
   - **Grid Lightbox & Gallery** (`->picture()->lightbox()`)
   - **Timestamp Between Filter** (`->timestampBetween()`)
 
