@@ -13,6 +13,11 @@ trait CreatesApplicationTrait
 
         $app->make(\Illuminate\Contracts\Console\Kernel::class)->bootstrap();
 
+        // Start from a clean admin directory so `admin:install` in setUp()
+        // regenerates the stubs, and the provider does not register a stale
+        // routes.php at boot before the test config has been applied.
+        $app['files']->deleteDirectory($app['config']->get('admin.directory', app_path('Admin')));
+
         $app->register(\Encore\Admin\AdminServiceProvider::class);
 
         return $app;

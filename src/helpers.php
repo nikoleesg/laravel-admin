@@ -322,10 +322,18 @@ if (!function_exists('json_encode_options')) {
 }
 
 if (!function_exists('admin_get_route')) {
+    /**
+     * Get the name of a package route.
+     *
+     * Package routes are always named `admin.*` regardless of the URL prefix
+     * configured in `admin.route.prefix`, so the two must not be coupled.
+     *
+     * @param string $name
+     *
+     * @return string
+     */
     function admin_get_route(string $name): string
     {
-        $adminPrefix = config('admin.route.prefix') ?: 'admin';
-
-        return $adminPrefix.'.'.$name;
+        return 'admin.'.$name;
     }
 }
