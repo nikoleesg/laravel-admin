@@ -51,6 +51,8 @@ composer test                             # run the full suite (./vendor/bin/php
 
 Note: the suite runs to completion; pass `--stop-on-failure` to halt at the first failure.
 
+CI (`.github/workflows/tests.yml`) runs `composer test` on PHP 8.3/8.4 × Laravel 11/12 and `pint --test` on every push to `dev`/`main` and every PR. Keep both green before merging to `main`.
+
 ## Testing model (important — differs from older docs)
 
 `tests/TestCase.php` is the real reference. It boots a Laravel app via `CreatesApplicationTrait`, runs against a **SQLite `:memory:` database** (NOT MySQL, despite what `AGENTS.md`/`ANTIGRAVITY.md` say), and on each `setUp()`:

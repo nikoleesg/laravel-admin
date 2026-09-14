@@ -10,3 +10,5 @@
 /CONTRIBUTING.md    export-ignore
 /FUNDING.yml        export-ignore
 /phpunit.xml.dist   export-ignore
+/pint.json          export-ignore
+/.git-blame-ignore-revs export-ignore

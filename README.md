@@ -14,6 +14,9 @@
 </p>
 
 <p align="center">
+    <a href="https://github.com/nikoleesg/laravel-admin/actions/workflows/tests.yml">
+        <img src="https://img.shields.io/github/actions/workflow/status/nikoleesg/laravel-admin/tests.yml?branch=main&style=flat-square" alt="Tests">
+    </a>
     <a href="https://packagist.org/packages/nikoleesg/laravel-admin">
         <img src="https://img.shields.io/packagist/l/nikoleesg/laravel-admin.svg?style=flat-square" alt="License">
     </a>
