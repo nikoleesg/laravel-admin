@@ -4,7 +4,9 @@ namespace Encore\Admin\Form\Field;
 
 use Encore\Admin\Form;
 use Encore\Admin\Form\Field;
+use Illuminate\Contracts\View\Factory;
 use Illuminate\Support\Arr;
+use Illuminate\View\View;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 class MultipleFile extends Field
@@ -34,8 +36,8 @@ class MultipleFile extends Field
     /**
      * Create a new File instance.
      *
-     * @param string $column
-     * @param array  $arguments
+     * @param  string  $column
+     * @param  array  $arguments
      */
     public function __construct($column, $arguments = [])
     {
@@ -69,13 +71,13 @@ class MultipleFile extends Field
 
         $attributes = [];
 
-        if (!$fieldRules = $this->getRules()) {
+        if (! $fieldRules = $this->getRules()) {
             return false;
         }
 
         $attributes[$this->column] = $this->label;
 
-        list($rules, $input) = $this->hydrateFiles(Arr::get($input, $this->column, []));
+        [$rules, $input] = $this->hydrateFiles(Arr::get($input, $this->column, []));
 
         return \validator($input, $rules, $this->getValidationMessages(), $attributes);
     }
@@ -83,7 +85,6 @@ class MultipleFile extends Field
     /**
      * Hydrate the files array.
      *
-     * @param array $value
      *
      * @return array
      */
@@ -106,8 +107,7 @@ class MultipleFile extends Field
     /**
      * Sort files.
      *
-     * @param string $order
-     *
+     * @param  string  $order
      * @return array
      */
     protected function sortFiles($order)
@@ -127,8 +127,7 @@ class MultipleFile extends Field
     /**
      * Prepare for saving.
      *
-     * @param UploadedFile|array $files
-     *
+     * @param  UploadedFile|array  $files
      * @return mixed|string
      */
     public function prepare($files)
@@ -172,7 +171,6 @@ class MultipleFile extends Field
     /**
      * Prepare for each file.
      *
-     * @param UploadedFile $file
      *
      * @return mixed|string
      */
@@ -200,8 +198,7 @@ class MultipleFile extends Field
     /**
      * Initialize the caption.
      *
-     * @param array $caption
-     *
+     * @param  array  $caption
      * @return string
      */
     protected function initialCaption($caption)
@@ -232,7 +229,7 @@ class MultipleFile extends Field
 
             $preview = array_merge([
                 'caption' => basename($file),
-                'key'     => $index,
+                'key' => $index,
             ], $this->guessPreviewType($file));
 
             $config[] = $preview;
@@ -268,7 +265,7 @@ class MultipleFile extends Field
     }
 
     /**
-     * @param string $options
+     * @param  string  $options
      */
     protected function setupScripts($options)
     {
@@ -278,9 +275,9 @@ EOT;
 
         if ($this->fileActionSettings['showRemove']) {
             $text = [
-                'title'   => trans('admin.delete_confirm'),
+                'title' => trans('admin.delete_confirm'),
                 'confirm' => trans('admin.confirm'),
-                'cancel'  => trans('admin.cancel'),
+                'cancel' => trans('admin.cancel'),
             ];
 
             $this->script .= <<<EOT
@@ -311,7 +308,7 @@ EOT;
 
         if ($this->fileActionSettings['showDrag']) {
             $this->addVariables([
-                'sortable'  => true,
+                'sortable' => true,
                 'sort_flag' => static::FILE_SORT_FLAG,
             ]);
 
@@ -333,7 +330,7 @@ EOT;
     /**
      * Render file upload field.
      *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     public function render()
     {
@@ -341,7 +338,7 @@ EOT;
 
         $this->setupDefaultOptions();
 
-        if (!empty($this->value)) {
+        if (! empty($this->value)) {
             $this->options(['initialPreview' => $this->preview()]);
             $this->setupPreviewOptions();
         }
@@ -356,8 +353,7 @@ EOT;
     /**
      * Destroy original files.
      *
-     * @param string $key
-     *
+     * @param  string  $key
      * @return array
      */
     public function destroy($key)
@@ -366,7 +362,7 @@ EOT;
 
         $path = Arr::get($files, $key);
 
-        if (!$this->retainable && $this->storage->exists($path)) {
+        if (! $this->retainable && $this->storage->exists($path)) {
             /* If this field class is using ImageField trait i.e MultipleImage field,
             we loop through the thumbnails to delete them as well. */
 
@@ -386,8 +382,7 @@ EOT;
     /**
      * Destroy original files from hasmany related model.
      *
-     * @param int $key
-     *
+     * @param  int  $key
      * @return array
      */
     public function destroyFromHasMany($key)
@@ -396,7 +391,7 @@ EOT;
 
         $path = Arr::get($files, "{$key}.{$this->pathColumn}");
 
-        if (!$this->retainable && $this->storage->exists($path)) {
+        if (! $this->retainable && $this->storage->exists($path)) {
             $this->storage->delete($path);
         }
 

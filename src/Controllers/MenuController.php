@@ -9,6 +9,7 @@ use Encore\Admin\Layout\Row;
 use Encore\Admin\Tree;
 use Encore\Admin\Widgets\Box;
 use Encore\Admin\Widgets\Form as WidgetForm;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Routing\Controller;
 
 class MenuController extends Controller
@@ -18,7 +19,6 @@ class MenuController extends Controller
     /**
      * Index interface.
      *
-     * @param Content $content
      *
      * @return Content
      */
@@ -31,7 +31,7 @@ class MenuController extends Controller
                 $row->column(6, $this->treeView()->render());
 
                 $row->column(6, function (Column $column) {
-                    $form = new WidgetForm();
+                    $form = new WidgetForm;
                     $form->action(admin_url('auth/menu'));
 
                     $menuModel = config('admin.database.menu_model');
@@ -43,7 +43,7 @@ class MenuController extends Controller
                     $form->icon('icon', trans('admin.icon'))->default('fa-bars')->rules('required')->help($this->iconHelp());
                     $form->text('uri', trans('admin.uri'));
                     $form->multipleSelect('roles', trans('admin.roles'))->options($roleModel::all()->pluck('name', 'id'));
-                    if ((new $menuModel())->withPermission()) {
+                    if ((new $menuModel)->withPermission()) {
                         $form->select('permission', trans('admin.permission'))->options($permissionModel::pluck('name', 'slug'));
                     }
                     $form->hidden('_token')->default(csrf_token());
@@ -56,9 +56,8 @@ class MenuController extends Controller
     /**
      * Redirect to edit page.
      *
-     * @param int $id
-     *
-     * @return \Illuminate\Http\RedirectResponse
+     * @param  int  $id
+     * @return RedirectResponse
      */
     public function show($id)
     {
@@ -66,20 +65,20 @@ class MenuController extends Controller
     }
 
     /**
-     * @return \Encore\Admin\Tree
+     * @return Tree
      */
     protected function treeView()
     {
         $menuModel = config('admin.database.menu_model');
 
-        $tree = new Tree(new $menuModel());
+        $tree = new Tree(new $menuModel);
 
         $tree->disableCreate();
 
         $tree->branch(function ($branch) {
             $payload = "<i class='fa {$branch['icon']}'></i>&nbsp;<strong>{$branch['title']}</strong>";
 
-            if (!isset($branch['children'])) {
+            if (! isset($branch['children'])) {
                 if (url()->isValidUrl($branch['uri'])) {
                     $uri = $branch['uri'];
                 } else {
@@ -98,9 +97,7 @@ class MenuController extends Controller
     /**
      * Edit interface.
      *
-     * @param string  $id
-     * @param Content $content
-     *
+     * @param  string  $id
      * @return Content
      */
     public function edit($id, Content $content)
@@ -122,7 +119,7 @@ class MenuController extends Controller
         $permissionModel = config('admin.database.permissions_model');
         $roleModel = config('admin.database.roles_model');
 
-        $form = new Form(new $menuModel());
+        $form = new Form(new $menuModel);
 
         $form->display('id', 'ID');
 

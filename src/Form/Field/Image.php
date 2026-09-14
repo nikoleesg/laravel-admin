@@ -21,8 +21,7 @@ class Image extends File
     protected $rules = 'image';
 
     /**
-     * @param array|UploadedFile $image
-     *
+     * @param  array|UploadedFile  $image
      * @return string
      */
     public function prepare($image)
@@ -49,7 +48,6 @@ class Image extends File
     /**
      * force file type to image.
      *
-     * @param $file
      *
      * @return array|bool|int[]|string[]
      */

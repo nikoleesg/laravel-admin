@@ -33,9 +33,9 @@ class ControllerCommand extends MakeCommand
     }
 
     /**
-     * @throws \ReflectionException
-     *
      * @return string
+     *
+     * @throws \ReflectionException
      */
     protected function getControllerName()
     {

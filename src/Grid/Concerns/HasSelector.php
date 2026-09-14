@@ -4,6 +4,8 @@ namespace Encore\Admin\Grid\Concerns;
 
 use Encore\Admin\Grid;
 use Encore\Admin\Grid\Tools\Selector;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\View\View;
 
 /**
  * @mixin Grid
@@ -16,13 +18,11 @@ trait HasSelector
     protected $selector;
 
     /**
-     * @param \Closure $closure
-     *
      * @return $this
      */
     public function selector(\Closure $closure)
     {
-        $this->selector = new Selector();
+        $this->selector = new Selector;
 
         call_user_func($closure, $this->selector);
 
@@ -47,7 +47,7 @@ trait HasSelector
         $active = Selector::parseSelected();
 
         $this->selector->getSelectors()->each(function ($selector, $column) use ($active) {
-            if (!array_key_exists($column, $active)) {
+            if (! array_key_exists($column, $active)) {
                 return;
             }
 
@@ -70,7 +70,7 @@ trait HasSelector
     /**
      * Render grid selector.
      *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View|string
+     * @return Factory|View|string
      */
     public function renderSelector()
     {

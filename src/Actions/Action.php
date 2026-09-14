@@ -98,7 +98,7 @@ abstract class Action implements Renderable
     }
 
     /**
-     * @throws \Exception
+     * @throws Exception
      */
     protected function initInteractor()
     {
@@ -397,7 +397,7 @@ SCRIPT;
      * @param  array  $arguments
      * @return mixed
      *
-     * @throws \Exception
+     * @throws Exception
      */
     public function __call($method, $arguments = [])
     {

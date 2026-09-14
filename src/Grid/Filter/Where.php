@@ -24,9 +24,8 @@ class Where extends AbstractFilter
     /**
      * Where constructor.
      *
-     * @param \Closure $query
-     * @param string   $label
-     * @param string   $column
+     * @param  string  $label
+     * @param  string  $column
      */
     public function __construct(\Closure $query, $label, $column = null)
     {
@@ -42,9 +41,7 @@ class Where extends AbstractFilter
     /**
      * Get the hash string of query closure.
      *
-     * @param \Closure $closure
-     * @param string   $label
-     *
+     * @param  string  $label
      * @return string
      */
     public static function getQueryHash(\Closure $closure, $label = '')
@@ -57,8 +54,7 @@ class Where extends AbstractFilter
     /**
      * Get condition of this filter.
      *
-     * @param array $inputs
-     *
+     * @param  array  $inputs
      * @return array|mixed|void
      */
     public function condition($inputs)

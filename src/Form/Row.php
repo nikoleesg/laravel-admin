@@ -4,6 +4,8 @@ namespace Encore\Admin\Form;
 
 use Encore\Admin\Form;
 use Illuminate\Contracts\Support\Renderable;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\View\View;
 
 class Row implements Renderable
 {
@@ -37,9 +39,6 @@ class Row implements Renderable
 
     /**
      * Row constructor.
-     *
-     * @param \Closure $callback
-     * @param Form     $form
      */
     public function __construct(\Closure $callback, Form $form)
     {
@@ -63,8 +62,7 @@ class Row implements Renderable
     /**
      * Set width for a incomming field.
      *
-     * @param int $width
-     *
+     * @param  int  $width
      * @return $this
      */
     public function width($width = 12)
@@ -77,7 +75,7 @@ class Row implements Renderable
     /**
      * Render the row.
      *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     public function render()
     {
@@ -87,9 +85,8 @@ class Row implements Renderable
     /**
      * Add field.
      *
-     * @param string $method
-     * @param array  $arguments
-     *
+     * @param  string  $method
+     * @param  array  $arguments
      * @return Field|void
      */
     public function __call($method, $arguments)
@@ -99,7 +96,7 @@ class Row implements Renderable
         $field->disableHorizontal();
 
         $this->fields[] = [
-            'width'   => $this->defaultFieldWidth,
+            'width' => $this->defaultFieldWidth,
             'element' => $field,
         ];
 

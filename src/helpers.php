@@ -1,16 +1,16 @@
 <?php
 
+use Illuminate\Contracts\Translation\Translator;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\MessageBag;
 
-if (!function_exists('admin_path')) {
+if (! function_exists('admin_path')) {
 
     /**
      * Get admin path.
      *
-     * @param string $path
-     *
+     * @param  string  $path
      * @return string
      */
     function admin_path($path = '')
@@ -19,14 +19,13 @@ if (!function_exists('admin_path')) {
     }
 }
 
-if (!function_exists('admin_url')) {
+if (! function_exists('admin_url')) {
     /**
      * Get admin url.
      *
-     * @param string $path
-     * @param mixed  $parameters
-     * @param bool   $secure
-     *
+     * @param  string  $path
+     * @param  mixed  $parameters
+     * @param  bool  $secure
      * @return string
      */
     function admin_url($path = '', $parameters = [], $secure = null)
@@ -41,12 +40,11 @@ if (!function_exists('admin_url')) {
     }
 }
 
-if (!function_exists('admin_base_path')) {
+if (! function_exists('admin_base_path')) {
     /**
      * Get admin url.
      *
-     * @param string $path
-     *
+     * @param  string  $path
      * @return string
      */
     function admin_base_path($path = '')
@@ -65,14 +63,14 @@ if (!function_exists('admin_base_path')) {
     }
 }
 
-if (!function_exists('admin_toastr')) {
+if (! function_exists('admin_toastr')) {
 
     /**
      * Flash a toastr message bag to session.
      *
-     * @param string $message
-     * @param string $type
-     * @param array  $options
+     * @param  string  $message
+     * @param  string  $type
+     * @param  array  $options
      */
     function admin_toastr($message = '', $type = 'success', $options = [])
     {
@@ -82,13 +80,13 @@ if (!function_exists('admin_toastr')) {
     }
 }
 
-if (!function_exists('admin_success')) {
+if (! function_exists('admin_success')) {
 
     /**
      * Flash a success message bag to session.
      *
-     * @param string $title
-     * @param string $message
+     * @param  string  $title
+     * @param  string  $message
      */
     function admin_success($title, $message = '')
     {
@@ -96,13 +94,13 @@ if (!function_exists('admin_success')) {
     }
 }
 
-if (!function_exists('admin_error')) {
+if (! function_exists('admin_error')) {
 
     /**
      * Flash a error message bag to session.
      *
-     * @param string $title
-     * @param string $message
+     * @param  string  $title
+     * @param  string  $message
      */
     function admin_error($title, $message = '')
     {
@@ -110,13 +108,13 @@ if (!function_exists('admin_error')) {
     }
 }
 
-if (!function_exists('admin_warning')) {
+if (! function_exists('admin_warning')) {
 
     /**
      * Flash a warning message bag to session.
      *
-     * @param string $title
-     * @param string $message
+     * @param  string  $title
+     * @param  string  $message
      */
     function admin_warning($title, $message = '')
     {
@@ -124,14 +122,14 @@ if (!function_exists('admin_warning')) {
     }
 }
 
-if (!function_exists('admin_info')) {
+if (! function_exists('admin_info')) {
 
     /**
      * Flash a message bag to session.
      *
-     * @param string $title
-     * @param string $message
-     * @param string $type
+     * @param  string  $title
+     * @param  string  $message
+     * @param  string  $type
      */
     function admin_info($title, $message = '', $type = 'info')
     {
@@ -141,11 +139,9 @@ if (!function_exists('admin_info')) {
     }
 }
 
-if (!function_exists('admin_asset')) {
+if (! function_exists('admin_asset')) {
 
     /**
-     * @param $path
-     *
      * @return string
      */
     function admin_asset($path)
@@ -154,22 +150,21 @@ if (!function_exists('admin_asset')) {
     }
 }
 
-if (!function_exists('admin_trans')) {
+if (! function_exists('admin_trans')) {
 
     /**
      * Translate the given message.
      *
-     * @param string $key
-     * @param array  $replace
-     * @param string $locale
-     *
-     * @return \Illuminate\Contracts\Translation\Translator|string|array|null
+     * @param  string  $key
+     * @param  array  $replace
+     * @param  string  $locale
+     * @return Translator|string|array|null
      */
     function admin_trans($key = null, $replace = [], $locale = null)
     {
         $line = __($key, $replace, $locale);
 
-        if (!is_string($line)) {
+        if (! is_string($line)) {
             return $key;
         }
 
@@ -177,13 +172,13 @@ if (!function_exists('admin_trans')) {
     }
 }
 
-if (!function_exists('array_delete')) {
+if (! function_exists('array_delete')) {
 
     /**
      * Delete from array by value.
      *
-     * @param array $array
-     * @param mixed $value
+     * @param  array  $array
+     * @param  mixed  $value
      */
     function array_delete(&$array, $value)
     {
@@ -197,14 +192,12 @@ if (!function_exists('array_delete')) {
     }
 }
 
-if (!function_exists('class_uses_deep')) {
+if (! function_exists('class_uses_deep')) {
 
     /**
      * To get ALL traits including those used by parent classes and other traits.
      *
-     * @param $class
-     * @param bool $autoload
-     *
+     * @param  bool  $autoload
      * @return array
      */
     function class_uses_deep($class, $autoload = true)
@@ -223,11 +216,9 @@ if (!function_exists('class_uses_deep')) {
     }
 }
 
-if (!function_exists('admin_dump')) {
+if (! function_exists('admin_dump')) {
 
     /**
-     * @param $var
-     *
      * @return string
      */
     function admin_dump($var)
@@ -244,13 +235,12 @@ if (!function_exists('admin_dump')) {
     }
 }
 
-if (!function_exists('file_size')) {
+if (! function_exists('file_size')) {
 
     /**
      * Convert file size to a human readable format like `100mb`.
      *
-     * @param int $bytes
-     *
+     * @param  int  $bytes
      * @return string
      *
      * @see https://stackoverflow.com/a/5501447/9443583
@@ -275,11 +265,9 @@ if (!function_exists('file_size')) {
     }
 }
 
-if (!function_exists('prepare_options')) {
+if (! function_exists('prepare_options')) {
 
     /**
-     * @param array $options
-     *
      * @return array
      */
     function prepare_options(array $options)
@@ -304,11 +292,9 @@ if (!function_exists('prepare_options')) {
     }
 }
 
-if (!function_exists('json_encode_options')) {
+if (! function_exists('json_encode_options')) {
 
     /**
-     * @param array $options
-     *
      * @return string
      *
      * @see http://web.archive.org/web/20080828165256/http://solutoire.com/2008/06/12/sending-javascript-functions-over-json/
@@ -323,16 +309,12 @@ if (!function_exists('json_encode_options')) {
     }
 }
 
-if (!function_exists('admin_get_route')) {
+if (! function_exists('admin_get_route')) {
     /**
      * Get the name of a package route.
      *
      * Package routes are always named `admin.*` regardless of the URL prefix
      * configured in `admin.route.prefix`, so the two must not be coupled.
-     *
-     * @param string $name
-     *
-     * @return string
      */
     function admin_get_route(string $name): string
     {

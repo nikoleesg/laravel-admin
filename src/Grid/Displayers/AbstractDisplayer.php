@@ -5,6 +5,7 @@ namespace Encore\Admin\Grid\Displayers;
 use Encore\Admin\Grid;
 use Encore\Admin\Grid\Column;
 use Illuminate\Database\Eloquent\Model;
+use Symfony\Component\Translation\TranslatorInterface;
 
 abstract class AbstractDisplayer
 {
@@ -31,10 +32,8 @@ abstract class AbstractDisplayer
     /**
      * Create a new displayer instance.
      *
-     * @param mixed     $value
-     * @param Grid      $grid
-     * @param Column    $column
-     * @param \stdClass $row
+     * @param  mixed  $value
+     * @param  \stdClass  $row
      */
     public function __construct($value, Grid $grid, Column $column, $row)
     {
@@ -79,8 +78,7 @@ abstract class AbstractDisplayer
     }
 
     /**
-     * @param mixed $key
-     *
+     * @param  mixed  $key
      * @return mixed
      */
     public function getAttribute($key)
@@ -131,9 +129,8 @@ abstract class AbstractDisplayer
     /**
      * Get translation.
      *
-     * @param string $text
-     *
-     * @return string|\Symfony\Component\Translation\TranslatorInterface
+     * @param  string  $text
+     * @return string|TranslatorInterface
      */
     protected function trans($text)
     {

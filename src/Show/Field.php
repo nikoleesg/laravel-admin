@@ -93,23 +93,23 @@ class Field implements Renderable
      * @var array
      */
     protected $fileTypes = [
-        'image'      => 'png|jpg|jpeg|tmp|gif',
-        'word'       => 'doc|docx',
-        'excel'      => 'xls|xlsx|csv',
+        'image' => 'png|jpg|jpeg|tmp|gif',
+        'word' => 'doc|docx',
+        'excel' => 'xls|xlsx|csv',
         'powerpoint' => 'ppt|pptx',
-        'pdf'        => 'pdf',
-        'code'       => 'php|js|java|python|ruby|go|c|cpp|sql|m|h|json|html|aspx',
-        'archive'    => 'zip|tar\.gz|rar|rpm',
-        'txt'        => 'txt|pac|log|md',
-        'audio'      => 'mp3|wav|flac|3pg|aa|aac|ape|au|m4a|mpc|ogg',
-        'video'      => 'mkv|rmvb|flv|mp4|avi|wmv|rm|asf|mpeg',
+        'pdf' => 'pdf',
+        'code' => 'php|js|java|python|ruby|go|c|cpp|sql|m|h|json|html|aspx',
+        'archive' => 'zip|tar\.gz|rar|rpm',
+        'txt' => 'txt|pac|log|md',
+        'audio' => 'mp3|wav|flac|3pg|aa|aac|ape|au|m4a|mpc|ogg',
+        'video' => 'mkv|rmvb|flv|mp4|avi|wmv|rm|asf|mpeg',
     ];
 
     /**
      * Field constructor.
      *
-     * @param string $name
-     * @param string $label
+     * @param  string  $name
+     * @param  string  $label
      */
     public function __construct($name = '', $label = '')
     {
@@ -117,13 +117,12 @@ class Field implements Renderable
 
         $this->label = $this->formatLabel($label);
 
-        $this->showAs = new Collection();
+        $this->showAs = new Collection;
     }
 
     /**
      * Set parent show instance.
      *
-     * @param Show $show
      *
      * @return $this
      */
@@ -147,7 +146,6 @@ class Field implements Renderable
     /**
      * Format label.
      *
-     * @param $label
      *
      * @return mixed
      */
@@ -171,7 +169,6 @@ class Field implements Renderable
     /**
      * Field display callback.
      *
-     * @param callable $callable
      *
      * @return $this
      */
@@ -185,9 +182,7 @@ class Field implements Renderable
     /**
      * Display field using array value map.
      *
-     * @param array $values
-     * @param null  $default
-     *
+     * @param  null  $default
      * @return $this
      */
     public function using(array $values, $default = null)
@@ -204,10 +199,9 @@ class Field implements Renderable
     /**
      * Show field as a image.
      *
-     * @param string $server
-     * @param int    $width
-     * @param int    $height
-     *
+     * @param  string  $server
+     * @param  int  $width
+     * @param  int  $height
      * @return $this
      */
     public function image($server = '', $width = 200, $height = 200)
@@ -240,10 +234,9 @@ class Field implements Renderable
     /**
      * Show field as a carousel.
      *
-     * @param int    $width
-     * @param int    $height
-     * @param string $server
-     *
+     * @param  int  $width
+     * @param  int  $height
+     * @param  string  $server
      * @return Field
      */
     public function carousel($width = 300, $height = 200, $server = '')
@@ -280,9 +273,8 @@ class Field implements Renderable
     /**
      * Show field as a file.
      *
-     * @param string $server
-     * @param bool   $download
-     *
+     * @param  string  $server
+     * @param  bool  $download
      * @return Field
      */
     public function file($server = '', $download = true)
@@ -308,7 +300,7 @@ class Field implements Renderable
                 }
             }
 
-            if (!$url) {
+            if (! $url) {
                 return '';
             }
 
@@ -336,9 +328,8 @@ HTML;
     /**
      * Show field as a link.
      *
-     * @param string $href
-     * @param string $target
-     *
+     * @param  string  $href
+     * @param  string  $target
      * @return Field
      */
     public function link($href = '', $target = '_blank')
@@ -353,8 +344,7 @@ HTML;
     /**
      * Show field as labels.
      *
-     * @param string $style
-     *
+     * @param  string  $style
      * @return Field
      */
     public function label($style = 'success')
@@ -373,8 +363,7 @@ HTML;
     /**
      * Show field as badges.
      *
-     * @param string $style
-     *
+     * @param  string  $style
      * @return Field
      */
     public function badge($style = 'blue')
@@ -393,10 +382,9 @@ HTML;
     /**
      * Show field as number.
      *
-     * @param int    $decimals
-     * @param string $decimal_seperator
-     * @param string $thousands_seperator
-     *
+     * @param  int  $decimals
+     * @param  string  $decimal_seperator
+     * @param  string  $thousands_seperator
      * @return Field
      */
     public function number($decimals = 0, $decimal_seperator = '.', $thousands_seperator = ',')
@@ -447,8 +435,7 @@ HTML;
     /**
      * Get file icon.
      *
-     * @param string $file
-     *
+     * @param  string  $file
      * @return string
      */
     public function getFileIcon($file = '')
@@ -467,8 +454,7 @@ HTML;
     /**
      * Set escape or not for this field.
      *
-     * @param bool $escape
-     *
+     * @param  bool  $escape
      * @return $this
      */
     public function setEscape($escape = true)
@@ -491,14 +477,13 @@ HTML;
     /**
      * Set value for this field.
      *
-     * @param Model $model
      *
      * @return $this
      */
     public function setValue(Model $model)
     {
         if ($this->relation) {
-            if (!$relationValue = $model->{$this->relation}) {
+            if (! $relationValue = $model->{$this->relation}) {
                 return $this;
             }
 
@@ -517,8 +502,7 @@ HTML;
     /**
      * Set relation name for this field.
      *
-     * @param string $relation
-     *
+     * @param  string  $relation
      * @return $this
      */
     public function setRelation($relation)
@@ -529,14 +513,13 @@ HTML;
     }
 
     /**
-     * @param Model  $model
-     * @param string $name
-     *
+     * @param  Model  $model
+     * @param  string  $name
      * @return mixed
      */
     protected function getRelationValue($model, $name)
     {
-        list($relation, $key) = explode('.', $name);
+        [$relation, $key] = explode('.', $name);
 
         if ($related = $model->getRelationValue($relation)) {
             return $related->getAttribute($key);
@@ -546,9 +529,8 @@ HTML;
     /**
      * Set width for field and label.
      *
-     * @param int $field
-     * @param int $label
-     *
+     * @param  int  $field
+     * @param  int  $label
      * @return $this
      */
     public function setWidth($field = 8, $label = 2)
@@ -564,9 +546,8 @@ HTML;
     /**
      * Call extended field.
      *
-     * @param string|AbstractField|\Closure $abstract
-     * @param array                         $arguments
-     *
+     * @param  string|AbstractField|\Closure  $abstract
+     * @param  array  $arguments
      * @return Field
      */
     protected function callExtendedField($abstract, $arguments = [])
@@ -577,7 +558,7 @@ HTML;
 
         if (is_string($abstract) && class_exists($abstract)) {
             /** @var AbstractField $extend */
-            $extend = new $abstract();
+            $extend = new $abstract;
         }
 
         if ($abstract instanceof AbstractField) {
@@ -585,20 +566,20 @@ HTML;
             $extend = $abstract;
         }
 
-        if (!isset($extend)) {
+        if (! isset($extend)) {
             admin_warning("[$abstract] is not a valid Show field.");
 
             return $this;
         }
 
-        if (!$extend->escape) {
+        if (! $extend->escape) {
             $this->unescape();
         }
 
         $field = $this;
 
         return $this->as(function ($value) use ($extend, $field, $arguments) {
-            if (!$extend->border) {
+            if (! $extend->border) {
                 $field->border = false;
             }
 
@@ -609,9 +590,8 @@ HTML;
     }
 
     /**
-     * @param string $method
-     * @param array  $arguments
-     *
+     * @param  string  $method
+     * @param  array  $arguments
      * @return $this
      */
     public function __call($method, $arguments = [])
@@ -640,11 +620,11 @@ HTML;
     protected function variables()
     {
         return [
-            'content'   => $this->value,
-            'escape'    => $this->escape,
-            'label'     => $this->getLabel(),
-            'wrapped'   => $this->border,
-            'width'     => $this->width,
+            'content' => $this->value,
+            'escape' => $this->escape,
+            'label' => $this->getLabel(),
+            'wrapped' => $this->border,
+            'width' => $this->width,
         ];
     }
 

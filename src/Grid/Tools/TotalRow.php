@@ -3,9 +3,11 @@
 namespace Encore\Admin\Grid\Tools;
 
 use Encore\Admin\Grid\Column;
+use Illuminate\Contracts\View\Factory;
 use Illuminate\Database\Query\Builder;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
+use Illuminate\View\View;
 
 class TotalRow extends AbstractTool
 {
@@ -27,8 +29,7 @@ class TotalRow extends AbstractTool
     /**
      * TotalRow constructor.
      *
-     * @param Builder $query
-     * @param array   $columns
+     * @param  Builder  $query
      */
     public function __construct($query, array $columns)
     {
@@ -40,14 +41,13 @@ class TotalRow extends AbstractTool
     /**
      * Get total value of current column.
      *
-     * @param string $column
-     * @param mixed  $display
-     *
+     * @param  string  $column
+     * @param  mixed  $display
      * @return mixed
      */
     protected function total($column, $display = null)
     {
-        if (!is_callable($display) && !is_null($display)) {
+        if (! is_callable($display) && ! is_null($display)) {
             return $display;
         }
 
@@ -61,7 +61,7 @@ class TotalRow extends AbstractTool
     }
 
     /**
-     * @param Collection $columns
+     * @param  Collection  $columns
      */
     public function setVisibleColumns($columns)
     {
@@ -83,7 +83,7 @@ class TotalRow extends AbstractTool
     /**
      * Render total-row.
      *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     public function render()
     {

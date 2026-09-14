@@ -19,10 +19,7 @@ trait HasPermissions
     /**
      * Check if user has permission.
      *
-     * @param $ability
-     * @param array $arguments
-     *
-     * @return bool
+     * @param  array  $arguments
      */
     public function can($ability, $arguments = []): bool
     {
@@ -47,23 +44,17 @@ trait HasPermissions
      * Signature mirrors Illuminate\Foundation\Auth\Access\Authorizable so the
      * trait can override it on models extending Foundation\Auth\User.
      *
-     * @param $abilities
-     * @param array $arguments
-     *
-     * @return bool
+     * @param  array  $arguments
      */
     public function cannot($abilities, $arguments = []): bool
     {
-        return !$this->can($abilities, $arguments);
+        return ! $this->can($abilities, $arguments);
     }
 
     /**
      * Alias of cannot(), matching Authorizable::cant().
      *
-     * @param $abilities
-     * @param array $arguments
-     *
-     * @return bool
+     * @param  array  $arguments
      */
     public function cant($abilities, $arguments = []): bool
     {
@@ -83,7 +74,6 @@ trait HasPermissions
     /**
      * Check if user is $role.
      *
-     * @param string $role
      *
      * @return mixed
      */
@@ -95,7 +85,6 @@ trait HasPermissions
     /**
      * Check if user in $roles.
      *
-     * @param array $roles
      *
      * @return mixed
      */
@@ -106,10 +95,6 @@ trait HasPermissions
 
     /**
      * If visible for roles.
-     *
-     * @param $roles
-     *
-     * @return bool
      */
     public function visible(array $roles = []): bool
     {

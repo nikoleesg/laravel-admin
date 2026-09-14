@@ -75,14 +75,12 @@ class Tags extends Field
     /**
      * Set visible column and key of data.
      *
-     * @param $visibleColumn
-     * @param $key
      *
      * @return $this
      */
     public function pluck($visibleColumn, $key)
     {
-        if (!empty($visibleColumn) && !empty($key)) {
+        if (! empty($visibleColumn) && ! empty($key)) {
             $this->keyAsValue = true;
         }
 
@@ -95,13 +93,12 @@ class Tags extends Field
     /**
      * Set the field options.
      *
-     * @param array|Collection|Arrayable $options
-     *
+     * @param  array|Collection|Arrayable  $options
      * @return $this|Field
      */
     public function options($options = [])
     {
-        if (!$this->keyAsValue) {
+        if (! $this->keyAsValue) {
             return parent::options($options);
         }
 
@@ -121,8 +118,7 @@ class Tags extends Field
     /**
      * Set Tag Separators.
      *
-     * @param array $separators
-     *
+     * @param  array  $separators
      * @return $this
      */
     public function separators($separators = [])
@@ -130,7 +126,7 @@ class Tags extends Field
         if ($separators instanceof Collection or $separators instanceof Arrayable) {
             $separators = $separators->toArray();
         }
-        if (!empty($separators)) {
+        if (! empty($separators)) {
             $this->separators = $separators;
         }
 
@@ -140,7 +136,6 @@ class Tags extends Field
     /**
      * Set save Action.
      *
-     * @param \Closure $saveAction
      *
      * @return $this
      */
@@ -162,7 +157,7 @@ class Tags extends Field
             return is_null($this->saveAction) ? $value : ($this->saveAction)($value);
         }
 
-        if (is_array($value) && !Arr::isAssoc($value)) {
+        if (is_array($value) && ! Arr::isAssoc($value)) {
             $value = implode(',', $value);
         }
 
@@ -172,8 +167,7 @@ class Tags extends Field
     /**
      * Get or set value for this field.
      *
-     * @param mixed $value
-     *
+     * @param  mixed  $value
      * @return $this|array|mixed
      */
     public function value($value = null)
@@ -192,7 +186,7 @@ class Tags extends Field
      */
     public function render()
     {
-        if (!$this->shouldRender()) {
+        if (! $this->shouldRender()) {
             return '';
         }
 
@@ -205,7 +199,7 @@ class Tags extends Field
         }
 
         return parent::fieldRender([
-            'options'    => $options,
+            'options' => $options,
             'keyAsValue' => $this->keyAsValue,
         ]);
     }

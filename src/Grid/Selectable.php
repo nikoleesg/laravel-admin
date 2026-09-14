@@ -46,9 +46,6 @@ abstract class Selectable
 
     /**
      * Selectable constructor.
-     *
-     * @param $key
-     * @param $multiple
      */
     public function __construct($multiple = false, $key = '')
     {
@@ -69,8 +66,7 @@ abstract class Selectable
     }
 
     /**
-     * @param bool $multiple
-     *
+     * @param  bool  $multiple
      * @return string
      */
     public function render()
@@ -115,12 +111,12 @@ abstract class Selectable
 
         $this->disableFeatures()->disableFilter();
 
-        if (!$this->multiple) {
+        if (! $this->multiple) {
             $this->disablePagination();
         }
 
         $this->tools(function (Tools $tools) {
-            $tools->append(new Grid\Selectable\BrowserBtn());
+            $tools->append(new Selectable\BrowserBtn);
         });
 
         return $this->grid;
@@ -142,24 +138,21 @@ BTN;
 
     protected function initGrid()
     {
-        if (!class_exists($this->model) || !is_subclass_of($this->model, Model::class)) {
+        if (! class_exists($this->model) || ! is_subclass_of($this->model, Model::class)) {
             throw new InvalidArgumentException("Invalid model [{$this->model}]");
         }
 
         /** @var Model $model */
-        $model = new $this->model();
+        $model = new $this->model;
 
-        $this->grid = new Grid(new $model());
+        $this->grid = new Grid(new $model);
 
-        if (!$this->key) {
+        if (! $this->key) {
             $this->key = $model->getKeyName();
         }
     }
 
     /**
-     * @param string $method
-     * @param array  $arguments
-     *
      * @return mixed
      */
     public function __call(string $method, array $arguments = [])

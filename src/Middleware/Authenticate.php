@@ -4,15 +4,14 @@ namespace Encore\Admin\Middleware;
 
 use Closure;
 use Encore\Admin\Facades\Admin;
+use Illuminate\Http\Request;
 
 class Authenticate
 {
     /**
      * Handle an incoming request.
      *
-     * @param \Illuminate\Http\Request $request
-     * @param \Closure                 $next
-     *
+     * @param  Request  $request
      * @return mixed
      */
     public function handle($request, Closure $next)
@@ -21,7 +20,7 @@ class Authenticate
 
         $redirectTo = admin_base_path(config('admin.auth.redirect_to', 'auth/login'));
 
-        if (Admin::guard()->guest() && !$this->shouldPassThrough($request)) {
+        if (Admin::guard()->guest() && ! $this->shouldPassThrough($request)) {
             return redirect()->to($redirectTo);
         }
 
@@ -31,8 +30,7 @@ class Authenticate
     /**
      * Determine if the request has a URI that should pass through verification.
      *
-     * @param \Illuminate\Http\Request $request
-     *
+     * @param  Request  $request
      * @return bool
      */
     protected function shouldPassThrough($request)

@@ -45,7 +45,6 @@ class Actions extends AbstractDisplayer
     /**
      * Append a action.
      *
-     * @param $action
      *
      * @return $this
      */
@@ -59,7 +58,6 @@ class Actions extends AbstractDisplayer
     /**
      * Prepend a action.
      *
-     * @param $action
      *
      * @return $this
      */
@@ -89,7 +87,7 @@ class Actions extends AbstractDisplayer
     {
         if ($disable) {
             array_delete($this->actions, 'view');
-        } elseif (!in_array('view', $this->actions)) {
+        } elseif (! in_array('view', $this->actions)) {
             array_push($this->actions, 'view');
         }
 
@@ -105,7 +103,7 @@ class Actions extends AbstractDisplayer
     {
         if ($disable) {
             array_delete($this->actions, 'delete');
-        } elseif (!in_array('delete', $this->actions)) {
+        } elseif (! in_array('delete', $this->actions)) {
             array_push($this->actions, 'delete');
         }
 
@@ -121,7 +119,7 @@ class Actions extends AbstractDisplayer
     {
         if ($disable) {
             array_delete($this->actions, 'edit');
-        } elseif (!in_array('edit', $this->actions)) {
+        } elseif (! in_array('edit', $this->actions)) {
             array_push($this->actions, 'edit');
         }
 
@@ -143,7 +141,6 @@ class Actions extends AbstractDisplayer
     /**
      * Set resource of current resource.
      *
-     * @param $resource
      *
      * @return $this
      */
@@ -237,8 +234,8 @@ EOT;
     {
         $trans = [
             'delete_confirm' => trans('admin.delete_confirm'),
-            'confirm'        => trans('admin.confirm'),
-            'cancel'         => trans('admin.cancel'),
+            'confirm' => trans('admin.confirm'),
+            'cancel' => trans('admin.cancel'),
         ];
 
         $trans = array_merge($trans, $this->trans);
@@ -293,8 +290,6 @@ SCRIPT;
 
     /**
      * diy delete translate.
-     *
-     * @param $tans
      */
     public function setTrans($tans)
     {

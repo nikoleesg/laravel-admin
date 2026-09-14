@@ -14,8 +14,6 @@ class ExportButton extends AbstractTool
 
     /**
      * Create a new Export button instance.
-     *
-     * @param Grid $grid
      */
     public function __construct(Grid $grid)
     {
@@ -54,16 +52,16 @@ SCRIPT;
      */
     public function render()
     {
-        if (!$this->grid->showExportBtn()) {
+        if (! $this->grid->showExportBtn()) {
             return '';
         }
 
         $this->setUpScripts();
 
         $trans = [
-            'export'        => trans('admin.export'),
-            'all'           => trans('admin.all'),
-            'current_page'  => trans('admin.current_page'),
+            'export' => trans('admin.export'),
+            'all' => trans('admin.all'),
+            'current_page' => trans('admin.current_page'),
             'selected_rows' => trans('admin.selected_rows'),
         ];
 

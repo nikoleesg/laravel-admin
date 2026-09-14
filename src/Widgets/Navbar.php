@@ -19,14 +19,12 @@ class Navbar implements Renderable
     public function __construct()
     {
         $this->elements = [
-            'left'  => collect(),
+            'left' => collect(),
             'right' => collect(),
         ];
     }
 
     /**
-     * @param $element
-     *
      * @return $this
      */
     public function left($element)
@@ -37,8 +35,6 @@ class Navbar implements Renderable
     }
 
     /**
-     * @param $element
-     *
      * @return $this
      */
     public function right($element)
@@ -49,8 +45,6 @@ class Navbar implements Renderable
     }
 
     /**
-     * @param $element
-     *
      * @return Navbar
      *
      * @deprecated
@@ -61,17 +55,16 @@ class Navbar implements Renderable
     }
 
     /**
-     * @param string $part
-     *
+     * @param  string  $part
      * @return mixed
      */
     public function render($part = 'right')
     {
         if ($part == 'right') {
-            $this->right(new RefreshButton());
+            $this->right(new RefreshButton);
         }
 
-        if (!isset($this->elements[$part]) || $this->elements[$part]->isEmpty()) {
+        if (! isset($this->elements[$part]) || $this->elements[$part]->isEmpty()) {
             return '';
         }
 

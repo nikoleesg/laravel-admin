@@ -10,6 +10,7 @@ class Tab extends Widget implements Renderable
     use ContainsForms;
 
     const TYPE_CONTENT = 1;
+
     const TYPE_LINK = 2;
 
     /**
@@ -21,11 +22,11 @@ class Tab extends Widget implements Renderable
      * @var array
      */
     protected $data = [
-        'id'       => '',
-        'title'    => '',
-        'tabs'     => [],
+        'id' => '',
+        'title' => '',
+        'tabs' => [],
         'dropDown' => [],
-        'active'   => 0,
+        'active' => 0,
     ];
 
     public function __construct()
@@ -36,20 +37,19 @@ class Tab extends Widget implements Renderable
     /**
      * Add a tab and its contents.
      *
-     * @param string            $title
-     * @param string|Renderable $content
-     * @param bool              $active
-     * @param string|null       $id
-     *
+     * @param  string  $title
+     * @param  string|Renderable  $content
+     * @param  bool  $active
+     * @param  string|null  $id
      * @return $this
      */
     public function add($title, $content, $active = false, $id = null)
     {
         $this->data['tabs'][] = [
-            'id'      => $id ?: mt_rand(),
-            'title'   => $title,
+            'id' => $id ?: mt_rand(),
+            'title' => $title,
             'content' => $content,
-            'type'    => static::TYPE_CONTENT,
+            'type' => static::TYPE_CONTENT,
         ];
 
         if ($active) {
@@ -62,19 +62,18 @@ class Tab extends Widget implements Renderable
     /**
      * Add a link on tab.
      *
-     * @param string $title
-     * @param string $href
-     * @param bool   $active
-     *
+     * @param  string  $title
+     * @param  string  $href
+     * @param  bool  $active
      * @return $this
      */
     public function addLink($title, $href, $active = false)
     {
         $this->data['tabs'][] = [
-            'id'      => mt_rand(),
-            'title'   => $title,
-            'href'    => $href,
-            'type'    => static::TYPE_LINK,
+            'id' => mt_rand(),
+            'title' => $title,
+            'href' => $href,
+            'type' => static::TYPE_LINK,
         ];
 
         if ($active) {
@@ -87,7 +86,7 @@ class Tab extends Widget implements Renderable
     /**
      * Set title.
      *
-     * @param string $title
+     * @param  string  $title
      */
     public function title($title = '')
     {
@@ -97,7 +96,6 @@ class Tab extends Widget implements Renderable
     /**
      * Set drop-down items.
      *
-     * @param array $links
      *
      * @return $this
      */

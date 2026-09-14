@@ -4,6 +4,8 @@ namespace Encore\Admin\Grid\Concerns;
 
 use Closure;
 use Encore\Admin\Grid\Tools\TotalRow;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\View\View;
 
 trait HasTotalRow
 {
@@ -13,9 +15,8 @@ trait HasTotalRow
     protected $totalRowColumns = [];
 
     /**
-     * @param string  $column
-     * @param Closure $callback
-     *
+     * @param  string  $column
+     * @param  Closure  $callback
      * @return $this
      */
     public function addTotalRow($column, $callback)
@@ -26,7 +27,7 @@ trait HasTotalRow
     }
 
     /**
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View|string
+     * @return Factory|View|string
      */
     public function renderTotalRow($columns = null)
     {

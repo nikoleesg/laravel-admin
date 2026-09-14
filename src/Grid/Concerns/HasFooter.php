@@ -15,13 +15,12 @@ trait HasFooter
     /**
      * Set grid footer.
      *
-     * @param Closure|null $closure
      *
      * @return $this|Closure
      */
     public function footer(?Closure $closure = null)
     {
-        if (!$closure) {
+        if (! $closure) {
             return $this->footer;
         }
 
@@ -37,7 +36,7 @@ trait HasFooter
      */
     public function renderFooter()
     {
-        if (!$this->footer) {
+        if (! $this->footer) {
             return '';
         }
 

@@ -3,12 +3,14 @@
 namespace Encore\Admin\Controllers;
 
 use Encore\Admin\Admin;
+use Illuminate\Contracts\View\Factory;
 use Illuminate\Support\Arr;
+use Illuminate\View\View;
 
 class Dashboard
 {
     /**
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     public static function title()
     {
@@ -16,7 +18,7 @@ class Dashboard
     }
 
     /**
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     public static function environment()
     {
@@ -41,7 +43,7 @@ class Dashboard
     }
 
     /**
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     public static function extensions()
     {
@@ -102,7 +104,7 @@ class Dashboard
     }
 
     /**
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     public static function dependencies()
     {

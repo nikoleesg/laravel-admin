@@ -25,7 +25,7 @@ class Editable extends AbstractDisplayer
      * @var array
      */
     protected $options = [
-        'emptytext'  => '<i class="fa fa-pencil"></i>',
+        'emptytext' => '<i class="fa fa-pencil"></i>',
     ];
 
     /**
@@ -36,7 +36,7 @@ class Editable extends AbstractDisplayer
     /**
      * Add options for editable.
      *
-     * @param array $options
+     * @param  array  $options
      */
     public function addOptions($options = [])
     {
@@ -46,7 +46,7 @@ class Editable extends AbstractDisplayer
     /**
      * Add attributes for editable.
      *
-     * @param array $attributes
+     * @param  array  $attributes
      */
     public function addAttributes($attributes = [])
     {
@@ -56,21 +56,17 @@ class Editable extends AbstractDisplayer
     /**
      * Text type editable.
      */
-    public function text()
-    {
-    }
+    public function text() {}
 
     /**
      * Textarea type editable.
      */
-    public function textarea()
-    {
-    }
+    public function textarea() {}
 
     /**
      * Select type editable.
      *
-     * @param array|\Closure $options
+     * @param  array|\Closure  $options
      */
     public function select($options = [])
     {
@@ -145,25 +141,22 @@ class Editable extends AbstractDisplayer
     /**
      * Combodate type editable.
      *
-     * @param string $format
+     * @param  string  $format
      */
     public function combodate($format = 'YYYY-MM-DD')
     {
         $this->type = 'combodate';
 
         $this->addOptions([
-            'format'     => $format,
+            'format' => $format,
             'viewformat' => $format,
-            'template'   => $format,
-            'combodate'  => [
+            'template' => $format,
+            'combodate' => [
                 'maxYear' => 2035,
             ],
         ]);
     }
 
-    /**
-     * @param array $arguments
-     */
     protected function buildEditableOptions(array $arguments = [])
     {
         $this->type = Arr::get($arguments, 0, 'text');
@@ -201,15 +194,15 @@ STR;
         $this->value = htmlentities($this->value ?? '');
 
         $attributes = [
-            'href'       => '#',
-            'class'      => "$class",
-            'data-type'  => $this->type,
-            'data-pk'    => "{$this->getKey()}",
-            'data-url'   => "{$this->getResource()}/{$this->getKey()}",
+            'href' => '#',
+            'class' => "$class",
+            'data-type' => $this->type,
+            'data-pk' => "{$this->getKey()}",
+            'data-url' => "{$this->getResource()}/{$this->getKey()}",
             'data-value' => "{$this->value}",
         ];
 
-        if (!empty($this->attributes)) {
+        if (! empty($this->attributes)) {
             $attributes = array_merge($attributes, $this->attributes);
         }
 

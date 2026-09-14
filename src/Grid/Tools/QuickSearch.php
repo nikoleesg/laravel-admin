@@ -3,7 +3,9 @@
 namespace Encore\Admin\Grid\Tools;
 
 use Encore\Admin\Grid\Concerns\HasQuickSearch;
+use Illuminate\Contracts\View\Factory;
 use Illuminate\Support\Arr;
+use Illuminate\View\View;
 
 class QuickSearch extends AbstractTool
 {
@@ -20,8 +22,7 @@ class QuickSearch extends AbstractTool
     /**
      * Set placeholder.
      *
-     * @param string $text
-     *
+     * @param  string  $text
      * @return $this
      */
     public function placeholder($text = '')
@@ -32,7 +33,7 @@ class QuickSearch extends AbstractTool
     }
 
     /**
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     public function render()
     {
@@ -41,9 +42,9 @@ class QuickSearch extends AbstractTool
         Arr::forget($query, HasQuickSearch::$searchKey);
 
         $vars = [
-            'action'      => request()->url().'?'.http_build_query($query),
-            'key'         => HasQuickSearch::$searchKey,
-            'value'       => request(HasQuickSearch::$searchKey),
+            'action' => request()->url().'?'.http_build_query($query),
+            'key' => HasQuickSearch::$searchKey,
+            'value' => request(HasQuickSearch::$searchKey),
             'placeholder' => $this->placeholder,
         ];
 

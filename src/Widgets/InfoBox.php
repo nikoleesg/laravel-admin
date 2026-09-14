@@ -19,11 +19,11 @@ class InfoBox extends Widget implements Renderable
     /**
      * InfoBox constructor.
      *
-     * @param string $name
-     * @param string $icon
-     * @param string $color
-     * @param string $link
-     * @param string $info
+     * @param  string  $name
+     * @param  string  $icon
+     * @param  string  $color
+     * @param  string  $link
+     * @param  string  $info
      */
     public function __construct($name, $icon, $color, $link, $info)
     {

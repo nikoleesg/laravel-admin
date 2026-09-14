@@ -31,8 +31,6 @@ class GenerateMenuCommand extends Command
 
     /**
      * Create a new command instance.
-     *
-     * @param Router $router
      */
     public function __construct(Router $router)
     {
@@ -51,13 +49,14 @@ class GenerateMenuCommand extends Command
         $prefix = config('admin.route.prefix');
         $routes = collect($this->router->getRoutes())->filter(function (Route $route) use ($prefix) {
             $uri = $route->uri();
+
             // built-in, parameterized and no-GET are ignored
             return Str::startsWith($uri, "{$prefix}/")
-                && !Str::startsWith($uri, "{$prefix}/auth/")
-                && !Str::endsWith($uri, '/create')
-                && !Str::contains($uri, '{')
+                && ! Str::startsWith($uri, "{$prefix}/auth/")
+                && ! Str::endsWith($uri, '/create')
+                && ! Str::contains($uri, '{')
                 && in_array('GET', $route->methods())
-                && !in_array(substr($route->uri(), strlen("{$prefix}/")), config('admin.menu_exclude'));
+                && ! in_array(substr($route->uri(), strlen("{$prefix}/")), config('admin.menu_exclude'));
         })
             ->map(function (Route $route) use ($prefix) {
                 $uri = substr($route->uri(), strlen("{$prefix}/"));
@@ -76,13 +75,13 @@ class GenerateMenuCommand extends Command
         $news = $routes->diffKeys($menus)->map(function ($item, $key) {
             return [
                 'title' => $item,
-                'uri'   => $key,
+                'uri' => $key,
                 'order' => 10,
-                'icon'  => 'fa-list',
+                'icon' => 'fa-list',
             ];
         })->values()->toArray();
 
-        if (!$news) {
+        if (! $news) {
             $this->error('No newly registered routes found.');
         } else {
             if ($this->hasOption('dry-run') && $this->option('dry-run')) {

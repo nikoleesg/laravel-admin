@@ -3,12 +3,13 @@
 namespace Encore\Admin\Actions;
 
 use Encore\Admin\Grid\Column;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 
 abstract class RowAction extends GridAction
 {
     /**
-     * @var \Illuminate\Database\Eloquent\Model
+     * @var Model
      */
     protected $row;
 
@@ -40,9 +41,8 @@ abstract class RowAction extends GridAction
     /**
      * Set row model.
      *
-     * @param mixed $key
-     *
-     * @return \Illuminate\Database\Eloquent\Model|mixed
+     * @param  mixed  $key
+     * @return Model|mixed
      */
     public function row($key = null)
     {
@@ -56,8 +56,7 @@ abstract class RowAction extends GridAction
     /**
      * Set row model.
      *
-     * @param \Illuminate\Database\Eloquent\Model $row
-     *
+     * @param  Model  $row
      * @return $this
      */
     public function setRow($row)
@@ -73,8 +72,6 @@ abstract class RowAction extends GridAction
     }
 
     /**
-     * @param Column $column
-     *
      * @return $this
      */
     public function setColumn(Column $column)
@@ -99,18 +96,14 @@ abstract class RowAction extends GridAction
     /**
      * @return string
      */
-    public function href()
-    {
-    }
+    public function href() {}
 
     /**
-     * @param Request $request
-     *
      * @return mixed
      */
     public function retrieveModel(Request $request)
     {
-        if (!$key = $request->get('_key')) {
+        if (! $key = $request->get('_key')) {
             return false;
         }
 
@@ -123,9 +116,7 @@ abstract class RowAction extends GridAction
         return $modelClass::findOrFail($key);
     }
 
-    public function display($value)
-    {
-    }
+    public function display($value) {}
 
     /**
      * Render row action.

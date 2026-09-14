@@ -15,8 +15,8 @@ class Table extends HasMany
     /**
      * Table constructor.
      *
-     * @param string $column
-     * @param array  $arguments
+     * @param  string  $column
+     * @param  array  $arguments
      */
     public function __construct($column, $arguments = [])
     {
@@ -28,7 +28,7 @@ class Table extends HasMany
         }
 
         if (count($arguments) == 2) {
-            list($this->label, $this->builder) = $arguments;
+            [$this->label, $this->builder] = $arguments;
         }
     }
 
@@ -37,9 +37,9 @@ class Table extends HasMany
      */
     protected function buildRelatedForms()
     {
-//        if (is_null($this->form)) {
-//            return [];
-//        }
+        //        if (is_null($this->form)) {
+        //            return [];
+        //        }
 
         $forms = [];
 

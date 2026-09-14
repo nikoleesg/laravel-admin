@@ -12,8 +12,7 @@ use Illuminate\Database\Eloquent\Model;
 trait Authorizable
 {
     /**
-     * @param Model $model
-     *
+     * @param  Model  $model
      * @return bool
      */
     public function passesAuthorization($model = null)

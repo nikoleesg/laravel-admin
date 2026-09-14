@@ -25,8 +25,6 @@ class QuickCreate implements Renderable
 
     /**
      * QuickCreate constructor.
-     *
-     * @param Grid $grid
      */
     public function __construct(Grid $grid)
     {
@@ -40,9 +38,8 @@ class QuickCreate implements Renderable
     }
 
     /**
-     * @param string $column
-     * @param string $placeholder
-     *
+     * @param  string  $column
+     * @param  string  $placeholder
      * @return Text
      */
     public function text($column, $placeholder = '')
@@ -55,9 +52,8 @@ class QuickCreate implements Renderable
     }
 
     /**
-     * @param string $column
-     * @param string $placeholder
-     *
+     * @param  string  $column
+     * @param  string  $placeholder
      * @return Text
      */
     public function email($column, $placeholder = '')
@@ -67,9 +63,8 @@ class QuickCreate implements Renderable
     }
 
     /**
-     * @param string $column
-     * @param string $placeholder
-     *
+     * @param  string  $column
+     * @param  string  $placeholder
      * @return Text
      */
     public function ip($column, $placeholder = '')
@@ -80,9 +75,8 @@ class QuickCreate implements Renderable
     }
 
     /**
-     * @param string $column
-     * @param string $placeholder
-     *
+     * @param  string  $column
+     * @param  string  $placeholder
      * @return Text
      */
     public function url($column, $placeholder = '')
@@ -92,9 +86,8 @@ class QuickCreate implements Renderable
     }
 
     /**
-     * @param string $column
-     * @param string $placeholder
-     *
+     * @param  string  $column
+     * @param  string  $placeholder
      * @return Text
      */
     public function password($column, $placeholder = '')
@@ -105,9 +98,8 @@ class QuickCreate implements Renderable
     }
 
     /**
-     * @param string $column
-     * @param string $placeholder
-     *
+     * @param  string  $column
+     * @param  string  $placeholder
      * @return Text
      */
     public function mobile($column, $placeholder = '')
@@ -118,9 +110,8 @@ class QuickCreate implements Renderable
     }
 
     /**
-     * @param string $column
-     * @param string $placeholder
-     *
+     * @param  string  $column
+     * @param  string  $placeholder
      * @return Text
      */
     public function integer($column, $placeholder = '')
@@ -131,9 +122,8 @@ class QuickCreate implements Renderable
     }
 
     /**
-     * @param string $column
-     * @param string $placeholder
-     *
+     * @param  string  $column
+     * @param  string  $placeholder
      * @return Select
      */
     public function select($column, $placeholder = '')
@@ -146,9 +136,8 @@ class QuickCreate implements Renderable
     }
 
     /**
-     * @param string $column
-     * @param string $placeholder
-     *
+     * @param  string  $column
+     * @param  string  $placeholder
      * @return MultipleSelect
      */
     public function multipleSelect($column, $placeholder = '')
@@ -161,9 +150,8 @@ class QuickCreate implements Renderable
     }
 
     /**
-     * @param string $column
-     * @param string $placeholder
-     *
+     * @param  string  $column
+     * @param  string  $placeholder
      * @return Field\Date
      */
     public function datetime($column, $placeholder = '')
@@ -172,9 +160,8 @@ class QuickCreate implements Renderable
     }
 
     /**
-     * @param string $column
-     * @param string $placeholder
-     *
+     * @param  string  $column
+     * @param  string  $placeholder
      * @return Field\Date
      */
     public function time($column, $placeholder = '')
@@ -183,9 +170,8 @@ class QuickCreate implements Renderable
     }
 
     /**
-     * @param string $column
-     * @param string $placeholder
-     *
+     * @param  string  $column
+     * @param  string  $placeholder
      * @return Field\Date
      */
     public function date($column, $placeholder = '')
@@ -198,8 +184,6 @@ class QuickCreate implements Renderable
     }
 
     /**
-     * @param Field $field
-     *
      * @return Field
      */
     protected function addField(Field $field)
@@ -216,8 +200,7 @@ class QuickCreate implements Renderable
     }
 
     /**
-     * @param string $class
-     *
+     * @param  string  $class
      * @return string
      */
     protected function resolveView($class)
@@ -288,8 +271,7 @@ SCRIPT;
     }
 
     /**
-     * @param int $columnCount
-     *
+     * @param  int  $columnCount
      * @return array|string
      */
     public function render($columnCount = 0)
@@ -302,7 +284,7 @@ SCRIPT;
 
         $vars = [
             'columnCount' => $columnCount,
-            'fields'      => $this->fields,
+            'fields' => $this->fields,
         ];
 
         return view('admin::grid.quick-create.form', $vars)->render();

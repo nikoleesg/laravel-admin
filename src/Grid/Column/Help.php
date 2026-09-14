@@ -14,7 +14,7 @@ class Help implements Renderable
     /**
      * Help constructor.
      *
-     * @param string $message
+     * @param  string  $message
      */
     public function __construct($message = '')
     {
@@ -29,10 +29,10 @@ class Help implements Renderable
     public function render()
     {
         $data = [
-            'toggle'    => 'tooltip',
+            'toggle' => 'tooltip',
             'placement' => 'right',
-            'html'      => 'true',
-            'title'     => $this->message,
+            'html' => 'true',
+            'title' => $this->message,
         ];
 
         $data = collect($data)->map(function ($val, $key) {

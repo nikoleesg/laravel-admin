@@ -28,8 +28,7 @@ class Checkbox extends MultipleSelect
     /**
      * Set options.
      *
-     * @param array|callable|string $options
-     *
+     * @param  array|callable|string  $options
      * @return $this|mixed
      */
     public function options($options = [])
@@ -63,7 +62,6 @@ class Checkbox extends MultipleSelect
      * Set chekbox groups.
      *
      * @param array
-     *
      * @return $this
      */
     public function groups(array $groups = [])
@@ -76,8 +74,7 @@ class Checkbox extends MultipleSelect
     /**
      * Set checked.
      *
-     * @param array|callable|string $checked
-     *
+     * @param  array|callable|string  $checked
      * @return $this
      */
     public function checked($checked = [])
@@ -123,10 +120,10 @@ class Checkbox extends MultipleSelect
         $this->script = "$('{$this->getElementClassSelector()}').iCheck({checkboxClass:'icheckbox_minimal-blue'});";
 
         $this->addVariables([
-            'checked'     => $this->checked,
-            'inline'      => $this->inline,
+            'checked' => $this->checked,
+            'inline' => $this->inline,
             'canCheckAll' => $this->canCheckAll,
-            'groups'      => $this->groups,
+            'groups' => $this->groups,
         ]);
 
         if ($this->canCheckAll) {

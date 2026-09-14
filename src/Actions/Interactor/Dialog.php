@@ -17,10 +17,9 @@ class Dialog extends Interactor
     protected $settings;
 
     /**
-     * @param string $title
-     * @param string $text
-     * @param array  $options
-     *
+     * @param  string  $title
+     * @param  string  $text
+     * @param  array  $options
      * @return Dialog
      */
     public function success($title, $text = '', $options = [])
@@ -29,10 +28,9 @@ class Dialog extends Interactor
     }
 
     /**
-     * @param string $title
-     * @param string $text
-     * @param array  $options
-     *
+     * @param  string  $title
+     * @param  string  $text
+     * @param  array  $options
      * @return Dialog
      */
     public function error($title, $text = '', $options = [])
@@ -41,10 +39,9 @@ class Dialog extends Interactor
     }
 
     /**
-     * @param string $title
-     * @param string $text
-     * @param array  $options
-     *
+     * @param  string  $title
+     * @param  string  $text
+     * @param  array  $options
      * @return $this
      */
     public function warning($title, $text = '', $options = [])
@@ -53,10 +50,9 @@ class Dialog extends Interactor
     }
 
     /**
-     * @param string $title
-     * @param string $text
-     * @param array  $options
-     *
+     * @param  string  $title
+     * @param  string  $text
+     * @param  array  $options
      * @return Dialog
      */
     public function info($title, $text = '', $options = [])
@@ -65,10 +61,9 @@ class Dialog extends Interactor
     }
 
     /**
-     * @param string $title
-     * @param string $text
-     * @param array  $options
-     *
+     * @param  string  $title
+     * @param  string  $text
+     * @param  array  $options
      * @return Dialog
      */
     public function question($title, $text = '', $options = [])
@@ -77,10 +72,9 @@ class Dialog extends Interactor
     }
 
     /**
-     * @param string $title
-     * @param string $text
-     * @param array  $options
-     *
+     * @param  string  $title
+     * @param  string  $text
+     * @param  array  $options
      * @return Dialog
      */
     public function confirm($title, $text = '', $options = [])
@@ -89,11 +83,10 @@ class Dialog extends Interactor
     }
 
     /**
-     * @param string $title
-     * @param string $type
-     * @param string $text
-     * @param array  $options
-     *
+     * @param  string  $title
+     * @param  string  $type
+     * @param  string  $text
+     * @param  array  $options
      * @return $this
      */
     protected function addSettings($title, $type, $text = '', $options = [])
@@ -117,11 +110,11 @@ class Dialog extends Interactor
         ];
 
         return [
-            'type'                => 'question',
-            'showCancelButton'    => true,
+            'type' => 'question',
+            'showCancelButton' => true,
             'showLoaderOnConfirm' => true,
-            'confirmButtonText'   => $trans['submit'],
-            'cancelButtonText'    => $trans['cancel'],
+            'confirmButtonText' => $trans['submit'],
+            'cancelButtonText' => $trans['cancel'],
         ];
     }
 
@@ -220,10 +213,9 @@ PROMISE;
     }
 
     /**
-     * @param string $settings
-     * @param string $calledClass
-     * @param string $route
-     *
+     * @param  string  $settings
+     * @param  string  $calledClass
+     * @param  string  $route
      * @return string
      */
     protected function buildUploadFileActionPromise($settings, $calledClass, $route)

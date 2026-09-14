@@ -16,8 +16,8 @@ class BatchDelete extends BatchAction
     {
         $trans = [
             'delete_confirm' => trans('admin.delete_confirm'),
-            'confirm'        => trans('admin.confirm'),
-            'cancel'         => trans('admin.cancel'),
+            'confirm' => trans('admin.confirm'),
+            'cancel' => trans('admin.cancel'),
         ];
 
         return <<<EOT

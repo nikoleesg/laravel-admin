@@ -3,9 +3,11 @@
 namespace Encore\Admin\Grid\Tools;
 
 use Illuminate\Contracts\Support\Renderable;
+use Illuminate\Contracts\View\Factory;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
+use Illuminate\View\View;
 
 class Selector implements Renderable
 {
@@ -24,15 +26,14 @@ class Selector implements Renderable
      */
     public function __construct()
     {
-        $this->selectors = new Collection();
+        $this->selectors = new Collection;
     }
 
     /**
-     * @param string         $column
-     * @param string|array   $label
-     * @param array|\Closure $options
-     * @param null|\Closure  $query
-     *
+     * @param  string  $column
+     * @param  string|array  $label
+     * @param  array|\Closure  $options
+     * @param  null|\Closure  $query
      * @return $this
      */
     public function select($column, $label, $options = [], $query = null)
@@ -41,11 +42,10 @@ class Selector implements Renderable
     }
 
     /**
-     * @param string        $column
-     * @param string        $label
-     * @param array         $options
-     * @param null|\Closure $query
-     *
+     * @param  string  $column
+     * @param  string  $label
+     * @param  array  $options
+     * @param  null|\Closure  $query
      * @return $this
      */
     public function selectOne($column, $label, $options = [], $query = null)
@@ -54,12 +54,11 @@ class Selector implements Renderable
     }
 
     /**
-     * @param string $column
-     * @param string $label
-     * @param array  $options
-     * @param null   $query
-     * @param string $type
-     *
+     * @param  string  $column
+     * @param  string  $label
+     * @param  array  $options
+     * @param  null  $query
+     * @param  string  $type
      * @return $this
      */
     protected function addSelector($column, $label, $options = [], $query = null, $type = 'many')
@@ -93,18 +92,18 @@ class Selector implements Renderable
      */
     public static function parseSelected()
     {
-        if (!is_null(static::$selected)) {
+        if (! is_null(static::$selected)) {
             return static::$selected;
         }
 
         $selected = request('_selector', []);
 
-        if (!is_array($selected)) {
+        if (! is_array($selected)) {
             return [];
         }
 
         $selected = array_filter($selected, function ($value) {
-            return !is_null($value);
+            return ! is_null($value);
         });
 
         foreach ($selected as &$value) {
@@ -115,10 +114,9 @@ class Selector implements Renderable
     }
 
     /**
-     * @param string $column
-     * @param mixed  $value
-     * @param bool   $add
-     *
+     * @param  string  $column
+     * @param  mixed  $value
+     * @param  bool  $add
      * @return string
      */
     public static function url($column, $value = null, $add = false)
@@ -144,7 +142,7 @@ class Selector implements Renderable
             array_push($options, $value);
         }
 
-        if (!empty($options)) {
+        if (! empty($options)) {
             Arr::set($query, "_selector.{$column}", implode(',', $options));
         } else {
             Arr::forget($query, "_selector.{$column}");
@@ -154,13 +152,13 @@ class Selector implements Renderable
     }
 
     /**
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     public function render()
     {
         return view('admin::grid.selector', [
             'selectors' => $this->selectors,
-            'selected'  => static::parseSelected(),
+            'selected' => static::parseSelected(),
         ]);
     }
 }

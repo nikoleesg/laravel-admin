@@ -15,7 +15,7 @@ class InputFilter extends Filter
     /**
      * InputFilter constructor.
      *
-     * @param string $type
+     * @param  string  $type
      */
     public function __construct($type)
     {
@@ -26,8 +26,8 @@ class InputFilter extends Filter
     /**
      * Add a binding to the query.
      *
-     * @param string     $value
-     * @param Model|null $model
+     * @param  string  $value
+     * @param  Model|null  $model
      */
     public function addBinding($value, Model $model)
     {
@@ -59,7 +59,7 @@ class InputFilter extends Filter
     protected function addScript()
     {
         $options = [
-            'locale'           => config('app.locale'),
+            'locale' => config('app.locale'),
             'allowInputToggle' => true,
         ];
 

@@ -4,14 +4,16 @@ namespace Encore\Admin\Grid\Concerns;
 
 use Closure;
 use Encore\Admin\Grid\Filter;
+use Illuminate\Contracts\View\Factory;
 use Illuminate\Support\Collection;
+use Illuminate\View\View;
 
 trait HasFilter
 {
     /**
      * The grid Filter.
      *
-     * @var \Encore\Admin\Grid\Filter
+     * @var Filter
      */
     protected $filter;
 
@@ -36,7 +38,7 @@ trait HasFilter
     {
         $this->tools->disableFilterButton($disable);
 
-        return $this->option('show_filter', !$disable);
+        return $this->option('show_filter', ! $disable);
     }
 
     /**
@@ -52,8 +54,7 @@ trait HasFilter
     /**
      * Process the grid filter.
      *
-     * @param bool $toArray
-     *
+     * @param  bool  $toArray
      * @return array|Collection|mixed
      */
     public function applyFilter($toArray = true)
@@ -67,8 +68,6 @@ trait HasFilter
 
     /**
      * Set the grid filter.
-     *
-     * @param Closure $callback
      */
     public function filter(Closure $callback)
     {
@@ -78,11 +77,11 @@ trait HasFilter
     /**
      * Render the grid filter.
      *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View|string
+     * @return Factory|View|string
      */
     public function renderFilter()
     {
-        if (!$this->option('show_filter')) {
+        if (! $this->option('show_filter')) {
             return '';
         }
 

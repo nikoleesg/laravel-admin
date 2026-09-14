@@ -8,10 +8,12 @@ use Encore\Admin\Form\Field;
 use Encore\Admin\Form\NestedForm;
 use Encore\Admin\Widgets\Form as WidgetForm;
 use Exception;
+use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Database\Eloquent\Relations\HasMany as Relation;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
+use Illuminate\View\View;
 
 /**
  * Class HasMany.
@@ -55,8 +57,8 @@ class HasMany extends Field
      */
     protected $views = [
         'default' => 'admin::form.hasmany',
-        'tab'     => 'admin::form.hasmanytab',
-        'table'   => 'admin::form.hasmanytable',
+        'tab' => 'admin::form.hasmanytab',
+        'table' => 'admin::form.hasmanytable',
     ];
 
     /**
@@ -79,8 +81,7 @@ class HasMany extends Field
     /**
      * Create a new HasMany field instance.
      *
-     * @param $relationName
-     * @param array $arguments
+     * @param  array  $arguments
      */
     public function __construct($relationName, $arguments = [])
     {
@@ -94,20 +95,19 @@ class HasMany extends Field
         }
 
         if (count($arguments) == 2) {
-            list($this->label, $this->builder) = $arguments;
+            [$this->label, $this->builder] = $arguments;
         }
     }
 
     /**
      * Get validator for this field.
      *
-     * @param array $input
      *
-     * @return bool|\Illuminate\Contracts\Validation\Validator
+     * @return bool|Validator
      */
     public function getValidator(array $input)
     {
-        if (!array_key_exists($this->column, $input)) {
+        if (! array_key_exists($this->column, $input)) {
             return false;
         }
 
@@ -126,7 +126,7 @@ class HasMany extends Field
 
         /* @var Field $field */
         foreach ($form->fields() as $field) {
-            if (!$fieldRules = $field->getRules()) {
+            if (! $fieldRules = $field->getRules()) {
                 continue;
             }
 
@@ -181,7 +181,6 @@ class HasMany extends Field
     /**
      * Set distinct fields.
      *
-     * @param array $fields
      *
      * @return $this
      */
@@ -194,8 +193,6 @@ class HasMany extends Field
 
     /**
      * Append distinct rules.
-     *
-     * @param array $rules
      */
     protected function appendDistinctRules(array &$rules)
     {
@@ -207,10 +204,9 @@ class HasMany extends Field
     /**
      * Format validation attributes.
      *
-     * @param array  $input
-     * @param string $label
-     * @param string $column
-     *
+     * @param  array  $input
+     * @param  string  $label
+     * @param  string  $column
      * @return array
      */
     protected function formatValidationAttribute($input, $label, $column)
@@ -243,9 +239,7 @@ class HasMany extends Field
     /**
      * Reset input key for validation.
      *
-     * @param array $input
-     * @param array $column $column is the column name array set
-     *
+     * @param  array  $column  $column is the column name array set
      * @return void.
      */
     protected function resetInputKey(array &$input, array $column)
@@ -279,7 +273,7 @@ class HasMany extends Field
                 /*
                  * if doesn't have column name, continue to the next loop
                  */
-                if (!array_key_exists($name, $column)) {
+                if (! array_key_exists($name, $column)) {
                     continue;
                 }
 
@@ -307,8 +301,7 @@ class HasMany extends Field
     /**
      * Prepare input data for insert or update.
      *
-     * @param array $input
-     *
+     * @param  array  $input
      * @return array
      */
     public function prepare($input)
@@ -321,15 +314,13 @@ class HasMany extends Field
     /**
      * Build a Nested form.
      *
-     * @param string   $column
-     * @param \Closure $builder
-     * @param null     $model
-     *
+     * @param  string  $column
+     * @param  null  $model
      * @return NestedForm
      */
     protected function buildNestedForm($column, \Closure $builder, $model = null)
     {
-        $form = new Form\NestedForm($column, $model);
+        $form = new NestedForm($column, $model);
 
         if ($this->form instanceof WidgetForm) {
             $form->setWidgetForm($this->form);
@@ -363,8 +354,7 @@ class HasMany extends Field
     /**
      * Set view mode.
      *
-     * @param string $mode currently support `tab` mode.
-     *
+     * @param  string  $mode  currently support `tab` mode.
      * @return $this
      *
      * @author Edwin Hui
@@ -399,9 +389,10 @@ class HasMany extends Field
     /**
      * Build Nested form for related data.
      *
-     * @throws \Exception
      *
      * @return array
+     *
+     * @throws Exception
      */
     protected function buildRelatedForms()
     {
@@ -413,7 +404,7 @@ class HasMany extends Field
 
         $relation = call_user_func([$model, $this->relationName]);
 
-        if (!$relation instanceof Relation && !$relation instanceof MorphMany) {
+        if (! $relation instanceof Relation && ! $relation instanceof MorphMany) {
             throw new Exception('hasMany field must be a HasMany or MorphMany relation.');
         }
 
@@ -458,8 +449,7 @@ class HasMany extends Field
     /**
      * Setup script for this field in different view mode.
      *
-     * @param string $script
-     *
+     * @param  string  $script
      * @return void
      */
     protected function setupScript($script)
@@ -472,8 +462,7 @@ class HasMany extends Field
     /**
      * Setup default template script.
      *
-     * @param string $templateScript
-     *
+     * @param  string  $templateScript
      * @return void
      */
     protected function setupScriptForDefaultView($templateScript)
@@ -517,8 +506,7 @@ EOT;
     /**
      * Setup tab template script.
      *
-     * @param string $templateScript
-     *
+     * @param  string  $templateScript
      * @return void
      */
     protected function setupScriptForTabView($templateScript)
@@ -572,8 +560,7 @@ EOT;
     /**
      * Setup default template script.
      *
-     * @param string $templateScript
-     *
+     * @param  string  $templateScript
      * @return void
      */
     protected function setupScriptForTableView($templateScript)
@@ -646,13 +633,14 @@ EOT;
     /**
      * Render the `HasMany` field.
      *
-     * @throws \Exception
      *
-     * @return \Illuminate\View\View
+     * @return View
+     *
+     * @throws Exception
      */
     public function render()
     {
-        if (!$this->shouldRender()) {
+        if (! $this->shouldRender()) {
             return '';
         }
 
@@ -663,25 +651,26 @@ EOT;
         // specify a view to render.
         $this->view = $this->views[$this->viewMode];
 
-        list($template, $script) = $this->buildNestedForm($this->column, $this->builder)
+        [$template, $script] = $this->buildNestedForm($this->column, $this->builder)
             ->getTemplateHtmlAndScript();
 
         $this->setupScript($script);
 
         return parent::fieldRender([
-            'forms'        => $this->buildRelatedForms(),
-            'template'     => $template,
+            'forms' => $this->buildRelatedForms(),
+            'template' => $template,
             'relationName' => $this->relationName,
-            'options'      => $this->options,
+            'options' => $this->options,
         ]);
     }
 
     /**
      * Render the `HasMany` field for table style.
      *
-     * @throws \Exception
      *
      * @return mixed
+     *
+     * @throws Exception
      */
     protected function renderTable()
     {
@@ -726,11 +715,11 @@ EOT;
         $this->view = $this->views[$this->viewMode];
 
         return parent::fieldRender([
-            'headers'      => $headers,
-            'forms'        => $this->buildRelatedForms(),
-            'template'     => $template,
+            'headers' => $headers,
+            'forms' => $this->buildRelatedForms(),
+            'template' => $template,
             'relationName' => $this->relationName,
-            'options'      => $this->options,
+            'options' => $this->options,
         ]);
     }
 }

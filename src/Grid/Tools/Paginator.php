@@ -4,11 +4,12 @@ namespace Encore\Admin\Grid\Tools;
 
 use Encore\Admin\Grid;
 use Illuminate\Pagination\LengthAwarePaginator;
+use Symfony\Component\Translation\TranslatorInterface;
 
 class Paginator extends AbstractTool
 {
     /**
-     * @var \Illuminate\Pagination\LengthAwarePaginator
+     * @var LengthAwarePaginator
      */
     protected $paginator = null;
 
@@ -19,8 +20,6 @@ class Paginator extends AbstractTool
 
     /**
      * Create a new Paginator instance.
-     *
-     * @param Grid $grid
      */
     public function __construct(Grid $grid, $perPageSelector = true)
     {
@@ -61,7 +60,7 @@ class Paginator extends AbstractTool
      */
     protected function perPageSelector()
     {
-        if (!$this->perPageSelector) {
+        if (! $this->perPageSelector) {
             return;
         }
 
@@ -71,13 +70,13 @@ class Paginator extends AbstractTool
     /**
      * Get range infomation of paginator.
      *
-     * @return string|\Symfony\Component\Translation\TranslatorInterface
+     * @return string|TranslatorInterface
      */
     protected function paginationRanger()
     {
         $parameters = [
             'first' => $this->paginator->firstItem(),
-            'last'  => $this->paginator->lastItem(),
+            'last' => $this->paginator->lastItem(),
             'total' => $this->paginator->total(),
         ];
 
@@ -95,7 +94,7 @@ class Paginator extends AbstractTool
      */
     public function render()
     {
-        if (!$this->grid->showPagination()) {
+        if (! $this->grid->showPagination()) {
             return '';
         }
 

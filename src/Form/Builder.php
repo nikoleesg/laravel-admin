@@ -30,9 +30,6 @@ class Builder
      */
     protected $form;
 
-    /**
-     * @var
-     */
     protected $action;
 
     /**
@@ -49,6 +46,7 @@ class Builder
      * Modes constants.
      */
     const MODE_EDIT = 'edit';
+
     const MODE_CREATE = 'create';
 
     /**
@@ -105,7 +103,6 @@ class Builder
     /**
      * Builder constructor.
      *
-     * @param Form $form
      *
      * @return void
      */
@@ -113,7 +110,7 @@ class Builder
     {
         $this->form = $form;
 
-        $this->fields = new Collection();
+        $this->fields = new Collection;
 
         $this->init();
     }
@@ -154,8 +151,7 @@ class Builder
     /**
      * Set the builder mode.
      *
-     * @param string $mode
-     *
+     * @param  string  $mode
      * @return void
      */
     public function setMode($mode = 'create')
@@ -163,9 +159,6 @@ class Builder
         $this->mode = $mode;
     }
 
-    /**
-     * @return string
-     */
     public function getMode(): string
     {
         return $this->mode;
@@ -174,9 +167,7 @@ class Builder
     /**
      * Returns builder is $mode.
      *
-     * @param string $mode
-     *
-     * @return bool
+     * @param  string  $mode
      */
     public function isMode($mode): bool
     {
@@ -185,8 +176,6 @@ class Builder
 
     /**
      * Check if is creating resource.
-     *
-     * @return bool
      */
     public function isCreating(): bool
     {
@@ -195,8 +184,6 @@ class Builder
 
     /**
      * Check if is editing resource.
-     *
-     * @return bool
      */
     public function isEditing(): bool
     {
@@ -206,8 +193,7 @@ class Builder
     /**
      * Set resource Id.
      *
-     * @param mixed $id
-     *
+     * @param  mixed  $id
      * @return void
      */
     public function setResourceId($id)
@@ -225,11 +211,6 @@ class Builder
         return $this->id;
     }
 
-    /**
-     * @param int|null $slice
-     *
-     * @return string
-     */
     public function getResource(?int $slice = null): string
     {
         if ($this->mode === self::MODE_CREATE) {
@@ -243,9 +224,8 @@ class Builder
     }
 
     /**
-     * @param int $field
-     * @param int $label
-     *
+     * @param  int  $field
+     * @param  int  $label
      * @return $this
      */
     public function setWidth($field = 8, $label = 2): self
@@ -260,8 +240,6 @@ class Builder
 
     /**
      * Get label and field width.
-     *
-     * @return array
      */
     public function getWidth(): array
     {
@@ -271,8 +249,7 @@ class Builder
     /**
      * Set form action.
      *
-     * @param string $action
-     *
+     * @param  string  $action
      * @return void
      */
     public function setAction($action)
@@ -282,8 +259,6 @@ class Builder
 
     /**
      * Get Form action.
-     *
-     * @return string
      */
     public function getAction(): string
     {
@@ -305,8 +280,7 @@ class Builder
     /**
      * Set view for this form.
      *
-     * @param string $view
-     *
+     * @param  string  $view
      * @return $this
      */
     public function setView($view): self
@@ -319,8 +293,7 @@ class Builder
     /**
      * Set title for form.
      *
-     * @param string $title
-     *
+     * @param  string  $title
      * @return $this
      */
     public function setTitle($title): self
@@ -332,8 +305,6 @@ class Builder
 
     /**
      * Get fields of this builder.
-     *
-     * @return Collection
      */
     public function fields(): Collection
     {
@@ -343,8 +314,7 @@ class Builder
     /**
      * Get specify field.
      *
-     * @param string $name
-     *
+     * @param  string  $name
      * @return mixed
      */
     public function field($name)
@@ -356,35 +326,26 @@ class Builder
 
     /**
      * If the parant form has rows.
-     *
-     * @return bool
      */
     public function hasRows(): bool
     {
-        return !empty($this->form->rows);
+        return ! empty($this->form->rows);
     }
 
     /**
      * Get field rows of form.
-     *
-     * @return array
      */
     public function getRows(): array
     {
         return $this->form->rows;
     }
 
-    /**
-     * @return array
-     */
     public function getHiddenFields(): array
     {
         return $this->hiddenFields;
     }
 
     /**
-     * @param Field $field
-     *
      * @return void
      */
     public function addHiddenField(Field $field)
@@ -395,8 +356,7 @@ class Builder
     /**
      * Add or get options.
      *
-     * @param array $options
-     *
+     * @param  array  $options
      * @return array|null
      */
     public function options($options = [])
@@ -411,9 +371,8 @@ class Builder
     /**
      * Get or set option.
      *
-     * @param string $option
-     * @param mixed  $value
-     *
+     * @param  string  $option
+     * @param  mixed  $value
      * @return $this
      */
     public function option($option, $value = null)
@@ -427,9 +386,6 @@ class Builder
         return $this;
     }
 
-    /**
-     * @return string
-     */
     public function title(): string
     {
         if ($this->title) {
@@ -449,8 +405,6 @@ class Builder
 
     /**
      * Determine if form fields has files.
-     *
-     * @return bool
      */
     public function hasFile(): bool
     {
@@ -472,7 +426,7 @@ class Builder
     {
         $previous = URL::previous();
 
-        if (!$previous || $previous === URL::current()) {
+        if (! $previous || $previous === URL::current()) {
             return;
         }
 
@@ -484,9 +438,7 @@ class Builder
     /**
      * Open up a new HTML form.
      *
-     * @param array $options
-     *
-     * @return string
+     * @param  array  $options
      */
     public function open($options = []): string
     {
@@ -517,8 +469,6 @@ class Builder
 
     /**
      * Close the current form.
-     *
-     * @return string
      */
     public function close(): string
     {
@@ -529,15 +479,13 @@ class Builder
     }
 
     /**
-     * @param string $message
-     *
      * @return void
      */
     public function confirm(string $message)
     {
         $trans = [
             'confirm' => trans('admin.confirm'),
-            'cancel'  => trans('admin.cancel'),
+            'cancel' => trans('admin.cancel'),
         ];
 
         $script = <<<SCRIPT
@@ -569,7 +517,7 @@ SCRIPT;
      */
     protected function removeReservedFields()
     {
-        if (!$this->isCreating()) {
+        if (! $this->isCreating()) {
             return;
         }
 
@@ -591,8 +539,6 @@ SCRIPT;
 
     /**
      * Render form header tools.
-     *
-     * @return string
      */
     public function renderTools(): string
     {
@@ -601,8 +547,6 @@ SCRIPT;
 
     /**
      * Render form footer.
-     *
-     * @return string
      */
     public function renderFooter(): string
     {
@@ -663,8 +607,6 @@ SCRIPT;
 
     /**
      * Render form.
-     *
-     * @return string
      */
     public function render(): string
     {
@@ -672,16 +614,16 @@ SCRIPT;
 
         $tabObj = $this->form->setTab();
 
-        if (!$tabObj->isEmpty()) {
+        if (! $tabObj->isEmpty()) {
             $this->addTabformScript();
         }
 
         $this->addCascadeScript();
 
         $data = [
-            'form'   => $this,
+            'form' => $this,
             'tabObj' => $tabObj,
-            'width'  => $this->width,
+            'width' => $this->width,
             'layout' => $this->form->getLayout(),
         ];
 

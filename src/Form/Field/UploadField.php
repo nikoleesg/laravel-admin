@@ -3,6 +3,7 @@
 namespace Encore\Admin\Form\Field;
 
 use Encore\Admin\Form;
+use Illuminate\Filesystem\Filesystem;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\URL;
@@ -27,7 +28,7 @@ trait UploadField
     /**
      * Storage instance.
      *
-     * @var \Illuminate\Filesystem\Filesystem
+     * @var Filesystem
      */
     protected $storage = '';
 
@@ -64,7 +65,7 @@ trait UploadField
      */
     protected $fileActionSettings = [
         'showRemove' => false,
-        'showDrag'   => false,
+        'showDrag' => false,
     ];
 
     /**
@@ -78,15 +79,15 @@ trait UploadField
      * @var array
      */
     protected $fileTypes = [
-        'image'  => '/^(gif|png|jpe?g|svg|webp)$/i',
-        'html'   => '/^(htm|html)$/i',
+        'image' => '/^(gif|png|jpe?g|svg|webp)$/i',
+        'html' => '/^(htm|html)$/i',
         'office' => '/^(docx?|xlsx?|pptx?|pps|potx?)$/i',
-        'gdocs'  => '/^(docx?|xlsx?|pptx?|pps|potx?|rtf|ods|odt|pages|ai|dxf|ttf|tiff?|wmf|e?ps)$/i',
-        'text'   => '/^(txt|md|csv|nfo|ini|json|php|js|css|ts|sql)$/i',
-        'video'  => '/^(og?|mp4|webm|mp?g|mov|3gp)$/i',
-        'audio'  => '/^(og?|mp3|mp?g|wav)$/i',
-        'pdf'    => '/^(pdf)$/i',
-        'flash'  => '/^(swf)$/i',
+        'gdocs' => '/^(docx?|xlsx?|pptx?|pps|potx?|rtf|ods|odt|pages|ai|dxf|ttf|tiff?|wmf|e?ps)$/i',
+        'text' => '/^(txt|md|csv|nfo|ini|json|php|js|css|ts|sql)$/i',
+        'video' => '/^(og?|mp4|webm|mp?g|mov|3gp)$/i',
+        'audio' => '/^(og?|mp3|mp?g|wav)$/i',
+        'pdf' => '/^(pdf)$/i',
+        'flash' => '/^(swf)$/i',
     ];
 
     /**
@@ -112,20 +113,20 @@ trait UploadField
     protected function setupDefaultOptions()
     {
         $defaults = [
-            'overwriteInitial'     => false,
+            'overwriteInitial' => false,
             'initialPreviewAsData' => true,
-            'msgPlaceholder'       => trans('admin.choose_file'),
-            'browseLabel'          => trans('admin.browse'),
-            'cancelLabel'          => trans('admin.cancel'),
-            'showRemove'           => false,
-            'showUpload'           => false,
-            'showCancel'           => false,
-            'dropZoneEnabled'      => false,
-            'deleteExtraData'      => [
+            'msgPlaceholder' => trans('admin.choose_file'),
+            'browseLabel' => trans('admin.browse'),
+            'cancelLabel' => trans('admin.cancel'),
+            'showRemove' => false,
+            'showUpload' => false,
+            'showCancel' => false,
+            'dropZoneEnabled' => false,
+            'deleteExtraData' => [
                 $this->formatName($this->column) => static::FILE_DELETE_FLAG,
-                static::FILE_DELETE_FLAG         => '',
-                '_token'                         => csrf_token(),
-                '_method'                        => 'PUT',
+                static::FILE_DELETE_FLAG => '',
+                '_token' => csrf_token(),
+                '_method' => 'PUT',
             ],
         ];
 
@@ -185,8 +186,7 @@ trait UploadField
     /**
      * Indicates if the underlying field is downloadable.
      *
-     * @param bool $downloadable
-     *
+     * @param  bool  $downloadable
      * @return $this
      */
     public function downloadable($downloadable = true)
@@ -223,8 +223,7 @@ trait UploadField
     /**
      * Set options for file-upload plugin.
      *
-     * @param array $options
-     *
+     * @param  array  $options
      * @return $this
      */
     public function options($options = [])
@@ -237,18 +236,17 @@ trait UploadField
     /**
      * Set disk for storage.
      *
-     * @param string $disk Disks defined in `config/filesystems.php`.
+     * @param  string  $disk  Disks defined in `config/filesystems.php`.
+     * @return $this
      *
      * @throws \Exception
-     *
-     * @return $this
      */
     public function disk($disk)
     {
         try {
             $this->storage = Storage::disk($disk);
         } catch (\Exception $exception) {
-            if (!array_key_exists($disk, config('filesystems.disks'))) {
+            if (! array_key_exists($disk, config('filesystems.disks'))) {
                 admin_error(
                     'Config error.',
                     "Disk [$disk] not configured, please add a disk config in `config/filesystems.php`."
@@ -266,9 +264,8 @@ trait UploadField
     /**
      * Specify the directory and name for upload file.
      *
-     * @param string      $directory
-     * @param null|string $name
-     *
+     * @param  string  $directory
+     * @param  null|string  $name
      * @return $this
      */
     public function move($directory, $name = null)
@@ -283,8 +280,7 @@ trait UploadField
     /**
      * Specify the directory upload file.
      *
-     * @param string $dir
-     *
+     * @param  string  $dir
      * @return $this
      */
     public function dir($dir)
@@ -299,8 +295,7 @@ trait UploadField
     /**
      * Set name of store name.
      *
-     * @param string|callable $name
-     *
+     * @param  string|callable  $name
      * @return $this
      */
     public function name($name)
@@ -339,7 +334,6 @@ trait UploadField
     /**
      * Get store name of upload file.
      *
-     * @param UploadedFile $file
      *
      * @return string
      */
@@ -381,8 +375,7 @@ trait UploadField
     /**
      * Set path column in has-many related model.
      *
-     * @param string $column
-     *
+     * @param  string  $column
      * @return $this
      */
     public function pathColumn($column = 'path')
@@ -395,7 +388,6 @@ trait UploadField
     /**
      * Upload file and delete original file.
      *
-     * @param UploadedFile $file
      *
      * @return mixed
      */
@@ -403,7 +395,7 @@ trait UploadField
     {
         $this->renameIfExists($file);
 
-        if (!is_null($this->storagePermission)) {
+        if (! is_null($this->storagePermission)) {
             return $this->storage->putFileAs($this->getDirectory(), $file, $this->name, $this->storagePermission);
         }
 
@@ -413,7 +405,6 @@ trait UploadField
     /**
      * If name already exists, rename it.
      *
-     * @param $file
      *
      * @return void
      */
@@ -427,7 +418,6 @@ trait UploadField
     /**
      * Get file visit url.
      *
-     * @param $path
      *
      * @return string
      */
@@ -451,7 +441,6 @@ trait UploadField
     /**
      * Generate a unique name for uploaded file.
      *
-     * @param UploadedFile $file
      *
      * @return string
      */
@@ -463,7 +452,6 @@ trait UploadField
     /**
      * Generate a sequence name for uploaded file.
      *
-     * @param UploadedFile $file
      *
      * @return string
      */
@@ -497,7 +485,7 @@ trait UploadField
             $this->destroyThumbnail();
         }
 
-        if (!empty($this->original) && $this->storage->exists($this->original)) {
+        if (! empty($this->original) && $this->storage->exists($this->original)) {
             $this->storage->delete($this->original);
         }
     }
@@ -505,8 +493,7 @@ trait UploadField
     /**
      * Set file permission when stored into storage.
      *
-     * @param string $permission
-     *
+     * @param  string  $permission
      * @return $this
      */
     public function storagePermission($permission)

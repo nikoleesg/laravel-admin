@@ -17,8 +17,8 @@ class ResourceGenerator
      * @var array
      */
     protected $formats = [
-        'form_field'  => "\$form->%s('%s', __('%s'))",
-        'show_field'  => "\$show->field('%s', __('%s'))",
+        'form_field' => "\$form->%s('%s', __('%s'))",
+        'show_field' => "\$show->field('%s', __('%s'))",
         'grid_column' => "\$grid->column('%s', __('%s'))",
     ];
 
@@ -26,14 +26,14 @@ class ResourceGenerator
      * @var array
      */
     protected $fieldTypeMapping = [
-        'ip'       => 'ip',
-        'email'    => 'email|mail',
+        'ip' => 'ip',
+        'email' => 'email|mail',
         'password' => 'password|pwd',
-        'url'      => 'url|link|src|href',
-        'mobile'   => 'mobile|phone',
-        'color'    => 'color|rgb',
-        'image'    => 'image|img|avatar|pic|picture|cover',
-        'file'     => 'file|attachment',
+        'url' => 'url|link|src|href',
+        'mobile' => 'mobile|phone',
+        'color' => 'color|rgb',
+        'image' => 'image|img|avatar|pic|picture|cover',
+        'file' => 'file|attachment',
     ];
 
     /**
@@ -42,21 +42,21 @@ class ResourceGenerator
      * @var array
      */
     protected $typeMapping = [
-        'boolean'  => ['boolean', 'bool', 'bit'],
-        'json'     => ['json', 'jsonb'],
-        'string'   => [
+        'boolean' => ['boolean', 'bool', 'bit'],
+        'json' => ['json', 'jsonb'],
+        'string' => [
             'string', 'varchar', 'char', 'nvarchar', 'nchar', 'bpchar', 'character varying',
             'character', 'enum', 'set', 'uuid', 'uniqueidentifier',
         ],
-        'integer'  => [
+        'integer' => [
             'integer', 'int', 'bigint', 'mediumint', 'smallint', 'tinyint',
             'int2', 'int4', 'int8', 'serial', 'bigserial', 'year',
         ],
-        'decimal'  => ['decimal', 'numeric', 'float', 'double', 'real', 'float4', 'float8', 'double precision', 'money'],
+        'decimal' => ['decimal', 'numeric', 'float', 'double', 'real', 'float4', 'float8', 'double precision', 'money'],
         'datetime' => ['datetime', 'datetime2', 'smalldatetime', 'timestamp', 'timestamptz'],
-        'date'     => ['date'],
-        'time'     => ['time', 'timetz'],
-        'text'     => [
+        'date' => ['date'],
+        'time' => ['time', 'timetz'],
+        'text' => [
             'text', 'tinytext', 'mediumtext', 'longtext', 'ntext',
             'blob', 'tinyblob', 'mediumblob', 'longblob', 'bytea', 'binary', 'varbinary',
         ],
@@ -65,7 +65,7 @@ class ResourceGenerator
     /**
      * ResourceGenerator constructor.
      *
-     * @param mixed $model
+     * @param  mixed  $model
      */
     public function __construct($model)
     {
@@ -73,8 +73,7 @@ class ResourceGenerator
     }
 
     /**
-     * @param mixed $model
-     *
+     * @param  mixed  $model
      * @return mixed
      */
     protected function getModel($model)
@@ -83,11 +82,11 @@ class ResourceGenerator
             return $model;
         }
 
-        if (!class_exists($model) || !is_string($model) || !is_subclass_of($model, Model::class)) {
+        if (! class_exists($model) || ! is_string($model) || ! is_subclass_of($model, Model::class)) {
             throw new InvalidArgumentException("Invalid model [$model] !");
         }
 
-        return new $model();
+        return new $model;
     }
 
     /**
@@ -231,7 +230,6 @@ class ResourceGenerator
      * The native schema API returns the raw driver type (`varchar`, `int4`,
      * `tinyint`, ...), so the driver families are folded together here.
      *
-     * @param array $column
      *
      * @return string
      */
@@ -257,8 +255,7 @@ class ResourceGenerator
     /**
      * Strip driver decorations (quotes, Postgres casts) from a column default.
      *
-     * @param mixed $default
-     *
+     * @param  mixed  $default
      * @return string
      */
     protected function normalizeDefault($default)
@@ -278,8 +275,7 @@ class ResourceGenerator
     /**
      * Format label.
      *
-     * @param string $value
-     *
+     * @param  string  $value
      * @return string
      */
     protected function formatLabel($value)

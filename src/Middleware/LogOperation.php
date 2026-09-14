@@ -12,8 +12,6 @@ class LogOperation
     /**
      * Handle an incoming request.
      *
-     * @param \Illuminate\Http\Request $request
-     * @param \Closure                 $next
      *
      * @return mixed
      */
@@ -22,10 +20,10 @@ class LogOperation
         if ($this->shouldLogOperation($request)) {
             $log = [
                 'user_id' => Admin::user()->id,
-                'path'    => substr($request->path(), 0, 255),
-                'method'  => $request->method(),
-                'ip'      => $request->getClientIp(),
-                'input'   => json_encode($request->input()),
+                'path' => substr($request->path(), 0, 255),
+                'method' => $request->method(),
+                'ip' => $request->getClientIp(),
+                'input' => json_encode($request->input()),
             ];
 
             try {
@@ -39,14 +37,12 @@ class LogOperation
     }
 
     /**
-     * @param Request $request
-     *
      * @return bool
      */
     protected function shouldLogOperation(Request $request)
     {
         return config('admin.operation_log.enable')
-            && !$this->inExceptArray($request)
+            && ! $this->inExceptArray($request)
             && $this->inAllowedMethods($request->method())
             && Admin::user();
     }
@@ -54,8 +50,7 @@ class LogOperation
     /**
      * Whether requests using this method are allowed to be logged.
      *
-     * @param string $method
-     *
+     * @param  string  $method
      * @return bool
      */
     protected function inAllowedMethods($method)
@@ -74,8 +69,7 @@ class LogOperation
     /**
      * Determine if the request has a URI that should pass through CSRF verification.
      *
-     * @param \Illuminate\Http\Request $request
-     *
+     * @param  Request  $request
      * @return bool
      */
     protected function inExceptArray($request)
@@ -88,7 +82,7 @@ class LogOperation
             $methods = [];
 
             if (Str::contains($except, ':')) {
-                list($methods, $except) = explode(':', $except);
+                [$methods, $except] = explode(':', $except);
                 $methods = explode(',', $methods);
             }
 

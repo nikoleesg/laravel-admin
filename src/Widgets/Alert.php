@@ -3,6 +3,7 @@
 namespace Encore\Admin\Widgets;
 
 use Illuminate\Contracts\Support\Renderable;
+use Symfony\Component\Translation\TranslatorInterface;
 
 class Alert extends Widget implements Renderable
 {
@@ -12,7 +13,7 @@ class Alert extends Widget implements Renderable
     protected $view = 'admin::widgets.alert';
 
     /**
-     * @var string|\Symfony\Component\Translation\TranslatorInterface
+     * @var string|TranslatorInterface
      */
     protected $title = '';
 
@@ -34,9 +35,9 @@ class Alert extends Widget implements Renderable
     /**
      * Alert constructor.
      *
-     * @param mixed  $content
-     * @param string $title
-     * @param string $style
+     * @param  mixed  $content
+     * @param  string  $title
+     * @param  string  $style
      */
     public function __construct($content, $title = '', $style = 'danger')
     {
@@ -50,8 +51,7 @@ class Alert extends Widget implements Renderable
     /**
      * Add style.
      *
-     * @param string $style
-     *
+     * @param  string  $style
      * @return $this
      */
     public function style($style = 'info')
@@ -64,8 +64,7 @@ class Alert extends Widget implements Renderable
     /**
      * Add icon.
      *
-     * @param string $icon
-     *
+     * @param  string  $icon
      * @return $this
      */
     public function icon($icon)
@@ -83,9 +82,9 @@ class Alert extends Widget implements Renderable
         $this->class("alert alert-{$this->style} alert-dismissable");
 
         return [
-            'title'      => $this->title,
-            'content'    => $this->content,
-            'icon'       => $this->icon,
+            'title' => $this->title,
+            'content' => $this->content,
+            'icon' => $this->icon,
             'attributes' => $this->formatAttributes(),
         ];
     }

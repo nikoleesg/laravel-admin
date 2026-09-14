@@ -9,6 +9,9 @@ use Encore\Admin\Controllers\AuthController;
 use Encore\Admin\Layout\Content;
 use Encore\Admin\Traits\HasAssets;
 use Encore\Admin\Widgets\Navbar;
+use Illuminate\Contracts\Auth\Authenticatable;
+use Illuminate\Contracts\Auth\Guard;
+use Illuminate\Contracts\Auth\StatefulGuard;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
@@ -74,7 +77,7 @@ class Admin
     }
 
     /**
-     * @return \Encore\Admin\Grid
+     * @return Grid
      *
      * @deprecated since v1.6.1
      */
@@ -84,7 +87,7 @@ class Admin
     }
 
     /**
-     * @return \Encore\Admin\Form
+     * @return Form
      *
      *  @deprecated since v1.6.1
      */
@@ -97,7 +100,7 @@ class Admin
      * Build a tree.
      *
      *
-     * @return \Encore\Admin\Tree
+     * @return Tree
      */
     public function tree($model, ?Closure $callable = null)
     {
@@ -118,7 +121,7 @@ class Admin
     }
 
     /**
-     * @return \Encore\Admin\Layout\Content
+     * @return Content
      *
      * @deprecated since v1.6.1
      */
@@ -222,7 +225,7 @@ class Admin
     /**
      * Get the currently authenticated user.
      *
-     * @return \Illuminate\Contracts\Auth\Authenticatable|null
+     * @return Authenticatable|null
      */
     public function user()
     {
@@ -232,7 +235,7 @@ class Admin
     /**
      * Attempt to get the guard from the local cache.
      *
-     * @return \Illuminate\Contracts\Auth\Guard|\Illuminate\Contracts\Auth\StatefulGuard
+     * @return Guard|StatefulGuard
      */
     public function guard()
     {
@@ -259,7 +262,7 @@ class Admin
     /**
      * Get navbar object.
      *
-     * @return \Encore\Admin\Widgets\Navbar
+     * @return Navbar
      */
     public function getNavbar()
     {

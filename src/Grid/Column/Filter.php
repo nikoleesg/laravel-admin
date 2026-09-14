@@ -5,6 +5,7 @@ namespace Encore\Admin\Grid\Column;
 use Encore\Admin\Grid\Column;
 use Encore\Admin\Grid\Model;
 use Illuminate\Contracts\Support\Renderable;
+use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 
 class Filter implements Renderable
@@ -19,9 +20,6 @@ class Filter implements Renderable
      */
     protected $parent;
 
-    /**
-     * @param Column $column
-     */
     public function setParent(Column $column)
     {
         $this->parent = $column;
@@ -40,9 +38,8 @@ class Filter implements Renderable
     /**
      * Get filter value of this column.
      *
-     * @param string $default
-     *
-     * @return array|\Illuminate\Http\Request|string
+     * @param  string  $default
+     * @return array|Request|string
      */
     public function getFilterValue($default = '')
     {
@@ -69,8 +66,7 @@ class Filter implements Renderable
     }
 
     /**
-     * @param string $key
-     *
+     * @param  string  $key
      * @return array|null|string
      */
     protected function trans($key)
@@ -81,8 +77,7 @@ class Filter implements Renderable
     /**
      * Add a query binding.
      *
-     * @param mixed $value
-     * @param Model $model
+     * @param  mixed  $value
      */
     public function addBinding($value, Model $model)
     {

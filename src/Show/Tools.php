@@ -44,22 +44,19 @@ class Tools implements Renderable
 
     /**
      * Tools constructor.
-     *
-     * @param Panel $panel
      */
     public function __construct(Panel $panel)
     {
         $this->panel = $panel;
 
-        $this->appends = new Collection();
-        $this->prepends = new Collection();
+        $this->appends = new Collection;
+        $this->prepends = new Collection;
     }
 
     /**
      * Append a tools.
      *
-     * @param mixed $tool
-     *
+     * @param  mixed  $tool
      * @return $this
      */
     public function append($tool)
@@ -72,8 +69,7 @@ class Tools implements Renderable
     /**
      * Prepend a tool.
      *
-     * @param mixed $tool
-     *
+     * @param  mixed  $tool
      * @return $this
      */
     public function prepend($tool)
@@ -106,7 +102,7 @@ class Tools implements Renderable
     {
         if ($disable) {
             array_delete($this->tools, 'list');
-        } elseif (!in_array('list', $this->tools)) {
+        } elseif (! in_array('list', $this->tools)) {
             array_push($this->tools, 'list');
         }
 
@@ -122,7 +118,7 @@ class Tools implements Renderable
     {
         if ($disable) {
             array_delete($this->tools, 'delete');
-        } elseif (!in_array('delete', $this->tools)) {
+        } elseif (! in_array('delete', $this->tools)) {
             array_push($this->tools, 'delete');
         }
 
@@ -138,7 +134,7 @@ class Tools implements Renderable
     {
         if ($disable) {
             array_delete($this->tools, 'edit');
-        } elseif (!in_array('edit', $this->tools)) {
+        } elseif (! in_array('edit', $this->tools)) {
             array_push($this->tools, 'edit');
         }
 
@@ -224,9 +220,9 @@ HTML;
     {
         $trans = [
             'delete_confirm' => trans('admin.delete_confirm'),
-            'confirm'        => trans('admin.confirm'),
-            'cancel'         => trans('admin.cancel'),
-            'delete'         => trans('admin.delete'),
+            'confirm' => trans('admin.confirm'),
+            'cancel' => trans('admin.cancel'),
+            'delete' => trans('admin.delete'),
         ];
 
         $class = uniqid();
@@ -287,8 +283,7 @@ HTML;
     /**
      * Render custom tools.
      *
-     * @param Collection $tools
-     *
+     * @param  Collection  $tools
      * @return mixed
      */
     protected function renderCustomTools($tools)

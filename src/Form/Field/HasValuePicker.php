@@ -4,6 +4,8 @@ namespace Encore\Admin\Form\Field;
 
 use Encore\Admin\Admin;
 use Encore\Admin\Form\Field;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\View\View;
 
 /**
  * @mixin Field
@@ -16,9 +18,8 @@ trait HasValuePicker
     protected $picker;
 
     /**
-     * @param string $picker
-     * @param string $column
-     *
+     * @param  string  $picker
+     * @param  string  $column
      * @return $this
      */
     public function pick($picker, $column = '')
@@ -29,9 +30,9 @@ trait HasValuePicker
     }
 
     /**
-     * @param string $picker
-     * @param string $column
-     * @param string $separator
+     * @param  string  $picker
+     * @param  string  $column
+     * @param  string  $separator
      */
     public function pickMany($picker, $column = '', $separator = ';')
     {
@@ -41,8 +42,6 @@ trait HasValuePicker
     }
 
     /**
-     * @param \Closure|null $callback
-     *
      * @return $this
      */
     protected function mountPicker(?\Closure $callback = null)
@@ -65,7 +64,7 @@ trait HasValuePicker
     }
 
     /**
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View|string
+     * @return Factory|View|string
      */
     protected function renderFilePicker()
     {

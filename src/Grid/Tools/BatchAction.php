@@ -27,9 +27,6 @@ abstract class BatchAction implements Renderable
      */
     protected $grid;
 
-    /**
-     * @param $id
-     */
     public function setId($id)
     {
         $this->id = $id;
@@ -38,8 +35,7 @@ abstract class BatchAction implements Renderable
     /**
      * Set title for this action.
      *
-     * @param string $title
-     *
+     * @param  string  $title
      * @return $this
      */
     public function setTitle($title)
@@ -57,9 +53,6 @@ abstract class BatchAction implements Renderable
         return $this->title;
     }
 
-    /**
-     * @param Grid $grid
-     */
     public function setGrid(Grid $grid)
     {
         $this->grid = $grid;
@@ -76,8 +69,7 @@ abstract class BatchAction implements Renderable
     }
 
     /**
-     * @param bool $dotPrefix
-     *
+     * @param  bool  $dotPrefix
      * @return string
      */
     public function getElementClass($dotPrefix = true)

@@ -39,8 +39,8 @@ class Box extends Widget implements Renderable
     /**
      * Box constructor.
      *
-     * @param string $title
-     * @param string $content
+     * @param  string  $title
+     * @param  string  $content
      */
     public function __construct($title = '', $content = '', $footer = '')
     {
@@ -62,8 +62,7 @@ class Box extends Widget implements Renderable
     /**
      * Set box content.
      *
-     * @param string|Renderable $content
-     *
+     * @param  string|Renderable  $content
      * @return $this
      */
     public function content($content)
@@ -80,8 +79,7 @@ class Box extends Widget implements Renderable
     /**
      * Set box footer.
      *
-     * @param string|Renderable $footer
-     *
+     * @param  string|Renderable  $footer
      * @return $this
      */
     public function footer($footer)
@@ -98,8 +96,7 @@ class Box extends Widget implements Renderable
     /**
      * Set box title.
      *
-     * @param string $title
-     *
+     * @param  string  $title
      * @return $this
      */
     public function title($title)
@@ -125,8 +122,7 @@ class Box extends Widget implements Renderable
     /**
      *  Set box body scrollable.
      *
-     * @param array $options
-     *
+     * @param  array  $options
      * @return $this
      */
     public function scrollable($options = [], $nodeSelector = '')
@@ -158,8 +154,7 @@ SCRIPT;
     /**
      * Set box style.
      *
-     * @param string $styles
-     *
+     * @param  string  $styles
      * @return $this|Box
      */
     public function style($styles)
@@ -195,12 +190,12 @@ SCRIPT;
     protected function variables()
     {
         return [
-            'title'      => $this->title,
-            'content'    => $this->content,
-            'footer'     => $this->footer,
-            'tools'      => $this->tools,
+            'title' => $this->title,
+            'content' => $this->content,
+            'footer' => $this->footer,
+            'tools' => $this->tools,
             'attributes' => $this->formatAttributes(),
-            'script'     => $this->script,
+            'script' => $this->script,
         ];
     }
 

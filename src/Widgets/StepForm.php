@@ -2,6 +2,9 @@
 
 namespace Encore\Admin\Widgets;
 
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Routing\Redirector;
+
 class StepForm extends Form
 {
     /**
@@ -25,9 +28,8 @@ class StepForm extends Form
     protected $buttons = [];
 
     /**
-     * @param array $data
-     *
-     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     * @param  array  $data
+     * @return RedirectResponse|Redirector
      */
     protected function next($data = [])
     {
@@ -42,7 +44,7 @@ class StepForm extends Form
     }
 
     /**
-     * @param array $data
+     * @param  array  $data
      */
     protected function remember($data)
     {
@@ -50,7 +52,7 @@ class StepForm extends Form
     }
 
     /**
-     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     * @return RedirectResponse|Redirector
      */
     protected function redirectToNextStep()
     {
@@ -84,8 +86,7 @@ class StepForm extends Form
     }
 
     /**
-     * @param array $steps
-     *
+     * @param  array  $steps
      * @return $this
      */
     public function setSteps($steps)
@@ -96,8 +97,7 @@ class StepForm extends Form
     }
 
     /**
-     * @param string|int $current
-     *
+     * @param  string|int  $current
      * @return $this
      */
     public function setCurrent($current)
@@ -108,8 +108,7 @@ class StepForm extends Form
     }
 
     /**
-     * @param string $url
-     *
+     * @param  string  $url
      * @return $this
      */
     public function setUrl($url)
@@ -141,8 +140,8 @@ class StepForm extends Form
         $index = array_search($this->current, $this->steps);
 
         $trans = [
-            'prev'   => __('admin.prev'),
-            'next'   => __('admin.next'),
+            'prev' => __('admin.prev'),
+            'next' => __('admin.next'),
             'submit' => __('admin.submit'),
         ];
 

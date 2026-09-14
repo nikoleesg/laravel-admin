@@ -14,7 +14,7 @@ class Captcha extends Text
 
     public function __construct($column, $arguments = [])
     {
-        if (!class_exists(MewsCaptcha::class)) {
+        if (! class_exists(MewsCaptcha::class)) {
             throw new Exception('To use captcha field, please install [mews/captcha] first.');
         }
 

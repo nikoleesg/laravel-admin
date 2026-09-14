@@ -47,9 +47,9 @@ class Relation extends Field
     /**
      * Relation constructor.
      *
-     * @param string   $name
-     * @param callable $builder
-     * @param string   $title
+     * @param  string  $name
+     * @param  callable  $builder
+     * @param  string  $title
      */
     public function __construct($name, $builder, $title = '')
     {
@@ -61,7 +61,6 @@ class Relation extends Field
     /**
      * Set parent model for relation.
      *
-     * @param Model $model
      *
      * @return $this
      */
@@ -79,10 +78,9 @@ class Relation extends Field
      */
     protected function getNullRenderable()
     {
-        return new class() implements Renderable {
-            public function render()
-            {
-            }
+        return new class implements Renderable
+        {
+            public function render() {}
         };
     }
 
@@ -103,7 +101,7 @@ class Relation extends Field
         ) {
             $model = $this->model->{$this->name};
 
-            if (!$model instanceof Model) {
+            if (! $model instanceof Model) {
                 $model = $relation->getRelated();
             }
 

@@ -7,8 +7,7 @@ use Encore\Admin\Grid\Displayers;
 trait InlineEditing
 {
     /**
-     * @param string $selectable
-     *
+     * @param  string  $selectable
      * @return $this
      */
     public function belongsTo($selectable)
@@ -21,8 +20,7 @@ trait InlineEditing
     }
 
     /**
-     * @param string $selectable
-     *
+     * @param  string  $selectable
      * @return $this
      */
     public function belongsToMany($selectable)
@@ -57,8 +55,7 @@ trait InlineEditing
     /**
      * Grid inline datetime picker.
      *
-     * @param string $format
-     *
+     * @param  string  $format
      * @return $this
      */
     public function datetime($format = 'YYYY-MM-DD HH:mm:ss')
@@ -69,8 +66,7 @@ trait InlineEditing
     /**
      * Grid inline date picker.
      *
-     * @param string $format
-     *
+     * @param  string  $format
      * @return $this
      */
     public function date()
@@ -81,8 +77,7 @@ trait InlineEditing
     /**
      * Grid inline time picker.
      *
-     * @param string $format
-     *
+     * @param  string  $format
      * @return $this
      */
     public function time()
@@ -178,9 +173,9 @@ trait InlineEditing
     public function currency()
     {
         return $this->input([
-            'alias'              => 'currency',
-            'radixPoint'         => '.',
-            'prefix'             => '',
+            'alias' => 'currency',
+            'radixPoint' => '.',
+            'prefix' => '',
             'removeMaskOnSubmit' => true,
         ]);
     }
@@ -193,7 +188,7 @@ trait InlineEditing
     public function decimal()
     {
         return $this->input([
-            'alias'      => 'decimal',
+            'alias' => 'decimal',
             'rightAlign' => true,
         ]);
     }
@@ -213,8 +208,7 @@ trait InlineEditing
     /**
      * Grid inline textarea.
      *
-     * @param int $rows
-     *
+     * @param  int  $rows
      * @return $this
      */
     public function textarea($rows = 5)
@@ -241,7 +235,6 @@ trait InlineEditing
     /**
      * Grid inline select.
      *
-     * @param array $options
      *
      * @return mixed
      */
@@ -253,7 +246,6 @@ trait InlineEditing
     /**
      * Grid inline multiple-select input.
      *
-     * @param array $options
      *
      * @return $this
      */
@@ -265,7 +257,6 @@ trait InlineEditing
     /**
      * Grid inline checkbox.
      *
-     * @param array $options
      *
      * @return $this
      */
@@ -277,7 +268,6 @@ trait InlineEditing
     /**
      * Grid inline checkbox.
      *
-     * @param array $options
      *
      * @return $this
      */
@@ -289,7 +279,6 @@ trait InlineEditing
     /**
      * Grid inline switch.
      *
-     * @param array $states
      *
      * @return $this
      */
@@ -301,7 +290,6 @@ trait InlineEditing
     /**
      * Grid inline switch group.
      *
-     * @param array $states
      *
      * @return $this
      */

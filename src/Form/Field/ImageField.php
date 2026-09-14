@@ -2,7 +2,9 @@
 
 namespace Encore\Admin\Form\Field;
 
+use Illuminate\Contracts\View\Factory;
 use Illuminate\Support\Str;
+use Illuminate\View\View;
 use Intervention\Image\ImageManager;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
@@ -47,13 +49,12 @@ trait ImageField
     /**
      * Execute Intervention calls.
      *
-     * @param string $target
-     *
+     * @param  string  $target
      * @return mixed
      */
     public function callInterventionMethods($target)
     {
-        if (!empty($this->interventionCalls)) {
+        if (! empty($this->interventionCalls)) {
             $image = $this->imageManager()->read($target);
 
             foreach ($this->interventionCalls as $call) {
@@ -71,12 +72,11 @@ trait ImageField
     /**
      * Call intervention methods.
      *
-     * @param string $method
-     * @param array  $arguments
+     * @param  string  $method
+     * @param  array  $arguments
+     * @return $this
      *
      * @throws \Exception
-     *
-     * @return $this
      */
     public function __call($method, $arguments)
     {
@@ -85,7 +85,7 @@ trait ImageField
         }
 
         $this->interventionCalls[] = [
-            'method'    => $method,
+            'method' => $method,
             'arguments' => $arguments,
         ];
 
@@ -95,7 +95,7 @@ trait ImageField
     /**
      * Render a image form field.
      *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     public function render()
     {
@@ -105,10 +105,7 @@ trait ImageField
     }
 
     /**
-     * @param string|array $name
-     * @param int          $width
-     * @param int          $height
-     *
+     * @param  string|array  $name
      * @return $this
      */
     public function thumbnail($name, ?int $width = null, ?int $height = null)
@@ -179,7 +176,6 @@ trait ImageField
     /**
      * Upload file and delete original thumbnail files.
      *
-     * @param UploadedFile $file
      *
      * @return $this
      */
@@ -207,7 +203,7 @@ trait ImageField
             }
             $encoded = (string) $image->encode();
 
-            if (!is_null($this->storagePermission)) {
+            if (! is_null($this->storagePermission)) {
                 $this->storage->put("{$this->getDirectory()}/{$path}", $encoded, $this->storagePermission);
             } else {
                 $this->storage->put("{$this->getDirectory()}/{$path}", $encoded);

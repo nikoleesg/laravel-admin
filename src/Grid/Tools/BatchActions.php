@@ -27,7 +27,7 @@ class BatchActions extends AbstractTool
      */
     public function __construct()
     {
-        $this->actions = new Collection();
+        $this->actions = new Collection;
 
         $this->appendDefaultAction();
     }
@@ -49,7 +49,7 @@ class BatchActions extends AbstractTool
      */
     public function disableDelete(bool $disable = true)
     {
-        $this->enableDelete = !$disable;
+        $this->enableDelete = ! $disable;
 
         return $this;
     }
@@ -71,8 +71,6 @@ class BatchActions extends AbstractTool
     /**
      * Add a batch action.
      *
-     * @param $title
-     * @param BatchAction|null $action
      *
      * @return $this
      */
@@ -118,15 +116,15 @@ class BatchActions extends AbstractTool
      */
     public function render()
     {
-        if (!$this->enableDelete) {
+        if (! $this->enableDelete) {
             $this->actions->shift();
         }
 
         $this->addActionScripts();
 
         return Admin::component('admin::grid.batch-actions', [
-            'all'     => $this->grid->getSelectAllName(),
-            'row'     => $this->grid->getGridRowName(),
+            'all' => $this->grid->getSelectAllName(),
+            'row' => $this->grid->getGridRowName(),
             'actions' => $this->actions,
             'holdAll' => $this->holdAll,
         ]);

@@ -32,8 +32,7 @@ EOT;
     /**
      * Set min value of number field.
      *
-     * @param int $value
-     *
+     * @param  int  $value
      * @return $this
      */
     public function min($value)
@@ -46,8 +45,7 @@ EOT;
     /**
      * Set max value of number field.
      *
-     * @param int $value
-     *
+     * @param  int  $value
      * @return $this
      */
     public function max($value)

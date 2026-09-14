@@ -3,11 +3,14 @@
 namespace Encore\Admin\Grid\Exporters;
 
 use Encore\Admin\Grid;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Collection;
 
 abstract class AbstractExporter implements ExporterInterface
 {
     /**
-     * @var \Encore\Admin\Grid
+     * @var Grid
      */
     protected $grid;
 
@@ -18,8 +21,6 @@ abstract class AbstractExporter implements ExporterInterface
 
     /**
      * Create a new exporter instance.
-     *
-     * @param $grid
      */
     public function __construct(?Grid $grid = null)
     {
@@ -31,7 +32,6 @@ abstract class AbstractExporter implements ExporterInterface
     /**
      * Set grid for exporter.
      *
-     * @param Grid $grid
      *
      * @return $this
      */
@@ -55,9 +55,8 @@ abstract class AbstractExporter implements ExporterInterface
     /**
      * Get data with export query.
      *
-     * @param bool $toArray
-     *
-     * @return array|\Illuminate\Support\Collection|mixed
+     * @param  bool  $toArray
+     * @return array|Collection|mixed
      */
     public function getData($toArray = true)
     {
@@ -65,9 +64,7 @@ abstract class AbstractExporter implements ExporterInterface
     }
 
     /**
-     * @param callable $callback
-     * @param int      $count
-     *
+     * @param  int  $count
      * @return bool
      */
     public function chunk(callable $callback, $count = 100)
@@ -78,7 +75,7 @@ abstract class AbstractExporter implements ExporterInterface
     }
 
     /**
-     * @return \Illuminate\Support\Collection
+     * @return Collection
      */
     public function getCollection()
     {
@@ -86,7 +83,7 @@ abstract class AbstractExporter implements ExporterInterface
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Builder|\Illuminate\Database\Eloquent\Model
+     * @return Builder|Model
      */
     public function getQuery()
     {
@@ -113,8 +110,7 @@ abstract class AbstractExporter implements ExporterInterface
     /**
      * Export data with scope.
      *
-     * @param string $scope
-     *
+     * @param  string  $scope
      * @return $this
      */
     public function withScope($scope)
@@ -123,7 +119,7 @@ abstract class AbstractExporter implements ExporterInterface
             return $this;
         }
 
-        list($scope, $args) = explode(':', $scope);
+        [$scope, $args] = explode(':', $scope);
 
         if ($scope == Grid\Exporter::SCOPE_CURRENT_PAGE) {
             $this->grid->model()->usePaginate(true);

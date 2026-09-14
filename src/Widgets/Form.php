@@ -17,53 +17,53 @@ use Illuminate\Validation\Validator;
 /**
  * Class Form.
  *
- * @method Field\Text           text($name, $label = '')
- * @method Field\Password       password($name, $label = '')
- * @method Field\Checkbox       checkbox($name, $label = '')
+ * @method Field\Text text($name, $label = '')
+ * @method Field\Password password($name, $label = '')
+ * @method Field\Checkbox checkbox($name, $label = '')
  * @method Field\CheckboxButton checkboxButton($name, $label = '')
- * @method Field\CheckboxCard   checkboxCard($name, $label = '')
- * @method Field\Radio          radio($name, $label = '')
- * @method Field\RadioButton    radioButton($name, $label = '')
- * @method Field\RadioCard      radioCard($name, $label = '')
- * @method Field\Select         select($name, $label = '')
+ * @method Field\CheckboxCard checkboxCard($name, $label = '')
+ * @method Field\Radio radio($name, $label = '')
+ * @method Field\RadioButton radioButton($name, $label = '')
+ * @method Field\RadioCard radioCard($name, $label = '')
+ * @method Field\Select select($name, $label = '')
  * @method Field\MultipleSelect multipleSelect($name, $label = '')
- * @method Field\Textarea       textarea($name, $label = '')
- * @method Field\Hidden         hidden($name, $label = '')
- * @method Field\Id             id($name, $label = '')
- * @method Field\Ip             ip($name, $label = '')
- * @method Field\Url            url($name, $label = '')
- * @method Field\Color          color($name, $label = '')
- * @method Field\Email          email($name, $label = '')
- * @method Field\Mobile         mobile($name, $label = '')
- * @method Field\Slider         slider($name, $label = '')
- * @method Field\File           file($name, $label = '')
- * @method Field\Image          image($name, $label = '')
- * @method Field\Date           date($name, $label = '')
- * @method Field\Datetime       datetime($name, $label = '')
- * @method Field\Time           time($name, $label = '')
- * @method Field\Year           year($column, $label = '')
- * @method Field\Month          month($column, $label = '')
- * @method Field\DateRange      dateRange($start, $end, $label = '')
- * @method Field\DateTimeRange  dateTimeRange($start, $end, $label = '')
- * @method Field\TimeRange      timeRange($start, $end, $label = '')
- * @method Field\Number         number($name, $label = '')
- * @method Field\NumberRange    numberRange($start, $end, $label = '')
- * @method Field\Currency       currency($name, $label = '')
- * @method Field\SwitchField    switch($name, $label = '')
- * @method Field\Display        display($name, $label = '')
- * @method Field\Rate           rate($name, $label = '')
- * @method Field\Divider        divider($title = '')
- * @method Field\Decimal        decimal($column, $label = '')
- * @method Field\Html           html($html)
- * @method Field\Tags           tags($column, $label = '')
- * @method Field\Icon           icon($column, $label = '')
- * @method Field\Captcha        captcha($column, $label = '')
- * @method Field\Listbox        listbox($column, $label = '')
- * @method Field\Table          table($column, $label, $builder)
- * @method Field\Timezone       timezone($column, $label = '')
- * @method Field\KeyValue       keyValue($column, $label = '')
- * @method Field\ListField      list($column, $label = '')
- * @method mixed                handle(Request $request)
+ * @method Field\Textarea textarea($name, $label = '')
+ * @method Field\Hidden hidden($name, $label = '')
+ * @method Field\Id id($name, $label = '')
+ * @method Field\Ip ip($name, $label = '')
+ * @method Field\Url url($name, $label = '')
+ * @method Field\Color color($name, $label = '')
+ * @method Field\Email email($name, $label = '')
+ * @method Field\Mobile mobile($name, $label = '')
+ * @method Field\Slider slider($name, $label = '')
+ * @method Field\File file($name, $label = '')
+ * @method Field\Image image($name, $label = '')
+ * @method Field\Date date($name, $label = '')
+ * @method Field\Datetime datetime($name, $label = '')
+ * @method Field\Time time($name, $label = '')
+ * @method Field\Year year($column, $label = '')
+ * @method Field\Month month($column, $label = '')
+ * @method Field\DateRange dateRange($start, $end, $label = '')
+ * @method Field\DateTimeRange dateTimeRange($start, $end, $label = '')
+ * @method Field\TimeRange timeRange($start, $end, $label = '')
+ * @method Field\Number number($name, $label = '')
+ * @method Field\NumberRange numberRange($start, $end, $label = '')
+ * @method Field\Currency currency($name, $label = '')
+ * @method Field\SwitchField switch($name, $label = '')
+ * @method Field\Display display($name, $label = '')
+ * @method Field\Rate rate($name, $label = '')
+ * @method Field\Divider divider($title = '')
+ * @method Field\Decimal decimal($column, $label = '')
+ * @method Field\Html html($html)
+ * @method Field\Tags tags($column, $label = '')
+ * @method Field\Icon icon($column, $label = '')
+ * @method Field\Captcha captcha($column, $label = '')
+ * @method Field\Listbox listbox($column, $label = '')
+ * @method Field\Table table($column, $label, $builder)
+ * @method Field\Timezone timezone($column, $label = '')
+ * @method Field\KeyValue keyValue($column, $label = '')
+ * @method Field\ListField list($column, $label = '')
+ * @method mixed handle(Request $request)
  */
 class Form implements Renderable
 {
@@ -133,7 +133,7 @@ class Form implements Renderable
     /**
      * Form constructor.
      *
-     * @param array $data
+     * @param  array  $data
      */
     public function __construct($data = [])
     {
@@ -183,8 +183,7 @@ class Form implements Renderable
     /**
      * Fill data to form fields.
      *
-     * @param array $data
-     *
+     * @param  array  $data
      * @return $this
      */
     public function fill($data = [])
@@ -193,7 +192,7 @@ class Form implements Renderable
             $data = $data->toArray();
         }
 
-        if (!empty($data)) {
+        if (! empty($data)) {
             $this->data = $data;
         }
 
@@ -218,10 +217,10 @@ class Form implements Renderable
     protected function initFormAttributes()
     {
         $this->attributes = [
-            'id'             => 'widget-form-'.uniqid(),
-            'method'         => 'POST',
-            'action'         => '',
-            'class'          => 'form-horizontal',
+            'id' => 'widget-form-'.uniqid(),
+            'method' => 'POST',
+            'action' => '',
+            'class' => 'form-horizontal',
             'accept-charset' => 'UTF-8',
             'pjax-container' => true,
         ];
@@ -230,9 +229,8 @@ class Form implements Renderable
     /**
      * Add form attributes.
      *
-     * @param string|array $attr
-     * @param string       $value
-     *
+     * @param  string|array  $attr
+     * @param  string  $value
      * @return $this
      */
     public function attribute($attr, $value = '')
@@ -251,8 +249,7 @@ class Form implements Renderable
     /**
      * Format form attributes form array to html.
      *
-     * @param array $attributes
-     *
+     * @param  array  $attributes
      * @return string
      */
     public function formatAttribute($attributes = [])
@@ -274,8 +271,7 @@ class Form implements Renderable
     /**
      * Action uri of the form.
      *
-     * @param string $action
-     *
+     * @param  string  $action
      * @return $this
      */
     public function action($action)
@@ -286,8 +282,7 @@ class Form implements Renderable
     /**
      * Method of the form.
      *
-     * @param string $method
-     *
+     * @param  string  $method
      * @return $this
      */
     public function method($method = 'POST')
@@ -340,15 +335,14 @@ class Form implements Renderable
     /**
      * Set field and label width in current form.
      *
-     * @param int $fieldWidth
-     * @param int $labelWidth
-     *
+     * @param  int  $fieldWidth
+     * @param  int  $labelWidth
      * @return $this
      */
     public function setWidth($fieldWidth = 8, $labelWidth = 2)
     {
         collect($this->fields)->each(function ($field) use ($fieldWidth, $labelWidth) {
-            /* @var Field $field  */
+            /* @var Field $field */
             $field->setWidth($fieldWidth, $labelWidth);
         });
 
@@ -364,8 +358,7 @@ class Form implements Renderable
     /**
      * Determine if the form has field type.
      *
-     * @param string $name
-     *
+     * @param  string  $name
      * @return bool
      */
     public function hasField($name)
@@ -376,7 +369,6 @@ class Form implements Renderable
     /**
      * Add a form field to form.
      *
-     * @param Field $field
      *
      * @return $this
      */
@@ -409,11 +401,11 @@ class Form implements Renderable
         $this->fields()->each->fill($this->data());
 
         return [
-            'fields'     => $this->fields,
+            'fields' => $this->fields,
             'attributes' => $this->formatAttribute(),
-            'method'     => $this->attributes['method'],
-            'buttons'    => $this->buttons,
-            'width'      => $this->width,
+            'method' => $this->attributes['method'],
+            'buttons' => $this->buttons,
+            'width' => $this->width,
         ];
     }
 
@@ -436,7 +428,6 @@ class Form implements Renderable
     /**
      * Validate this form fields.
      *
-     * @param Request $request
      *
      * @return bool|MessageBag
      */
@@ -450,11 +441,11 @@ class Form implements Renderable
 
         /** @var Field $field */
         foreach ($this->fields() as $field) {
-            if (!$validator = $field->getValidator($request->all())) {
+            if (! $validator = $field->getValidator($request->all())) {
                 continue;
             }
 
-            if (($validator instanceof Validator) && !$validator->passes()) {
+            if (($validator instanceof Validator) && ! $validator->passes()) {
                 $failedValidators[] = $validator;
             }
         }
@@ -467,13 +458,12 @@ class Form implements Renderable
     /**
      * Merge validation messages from input validators.
      *
-     * @param \Illuminate\Validation\Validator[] $validators
-     *
+     * @param  Validator[]  $validators
      * @return MessageBag
      */
     protected function mergeValidationMessages($validators)
     {
-        $messageBag = new MessageBag();
+        $messageBag = new MessageBag;
 
         foreach ($validators as $validator) {
             $messageBag = $messageBag->merge($validator->messages());
@@ -485,14 +475,12 @@ class Form implements Renderable
     /**
      * Add a fieldset to form.
      *
-     * @param string  $title
-     * @param Closure $setCallback
      *
      * @return Field\Fieldset
      */
     public function fieldset(string $title, Closure $setCallback)
     {
-        $fieldset = new Field\Fieldset();
+        $fieldset = new Field\Fieldset;
 
         $this->html($fieldset->start($title))->plain();
 
@@ -523,12 +511,12 @@ class Form implements Renderable
         ];
 
         $settings = [
-            'type'                => 'question',
-            'showCancelButton'    => true,
-            'confirmButtonText'   => $trans['submit'],
-            'cancelButtonText'    => $trans['cancel'],
-            'title'               => $this->confirm,
-            'text'                => '',
+            'type' => 'question',
+            'showCancelButton' => true,
+            'confirmButtonText' => $trans['submit'],
+            'cancelButtonText' => $trans['cancel'],
+            'title' => $this->confirm,
+            'text' => '',
         ];
 
         $settings = trim(json_encode($settings, JSON_PRETTY_PRINT));
@@ -572,7 +560,7 @@ SCRIPT;
             $this->form();
         }
 
-        if (!empty($this->confirm)) {
+        if (! empty($this->confirm)) {
             $this->addConfirmScript();
         }
 
@@ -601,7 +589,7 @@ SCRIPT;
 
         $form = view('admin::widgets.form', $this->getVariables())->render();
 
-        if (!($title = $this->title()) || !$this->inbox) {
+        if (! ($title = $this->title()) || ! $this->inbox) {
             return $form;
         }
 
@@ -611,14 +599,13 @@ SCRIPT;
     /**
      * Generate a Field object and add to form builder if Field exists.
      *
-     * @param string $method
-     * @param array  $arguments
-     *
+     * @param  string  $method
+     * @param  array  $arguments
      * @return Field|$this
      */
     public function __call($method, $arguments)
     {
-        if (!$this->hasField($method)) {
+        if (! $this->hasField($method)) {
             return $this;
         }
 
@@ -632,8 +619,6 @@ SCRIPT;
     }
 
     /**
-     * @param Content $content
-     *
      * @return Content
      */
     public function __invoke(Content $content)
