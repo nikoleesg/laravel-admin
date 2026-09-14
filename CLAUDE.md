@@ -17,7 +17,7 @@ Despite the vendor name, the PHP namespace is still `Encore\Admin\` (mapped to `
 The only remote is `origin` (`github.com/nikoleesg/laravel-admin`). This fork is **detached from upstream**: `z-song/laravel-admin` has been unmaintained since early 2023 and nothing is pulled from it any more. Do not add an `upstream` remote, do not merge or cherry-pick from z-song, and do not recreate a `master` branch.
 
 Branches and their roles:
-- `main` — the release branch; what apps/Packagist install via `dev-main`. Default branch on the fork.
+- `main` — the release branch; every `vX.Y.Z` tag points at a `main` commit. Default branch on the fork.
 - `dev` — where all development happens.
 - `<type>/<topic>` — short-lived branches off `dev` for a single fix or feature (e.g. `fix/grid-sort-validation`, `chore/dependabot-config`); merged back into `dev` and deleted.
 
@@ -30,6 +30,21 @@ git push origin dev
 ```
 
 History note: `dev`/`main` carry a *rewritten* copy of the upstream history (test credentials scrubbed). Those commits share no usable merge base with z-song's real `master`, which is why merging from upstream is not an option — a merge would drag the original credential-bearing commits into `dev` and be rejected by GitHub push protection.
+
+## Versioning & releases
+
+- The package is **not on Packagist**; apps install it from this repo via a `vcs` entry in their `composer.json` (see README). Tags are therefore the only version source Composer sees.
+- Tags are `vX.Y.Z` (SemVer, always with the `v` prefix) and are created on `main` only, after `main` has been fast-forwarded to `dev`. Use an annotated tag and a GitHub release:
+
+  ```bash
+  git checkout main && git tag -a vX.Y.Z -m "vX.Y.Z" && git push origin vX.Y.Z
+  gh release create vX.Y.Z --title vX.Y.Z --notes-file <notes>
+  ```
+
+- Add an entry to `CHANGELOG.md` in the same change that bumps the version. `composer.json` carries no `version` field; `dev-main` is branch-aliased to `3.x-dev`.
+- Never push with `--tags`; push the single tag by name.
+- `release/1.8` holds the frozen 1.8.x line (`v1.8.20`–`v1.8.22`, PHP 8.1-era upstream code). It is kept only so existing lock files resolve — do not add releases to it, and do not merge it into `dev`.
+- The ~80 version tags inherited from z-song were deleted from `origin` on 2026-09-14 (issue #5); do not recreate them.
 
 ## Requirements & tooling
 

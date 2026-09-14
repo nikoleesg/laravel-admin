@@ -17,11 +17,11 @@
     <a href="https://github.com/nikoleesg/laravel-admin/actions/workflows/tests.yml">
         <img src="https://img.shields.io/github/actions/workflow/status/nikoleesg/laravel-admin/tests.yml?branch=main&style=flat-square" alt="Tests">
     </a>
-    <a href="https://packagist.org/packages/nikoleesg/laravel-admin">
-        <img src="https://img.shields.io/packagist/l/nikoleesg/laravel-admin.svg?style=flat-square" alt="License">
+    <a href="https://github.com/nikoleesg/laravel-admin/releases">
+        <img src="https://img.shields.io/github/v/release/nikoleesg/laravel-admin?style=flat-square" alt="Latest Release">
     </a>
-    <a href="https://packagist.org/packages/nikoleesg/laravel-admin">
-        <img src="https://img.shields.io/packagist/dt/nikoleesg/laravel-admin.svg?style=flat-square" alt="Total Downloads">
+    <a href="LICENSE">
+        <img src="https://img.shields.io/github/license/nikoleesg/laravel-admin?style=flat-square" alt="License">
     </a>
 </p>
 
@@ -54,9 +54,22 @@ Installation
 
 First, install Laravel (11 or 12) and make sure that the database connection settings are correct.
 
+The package is **not published on Packagist**; it is installed straight from this GitHub repository. Add the repository to your application's `composer.json`, then require the package:
+
+```json
+"repositories": [
+    {
+        "type": "vcs",
+        "url": "https://github.com/nikoleesg/laravel-admin"
+    }
+]
 ```
-composer require nikoleesg/laravel-admin
+
 ```
+composer require nikoleesg/laravel-admin:^3.0
+```
+
+Composer needs read access to the repository (a GitHub token in `auth.json`, or an SSH key/deploy key with the `git@github.com:nikoleesg/laravel-admin.git` URL) — see [Versioning](#versioning) for which versions exist.
 
 Then run these commands to publish assets and config：
 
@@ -71,6 +84,15 @@ php artisan admin:install
 ```
 
 Open `http://localhost/admin/` in browser,use username `admin` and password `admin` to login.
+
+Versioning
+------------
+
+Releases are tagged on `main` as `vX.Y.Z` ([SemVer](https://semver.org/)) and listed under [GitHub releases](https://github.com/nikoleesg/laravel-admin/releases). Pin your application to a caret constraint (`^3.0`); `dev-main` (aliased `3.x-dev`) tracks the next release.
+
+- **3.x** — the current line: PHP ^8.3, Laravel 11/12, the fork enhancements below, and schema changes to `admin_users`. `v3.0.0` is the first release cut from `main`; there is no upgrade path from 2.x betas.
+- **1.8.x** (`v1.8.20`–`v1.8.22`, branch `release/1.8`) — the fork's earlier releases on the upstream codebase. This line is **frozen**: no further 1.8 releases are planned, the tags stay only so existing lock files keep resolving.
+- Version tags inherited from `z-song/laravel-admin` are not carried by this repository; upstream's own history is at <https://github.com/z-song/laravel-admin>.
 
 Configurations
 ------------
