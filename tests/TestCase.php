@@ -77,7 +77,10 @@ abstract class TestCase extends BaseTestCase
         try {
             (new CreateAdminTables())->down();
             (new CreateTestTables())->down();
-            DB::statement("DELETE FROM `migrations` WHERE `migration` = '2016_01_04_173148_create_admin_tables'");
+            DB::table('migrations')->whereIn('migration', [
+                '2016_01_04_173148_create_admin_tables',
+                '2026_02_19_094712_add_profile_columns_to_admin_users_table',
+            ])->delete();
         } catch (\Exception $e) {
             //
         }

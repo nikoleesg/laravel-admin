@@ -27,6 +27,17 @@ The `Administrator` model now includes the following profile columns:
 | `preferred_areas` | text | Preferred areas |
 | `description` | text | Description |
 
+The columns are added by `database/migrations/2026_02_19_094712_add_profile_columns_to_admin_users_table.php`, which is separate from the original `create_admin_tables` migration so existing installs pick them up. Every column is nullable and the migration skips any column that already exists, so it is safe to run on a table you have already extended yourself.
+
+### Upgrading an existing install
+
+If `admin:install` was run before this migration existed, publish the package migrations and migrate:
+
+```bash
+php artisan vendor:publish --provider="Encore\Admin\AdminServiceProvider" --tag=laravel-admin-migrations
+php artisan migrate
+```
+
 ## Single Table Inheritance (STI) Support
 
 This package uses [tightenco/parental](https://github.com/tighten/parental) for STI support.
