@@ -432,5 +432,14 @@ return [
             'options' => [],
         ],
 
+        // Initials avatars (laravolt/avatar) for users without an uploaded
+        // one, served from `admin/_avatar_` and cached per name. When
+        // disabled, `admin.default_avatar` is used instead.
+        'generated-avatar' => [
+            'enable' => true,
+            'theme' => 'colorful',
+            'size' => 160,
+        ],
+
     ],
 ];

@@ -2,13 +2,14 @@
 
 namespace Encore\Admin\Auth\Database;
 
+use Encore\Admin\Auth\GeneratedAvatar;
 use Encore\Admin\Traits\DefaultDatetimeFormat;
 use Illuminate\Auth\Authenticatable;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Notifications\Notifiable;
-use Laravolt\Avatar\Avatar;
+use Illuminate\Support\Facades\Storage;
 use Parental\HasChildren;
 
 /**
@@ -71,34 +72,28 @@ class Administrator extends Model implements AuthenticatableContract
     /**
      * Get avatar attribute.
      *
-     * @param  string  $avatar
+     * @param  string|null  $avatar
      * @return string
      */
     public function getAvatarAttribute($avatar = null)
     {
-        if ($avatar) {
-            if (\Illuminate\Support\Str::startsWith($avatar, ['http://', 'https://'])) {
-                return $avatar;
-            }
-            if (array_key_exists(config('admin.upload.disk'), config('filesystems.disks'))) {
-                return \Illuminate\Support\Facades\Storage::disk(config('admin.upload.disk'))->url($avatar);
-            }
+        if ($avatar && url()->isValidUrl($avatar)) {
+            return $avatar;
         }
 
-        try {
-            $laravolt = new Avatar;
+        $disk = config('admin.upload.disk');
 
-            $name = $this->name ?: $this->username ?: 'User';
-
-            return $laravolt
-                ->create($name)
-                ->setTheme('colorful')
-                ->setDimension(160, 160)
-                ->setFontSize(72)
-                ->toBase64();
-        } catch (\Exception $e) {
-            return '';
+        if ($avatar && array_key_exists($disk, config('filesystems.disks'))) {
+            return Storage::disk($disk)->url($avatar);
         }
+
+        if (GeneratedAvatar::enabled()) {
+            return GeneratedAvatar::url($this->name ?: $this->username ?: 'User');
+        }
+
+        $default = config('admin.default_avatar') ?: '/vendor/laravel-admin/AdminLTE/dist/img/user2-160x160.jpg';
+
+        return admin_asset($default);
     }
 
     /**

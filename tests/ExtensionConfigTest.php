@@ -16,6 +16,7 @@ class ExtensionConfigTest extends TestCase
         'timestamp-between' => ['enable' => true],
         'daterangepicker' => ['config' => []],
         'data-table' => ['options' => []],
+        'generated-avatar' => ['enable' => true, 'theme' => 'colorful', 'size' => 160],
     ];
 
     public function testPublishedConfigShipsNativeExtensionDefaults()

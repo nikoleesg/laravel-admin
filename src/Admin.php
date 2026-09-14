@@ -4,6 +4,7 @@ namespace Encore\Admin;
 
 use Closure;
 use Encore\Admin\Auth\Database\Menu;
+use Encore\Admin\Auth\GeneratedAvatar;
 use Encore\Admin\Controllers\AuthController;
 use Encore\Admin\Layout\Content;
 use Encore\Admin\Traits\HasAssets;
@@ -311,6 +312,10 @@ class Admin
                 $router->get('_handle_renderable_', 'HandleController@handleRenderable')->name('admin.handle-renderable');
 
                 $router->post('_grid-sortable_', 'GridSortableController@sort')->name('admin.grid-sortable.sort');
+
+                if (config('admin.extensions.generated-avatar.enable', true)) {
+                    $router->get('_avatar_', 'AvatarController@show')->name(GeneratedAvatar::ROUTE);
+                }
             });
 
             $authController = config('admin.auth.controller', AuthController::class);
