@@ -51,9 +51,6 @@
     "scripts": {
         "test": "./vendor/bin/phpunit"
     },
-    "suggest": {
-        "intervention/image": "Required to handling and manipulation upload images (~2.7)."
-    },
     "extra": {
         "laravel": {
             "providers": [

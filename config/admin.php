@@ -160,6 +160,9 @@ return [
             'image' => 'images',
             'file' => 'files',
         ],
+
+        // Intervention Image driver used for thumbnails and image manipulation: 'gd' or 'imagick'.
+        'image_driver' => env('ADMIN_IMAGE_DRIVER', 'gd'),
     ],
 
     /*
