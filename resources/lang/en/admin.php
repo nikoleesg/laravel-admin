@@ -52,6 +52,7 @@ return [
     'delete_failed' => 'Delete failed !',
     'update_succeeded' => 'Update succeeded !',
     'save_succeeded' => 'Save succeeded !',
+    'save_failed' => 'Save failed !',
     'refresh_succeeded' => 'Refresh succeeded !',
     'login_successful' => 'Login successful',
     'choose' => 'Choose',

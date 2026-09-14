@@ -3,6 +3,7 @@
 namespace Encore\Admin\Grid\Tools;
 
 use Encore\Admin\Admin;
+use Illuminate\Support\Facades\Crypt;
 
 class SaveOrderBtn extends AbstractTool
 {
@@ -10,9 +11,9 @@ class SaveOrderBtn extends AbstractTool
     {
         $route = route('admin.grid-sortable.sort');
 
-        $class = get_class($this->getGrid()->model()->getOriginalModel());
-
-        $class = str_replace('\\', '\\\\', $class);
+        $class = Crypt::encryptString(
+            get_class($this->getGrid()->model()->getOriginalModel())
+        );
 
         $script = <<<SCRIPT
 (function () {

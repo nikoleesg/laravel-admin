@@ -79,6 +79,13 @@ class CreateTestTables extends Migration
             $table->index(['user_id', 'tag_id']);
             $table->timestamps();
         });
+
+        Schema::create('test_sortable_items', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('name');
+            $table->integer('order_column')->default(0);
+            $table->timestamps();
+        });
     }
 
     /**
@@ -95,5 +102,6 @@ class CreateTestTables extends Migration
         Schema::dropIfExists('test_user_profiles');
         Schema::dropIfExists('test_tags');
         Schema::dropIfExists('test_user_tags');
+        Schema::dropIfExists('test_sortable_items');
     }
 }
