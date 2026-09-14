@@ -43,7 +43,7 @@ Do not push `master` to `origin` — it carries z-song's full history (including
 `composer.json` is the source of truth (the README, `AGENTS.md`, and `ANTIGRAVITY.md` still cite the upstream PHP 7.0 / Laravel 5.5 era — that is stale):
 
 - PHP `^8.3`, Laravel `^11.0 || ^12.0`
-- Notable deps: `tightenco/parental` (STI), `laravolt/avatar`, `spatie/eloquent-sortable`, `doctrine/dbal`, `symfony/dom-crawler`
+- Notable deps: `tightenco/parental` (STI), `laravolt/avatar`, `spatie/eloquent-sortable`, `symfony/dom-crawler`
 
 ## Commands
 

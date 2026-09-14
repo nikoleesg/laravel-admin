@@ -3,6 +3,7 @@
 namespace Encore\Admin\Console;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Schema;
 
 class ResourceGenerator
 {
@@ -23,17 +24,6 @@ class ResourceGenerator
     /**
      * @var array
      */
-    private $doctrineTypeMapping = [
-        'string' => [
-            'enum', 'geometry', 'geometrycollection', 'linestring',
-            'polygon', 'multilinestring', 'multipoint', 'multipolygon',
-            'point',
-        ],
-    ];
-
-    /**
-     * @var array
-     */
     protected $fieldTypeMapping = [
         'ip'       => 'ip',
         'email'    => 'email|mail',
@@ -43,6 +33,32 @@ class ResourceGenerator
         'color'    => 'color|rgb',
         'image'    => 'image|img|avatar|pic|picture|cover',
         'file'     => 'file|attachment',
+    ];
+
+    /**
+     * Driver column types folded into the generic types used by generateForm().
+     *
+     * @var array
+     */
+    protected $typeMapping = [
+        'boolean'  => ['boolean', 'bool', 'bit'],
+        'json'     => ['json', 'jsonb'],
+        'string'   => [
+            'string', 'varchar', 'char', 'nvarchar', 'nchar', 'bpchar', 'character varying',
+            'character', 'enum', 'set', 'uuid', 'uniqueidentifier',
+        ],
+        'integer'  => [
+            'integer', 'int', 'bigint', 'mediumint', 'smallint', 'tinyint',
+            'int2', 'int4', 'int8', 'serial', 'bigserial', 'year',
+        ],
+        'decimal'  => ['decimal', 'numeric', 'float', 'double', 'real', 'float4', 'float8', 'double precision', 'money'],
+        'datetime' => ['datetime', 'datetime2', 'smalldatetime', 'timestamp', 'timestamptz'],
+        'date'     => ['date'],
+        'time'     => ['time', 'timetz'],
+        'text'     => [
+            'text', 'tinytext', 'mediumtext', 'longtext', 'ntext',
+            'blob', 'tinyblob', 'mediumblob', 'longblob', 'bytea', 'binary', 'varbinary',
+        ],
     ];
 
     /**
@@ -83,24 +99,21 @@ class ResourceGenerator
         $output = '';
 
         foreach ($this->getTableColumns() as $column) {
-            $name = $column->getName();
+            $name = $column['name'];
             if (in_array($name, $reservedColumns)) {
                 continue;
             }
-            $type = $column->getType()->getName();
-            $default = $column->getDefault();
+            $type = $this->normalizeType($column);
+            $default = $this->normalizeDefault($column['default']);
 
             $defaultValue = '';
 
             // set column fieldType and defaultValue
             switch ($type) {
                 case 'boolean':
-                case 'bool':
                     $fieldType = 'switch';
                     break;
                 case 'json':
-                case 'array':
-                case 'object':
                     $fieldType = 'text';
                     break;
                 case 'string':
@@ -114,14 +127,9 @@ class ResourceGenerator
                     $defaultValue = "'{$default}'";
                     break;
                 case 'integer':
-                case 'bigint':
-                case 'smallint':
-                case 'timestamp':
                     $fieldType = 'number';
                     break;
                 case 'decimal':
-                case 'float':
-                case 'real':
                     $fieldType = 'decimal';
                     break;
                 case 'datetime':
@@ -137,7 +145,6 @@ class ResourceGenerator
                     $defaultValue = "date('H:i:s')";
                     break;
                 case 'text':
-                case 'blob':
                     $fieldType = 'textarea';
                     break;
                 default:
@@ -166,7 +173,7 @@ class ResourceGenerator
         $output = '';
 
         foreach ($this->getTableColumns() as $column) {
-            $name = $column->getName();
+            $name = $column['name'];
 
             // set column label
             $label = $this->formatLabel($name);
@@ -184,7 +191,7 @@ class ResourceGenerator
         $output = '';
 
         foreach ($this->getTableColumns() as $column) {
-            $name = $column->getName();
+            $name = $column['name'];
             $label = $this->formatLabel($name);
 
             $output .= sprintf($this->formats['grid_column'], $name, $label);
@@ -207,37 +214,64 @@ class ResourceGenerator
     /**
      * Get columns of a giving model.
      *
-     * @throws \Exception
-     *
-     * @return \Doctrine\DBAL\Schema\Column[]
+     * @return array[] Laravel schema column descriptors: `name`, `type_name`,
+     *                 `type`, `nullable`, `default`, `auto_increment`, `comment`
      */
     protected function getTableColumns()
     {
-        if (!$this->model->getConnection()->isDoctrineAvailable()) {
-            throw new \Exception(
-                'You need to require doctrine/dbal: ~2.3 in your own composer.json to get database columns. '
-            );
+        $connection = $this->model->getConnection();
+
+        return Schema::connection($connection->getName())->getColumns($this->model->getTable());
+    }
+
+    /**
+     * Normalize the driver specific column type to a generic one.
+     *
+     * The native schema API returns the raw driver type (`varchar`, `int4`,
+     * `tinyint`, ...), so the driver families are folded together here.
+     *
+     * @param array $column
+     *
+     * @return string
+     */
+    protected function normalizeType(array $column)
+    {
+        $type = strtolower($column['type_name']);
+        $fullType = strtolower($column['type']);
+
+        // MySQL and SQLite create `boolean()` columns as `tinyint(1)`.
+        if ($fullType === 'tinyint(1)') {
+            return 'boolean';
         }
 
-        $table = $this->model->getConnection()->getTablePrefix().$this->model->getTable();
-        /** @var \Doctrine\DBAL\Schema\MySqlSchemaManager $schema */
-        $schema = $this->model->getConnection()->getDoctrineSchemaManager($table);
-
-        // custom mapping the types that doctrine/dbal does not support
-        $databasePlatform = $schema->getDatabasePlatform();
-
-        foreach ($this->doctrineTypeMapping as $doctrineType => $dbTypes) {
-            foreach ($dbTypes as $dbType) {
-                $databasePlatform->registerDoctrineTypeMapping($dbType, $doctrineType);
+        foreach ($this->typeMapping as $generic => $types) {
+            if (in_array($type, $types)) {
+                return $generic;
             }
         }
 
-        $database = null;
-        if (strpos($table, '.')) {
-            list($database, $table) = explode('.', $table);
+        return $type;
+    }
+
+    /**
+     * Strip driver decorations (quotes, Postgres casts) from a column default.
+     *
+     * @param mixed $default
+     *
+     * @return string
+     */
+    protected function normalizeDefault($default)
+    {
+        if (is_null($default)) {
+            return '';
         }
 
-        return $schema->listTableColumns($table, $database);
+        $default = (string) $default;
+
+        // Postgres: 'value'::character varying
+        $default = preg_replace('/::[a-z ]+$/i', '', $default);
+
+        return trim($default, "'\"");
     }
 
     /**
