@@ -10,3 +10,14 @@ composer.lock
 .antigravitycli/
 .omo/
 .phpunit.cache/
+
+# AI coding agent configuration and guides (local, project-scoped)
+/.claude/
+/CLAUDE.md
+/AGENTS.md
+/ANTIGRAVITY.md
+/.agents/
+/.codex/
+/.pi/
+/.mcp.json
+/.chrome-profiles/
