@@ -10,6 +10,7 @@ composer.lock
 .antigravitycli/
 .omo/
 .phpunit.cache/
+.env
 
 # AI coding agent configuration and guides (local, project-scoped)
 /.claude/
